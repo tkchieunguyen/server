@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/dashboard/main.css">
+    <link rel="stylesheet" href="/css/dashboard/header.css">
+    <link rel="stylesheet" href="/css/themify-icons/themify-icons.css">
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script> -->
+    <title>GIAO DIỆN IOT</title>
+</head>
+
+<body>
+    <div id="header">
+        <div class="col-quarter icon-web">
+            <img src="/img/logo-canh-cay.PNG" alt="logo-IUH" class="logo-canh-cay">
+            <h5>DHDKTD K15</h5>
+        </div>
+        <div class="col-half text-cennter">
+            <ul id="nav">
+                <li><a href="">Home</a></li>
+                <li><a href="#content">Services</a></li>
+                <li><a href="#tour">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="#">
+                        More
+                        <i class="nav-down ti-angle-down"></i>
+                    </a>
+                    <ul class="subnav">
+                        <li><a href="">Merchandise</a></li>
+                        <li><a href="">Extras</a></li>
+                        <li><a href="">Media</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div class="col-quarter">
+            <div class="input-user user-btn">
+                Log In
+            </div>
+            <div class="user-btn">
+                <i class="user-icon ti-user"></i>
+            </div>
+        </div>
+    </div>
+    <!-- DASHH BORD -->
+    <div style="margin-top: 100px;">
+        <div class="size border box-borderbox">
+            <h1 class="border box-borderbox text-center">QUAN LY NHA KINH</h1>
+            <div class="row">
+                <div class="col-half border ">
+                    <h5 class="border text-center">Nha Kinh 1</h5>
+                    <div class="row">
+                        <div class="col-third boder ">
+                            <div class="border background_color text-center NPK1">
+                                <h4 class="border "> NPK</h4>
+                                <div class="mg_mid9"><span class="nd1">kjkg</span></div>
+                            </div>
+                        </div>
+                        <div class="col-third boder ">
+                            <div class="border background_color text-center Do-am1">
+                                <h4 class="border">Do Am</h4>
+                                <div class="mg_mid9"><span>kjkg</span></div>
+                            </div>
+                        </div>
+                        <div class="col-third boder">
+                            <div class="border background_color text-center Luong-mua1">
+                                <h4 class="border">Luong Mua</h4>
+                                <div class="mg_mid9"><span>kjkg</span></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h5 class="border text-center">Nhiet DO</h5>
+                    <div class="row">
+                        <div class="col-half border">
+                            <div class="border background_color text-center">
+                                <h4 class="border text-center"> Khong Khi</h4>
+                                <div class="mg_mid9"><span>kjkg</span></div>
+                            </div>
+                        </div>
+                        <div class="col-half border">
+                            <div class="border background_color text-centertext-center">
+                                <h4 class="border text-center"> Dat</h4>
+                                <div class="mg_mid9 text-center"><span>kjkg</span></div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Thoi Gian Lay Mau -->
+                    <select name="" id="sampling-time1" class="text-center " style="margin-left: 30%;width:200px; margin-top:11px;height: 25px;
+                        font-size: 18px;">
+                        <option value="1">5 second</option>
+                        <option value="2">1 min</option>
+                        <option value="3">10 min</option>
+                        <option value="4">1 hour</option>
+                    </select>
+                    <!-- BIEU DO -->
+                    <div class="col-full">
+                        <canvas id="myChart"></canvas>
+                    </div>
+                    <h5 class="border text-center">CHON CHE DO</h5>
+                    <div class="border row">
+                        <span class="mg_tba border light dis_auto">MANUAL</span>
+                        <div class="box border">
+                            <div class="box1 border_dra3px"></div>
+                        </div>
+                        <span class="mg_tba border dis_manual">AUTO</span>
+                    </div>
+                    <!-- <select name="" id="elements" onchange="luutru">
+                            <option value="0" class="value1">AUTO</option>
+                            <option value="1" class="value2">MANUAL</option>
+                        </select> -->
+                    <h5 class="border text-center">Trang Thai 1</h5>
+                    <div class="row">
+                        <div class="col-third border background_color hei79 text-center center-parent">
+                            <h4 class="border text-center">ĐÈN</h4>
+                            <input type="button" id="btn1" class="btn btn_on1 " value="ON">
+                            <!-- <input type="button" class="btn2 btn_on7 display-none" value="ON"> -->
+                            <div class="display-none element1">
+                                <div class="btn2 center-me btn_on7">ON</div>
+                            </div>
+                        </div>
+                        <div class="col-third border background_color text-center hei79">
+                            <h4 class="border text-center">QUẠT</h4>
+                            <input type="button" class="btn btn_on2 " value="ON">
+                            <!-- <input type="button" class="btn2 btn_on8 display-none" value="ON"> -->
+                            <div class="display-none element2">
+                                <div class="btn2 center-me btn_on8">ON</div>
+                            </div>
+                        </div>
+                        <div class="col-third border background_color text-center hei79">
+                            <h4 class="border text-center">BƠM</h4>
+                            <input type="button" class="btn btn_on3 " value="ON">
+                            <!-- <input type="button" class="btn2 btn_on9 display-none" value="ON"> -->
+                            <div class="display-none element3">
+                                <div class="btn2 center-me btn_on9">ON</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- NHA KINH 2 -->
+                <div class="col-half border">
+                    <h5 class="border text-center text-center">Nha Kinh 2</h5>
+                    <div class="row text-center">
+                        <div class="col-third boder ">
+                            <div class="border background_color">
+                                <h4 class="border ">NPK</h4>
+                                <div class="mg_mid9"><span>kjkg</span></div>
+                            </div>
+                        </div>
+                        <div class="col-third boder">
+                            <div class="border background_color">
+                                <h4 class="border">Do Am</h4>
+                                <div class="mg_mid9"><span>kjkg</span></div>
+                            </div>
+                        </div>
+                        <div class="col-third boder">
+                            <div class="border background_color">
+                                <h4 class="border">Luong Mua</h4>
+                                <div class="mg_mid9"><span>kjkg</span></div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <h5 class="border text-center">Nhiet DO</h5>
+                    <div class="row">
+                        <div class="col-half border">
+                            <div class="border background_color text-center">
+                                <h4 class="border text-center"> Khong Khi</h4>
+                                <div class="mg_mid9"><span>kjkg</span></div>
+                            </div>
+                        </div>
+                        <div class="col-half border">
+                            <div class="border background_color text-centertext-center">
+                                <h4 class="border text-center"> Dat</h4>
+                                <div class="mg_mid9 text-center"><span>kjkg</span></div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Thoi Gian Lay Mau 2 -->
+                    <select name="" id="sampling-time1" class="text-center " style="margin-left: 30%;width:200px; margin-top:11px;height: 25px;
+                        font-size: 18px;">
+                        <option value="1">5 second</option>
+                        <option value="2">1 min</option>
+                        <option value="3">10 min</option>
+                        <option value="4">1 hour</option>
+                    </select>
+                    <!-- bieu do 2 -->
+                    <div class="col-full">
+                        <canvas id="myChart1"></canvas>
+                    </div>
+                    <h5 class="border text-center">CHON CHE DO</h5>
+                    <div class="border row">
+                        <span class="mg_tba border light dis_auto2">MANUAL</span>
+                        <div class="box2 border">
+                            <div class="box3 border_dra3px"></div>
+                        </div>
+                        <span class="mg_tba border dis_manual2">AUTO</span>
+                    </div>
+                    <h5 class="border text-center">Trang Thai 2</h5>
+                    <div class="row text-center">
+                        <div class="col-third border background_color hei79">
+                            <h4 class="border">ĐÈN</h4>
+                            <input type="button" class="btn1 btn_on4" value="ON">
+                            <div class="display-none element4">
+                                <div class="btn2 center-me btn_on10">ON</div>
+                            </div>
+                        </div>
+                        <div class="col-third border background_color hei79">
+                            <h4 class="border">QUẠT</h4>
+                            <input type="button" class="btn1 btn_on5" value="ON">
+                            <div class="display-none element5">
+                                <div class="btn2 center-me btn_on11">ON</div>
+                            </div>
+                        </div>
+                        <div class="col-third border background_color hei79">
+                            <h4 class="border">BƠM</h4>
+                            <input type="button" class="btn1 btn_on6" value="ON">
+                            <div class="display-none element6">
+                                <div class="btn2 center-me btn_on12">ON</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    </div>
+
+
+
+    <span id="curClock"></span>
+    <input type="number" class="giatri1" placeholder="Nhiet do bieu do 1">
+    <input type="number" class="giatri2" placeholder="Nhiet do bieu do 2">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="/js/dashboard.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io();
+        socket.on('s-c-data1', (data1) => {
+            console.log('dữ liệu 1 nhận được:' + data1);
+        })
+        socket.on('s-c-data2', (data2) => {
+            console.log('dữ liệu 2 nhận được:' + data2);
+        })
+    </script>
+    <!-- Đổi biểu đồ: -->
+    <script>
+        var bt_on1 = document.querySelector('.btn_on1');
+        bt_on1.addEventListener('click', addlight);
+        function addlight() {
+            bt_on1.classList.toggle('light');
+            if (bt_on1.classList.value == 'btn btn_on1 light') {
+                console.log(1)
+                socket.emit('den1on', '{"server":{"houseID":1,"request":"WriteDigital","port":1,"value":1}}');
+            }
+            else {
+                console.log(0)
+                socket.emit('den1off', '{"server":{"houseID":1,"request":"WriteDigital","port":1,"value":0}}');
+            }
+        }
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,211 @@
+html {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+span {
+    font-size: 18px;
+}
+
+h5 {
+    font-size: 25px;
+}
+
+.display-none {
+    display: none;
+}
+
+/* h6{
+    font-size: 20px;
+} */
+
+/* h3{
+    min-width: 385px;
+} */
+
+.border50 {
+    border-radius: 50%;
+    border: 1px solid black;
+}
+
+.mg_auto {
+    margin: auto;
+}
+
+.mg_mid {
+    margin: 0 auto;
+}
+
+.center-parent {
+    position: relative;
+}
+
+
+.background_color_grey {
+    background-color: #f0f0f0;
+}
+
+.text-center {
+    text-align: center;
+
+}
+
+.text-item {
+    align-items: center;
+}
+
+.border {
+    border: 3px solid #000;
+    margin: 3px;
+    border-radius: 8px;
+}
+
+.box-borderbox {
+    box-sizing: border-box;
+}
+
+.row {
+    display: flex;
+}
+
+.col {
+    float: left;
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+.col-third {
+    width: 33.33333%;
+}
+
+.col-half {
+    width: 50%;
+}
+
+.col-full {
+    width: 100%;
+}
+
+.btn,
+.btn1 {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+}
+
+.btn2 {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    background-color: #f0f0f0;
+    border: #000 solid 2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 56px;
+    font-size: 13px;
+}
+
+.btn:hover {
+    cursor: pointer;
+}
+
+.size {
+    max-width: 1000px;
+    min-width: 500px;
+    min-height: 500px;
+    box-sizing: border-box;
+    margin-left: auto;
+    margin-right: auto;
+
+}
+
+.light {
+    background-color: red;
+}
+
+.hei79 {
+    height: 79px;
+}
+
+.hei100 {
+    height: auto;
+}
+
+
+
+.background_color {
+    background-color: blanchedalmond;
+}
+
+.mg_mid9 {
+    margin: 9.6px 0;
+}
+
+/* btn trang thai 1*/
+.box,
+.box2 {
+    width: 100px;
+    height: 30px;
+    background-color: #777777;
+    transition: all 300ms ease-in-out;
+    border-radius: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    cursor: pointer;
+}
+
+.boxactive {
+    background-color: #FFFF66;
+    box-shadow: 0 0 10px yellowgreen, 0 0 20px #CCFF00;
+}
+
+.box1,
+.box3 {
+    width: 27px;
+    height: 27px;
+    border-radius: 50%;
+    background-color: #99FFFF;
+    margin-top: -2px;
+}
+
+.btnactive {
+    margin-left: 70px;
+}
+
+.border_dra3px {
+    border: 3px solid black;
+}
+
+.mg_tba {
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 5px;
+    margin-right: 5px;
+    font-weight: bold;
+}
+
+
+.display-pc,
+.mobile {
+    display: none;
+}
+
+.sizeapp {
+    max-width: 739px;
+    min-width: 380px;
+    box-sizing: border-box;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@media (min-width:637px) {
+    .display-pc {
+        display: block;
+    }
+}
+
+@media (max-width:629px) {
+    .mobile {
+        display: block;
+    }
+}
