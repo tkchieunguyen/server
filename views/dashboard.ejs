@@ -253,20 +253,47 @@
     <!-- Đổi biểu đồ: -->
     <script>
         var bt_on1 = document.querySelector('.btn_on1');
-        bt_on1.addEventListener('click', addlight);
-        function addlight() {
+        var bt_on2 = document.querySelector('.btn_on2');
+        var bt_on3 = document.querySelector('.btn_on3');
+        bt_on1.addEventListener('click', addlight1);
+        function addlight1() {
             bt_on1.classList.toggle('light');
             if (bt_on1.classList.value == 'btn btn_on1 light') {
                 console.log(1)
-                socket.emit('den1on', '{"server":{"houseID":1,"request":"WriteDigital","port":1,"value":1}}');
+                socket.emit('den1on', '{"server":{"houseID":1,"request":"WriteDigital","DO0":"0"}}');
             }
             else {
                 console.log(0)
-                socket.emit('den1off', '{"server":{"houseID":1,"request":"WriteDigital","port":1,"value":0}}');
+                socket.emit('den1off', '{"server":{"houseID":1,"request":"WriteDigital","DO0":"1"}}');
             }
         }
-    </script>
+        bt_on2.addEventListener('click', addlight2);
+        function addlight2() {
+            bt_on2.classList.toggle('light');
+            if (bt_on2.classList.value == 'btn btn_on2 light') {
+                console.log(1)
+                socket.emit('den2on', '{"server":{"houseID":1,"request":"WriteDigital","DO1":"0"}}');
+            }
+            else {
+                console.log(0)
+                socket.emit('den2off', '{"server":{"houseID":1,"request":"WriteDigital","DO1":"1"}}');
+            }
+        }
+        bt_on3.addEventListener('click', addlight3);
+        function addlight3() {
+            bt_on3.classList.toggle('light');
+            if (bt_on3.classList.value == 'btn btn_on3 light') {
+                console.log(1)
+                socket.emit('den3on', '{"server":{"houseID":1,"request":"WriteDigital","DO2":"0"}}');
+            }
+            else {
+                console.log(0)
+                socket.emit('den3off', '{"server":{"houseID":1,"request":"WriteDigital","DO2":"1"}}');
+            }
+        }
 
+
+    </script>
 </body>
 
 </html>

@@ -1,6 +1,6 @@
 // Chart.register(ChartDataLabels);
-var bt_on2 = document.querySelector('.btn_on2');
-var bt_on3 = document.querySelector('.btn_on3');
+//var bt_on2 = document.querySelector('.btn_on2');
+// var bt_on3 = document.querySelector('.btn_on3');
 var bt_on4 = document.querySelector('.btn_on4');
 var bt_on5 = document.querySelector('.btn_on5');
 var bt_on6 = document.querySelector('.btn_on6');
@@ -82,15 +82,15 @@ box_on1.addEventListener('click', addactive1)
 
 
 
-bt_on2.addEventListener('click', addlight2);
-function addlight2() {
-  bt_on2.classList.toggle('light');
-}
+// bt_on2.addEventListener('click', addlight2);
+// function addlight2() {
+//   bt_on2.classList.toggle('light');
+// }
 
-bt_on3.addEventListener('click', addlight3);
-function addlight3() {
-  bt_on3.classList.toggle('light');
-}
+// bt_on3.addEventListener('click', addlight3);
+// function addlight3() {
+//   bt_on3.classList.toggle('light');
+// }
 
 bt_on4.addEventListener('click', addlight4);
 function addlight4() {
@@ -231,6 +231,8 @@ var val2 = {
     }]
   },
   options: {
+    responsive: true,
+    maintainAspectRatio: false,
     scales: {
       y: {
         beginAtZero: true
@@ -286,6 +288,8 @@ var val3 = {
     }]
   },
   options: {
+    responsive: true,
+    maintainAspectRatio: false,
     scales: {
       y: {
         beginAtZero: true

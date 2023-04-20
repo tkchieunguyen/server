@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 mongoose.set('strictQuery', false)
 async function connect() {
     try {
-        await mongoose.connect('mongodb://127.0.0.1:27017/doan', {
+        await mongoose.connect('mongodb://127.0.0.1:60782/doan', {
             useNewUrlParser: true,
             useUnifiedTopology: true
 

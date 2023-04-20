@@ -12,6 +12,7 @@ const dotenv = require('dotenv')
 const initWebRoute = require('./routes/route')
 const http = require('http')
 const { json } = require('body-parser')
+const { stringify } = require('querystring')
 const server = http.createServer(app)
 const io = require('socket.io')(server);
 
@@ -42,9 +43,10 @@ io.on('connection', (socket) => {
     console.log('a user connected')
     // setInterval(() => {
     //     let data = Math.floor(Math.random() * 31) + 20
+    //     //let data = "hiếu"
     //     console.log('data1 gửi đi: ' + data)
-    //     socket.emit('s-c-data1', data)
-    // }, 5000)
+    //     socket.emit('s-c-data10', data.toString())
+    // }, 1)
 
     // setInterval(() => {
     //     let data2 = Math.floor(Math.random() * 31) + 20
@@ -52,7 +54,7 @@ io.on('connection', (socket) => {
     //     socket.emit('s-c-data2', data2)
     // }, 5000)
     socket.on('C-ReadDigital', (data) => {
-        console.log(JSON.parse(data.substring(0, data.lastIndexOf("[CRC 32 BIT]"))))
+        console.log(JSON.parse(data))
     })
     socket.on('C-WriteDigital', (data) => {
         console.log(JSON.parse(data.substring(0, data.lastIndexOf("[CRC 32 BIT]"))))
@@ -77,11 +79,39 @@ io.on('connection', (socket) => {
     })
     socket.on('den1on', (data) => {
         var jsonData = JSON.stringify({ data: data })
-        socket.emit('den1on', jsonData)
+        console.log(data)
+        //io.emit('den1onsv', jsonData)
+        io.emit('den1onsv', data)
     })
     socket.on('den1off', (data) => {
         var jsonData = JSON.stringify({ data: data })
-        socket.emit('den1off', jsonData)
+        console.log(data)
+        //io.emit('den1offsv', jsonData)
+        io.emit('den1offsv', data)
+    })
+    socket.on('den2on', (data) => {
+        var jsonData = JSON.stringify({ data: data })
+        console.log(data)
+        // io.emit('den2onsv', jsonData)
+        io.emit('den2onsv', data)
+    })
+    socket.on('den2off', (data) => {
+        var jsonData = JSON.stringify({ data: data })
+        console.log(data)
+        //io.emit('den2offsv', jsonData)
+        io.emit('den2offsv', data)
+    })
+    socket.on('den3on', (data) => {
+        var jsonData = JSON.stringify({ data: data })
+        console.log(data)
+        // io.emit('den3onsv', jsonData)
+        io.emit('den3onsv', data)
+    })
+    socket.on('den3off', (data) => {
+        var jsonData = JSON.stringify({ data: data })
+        console.log(data)
+        //io.emit('den3offsv', jsonData)
+        io.emit('den3offsv', data)
     })
     socket.on('disconnect', () => {
         console.log("disconnection");
@@ -92,5 +122,4 @@ server.listen(port, () =>
     console.log(`App listening at http://localhost:${port}`)
 )
 db.connect()
-
 initWebRoute(app)
