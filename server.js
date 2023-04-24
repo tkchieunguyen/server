@@ -41,6 +41,19 @@ app.use(limiter)
 
 io.on('connection', (socket) => {
     console.log('a user connected')
+    socket.on('read digital', (data) => {
+        let jsonData = JSON.parse(data)
+        //console.log(jsonData.houseID);
+        switch (jsonData.houseID.toString()) {
+            case "1":
+                io.emit('display button house 1', jsonData)
+                break;
+            case "2":
+                io.emit('display button house 2', jsonData)
+                break;
+        }
+
+    })
     // setInterval(() => {
     //     let data = Math.floor(Math.random() * 31) + 20
     //     //let data = "hiếu"
@@ -53,14 +66,17 @@ io.on('connection', (socket) => {
     //     console.log('data2 gửi đi: ' + data2)
     //     socket.emit('s-c-data2', data2)
     // }, 5000)
+
+    //NHẬN TỪ ESP//
     socket.on('C-ReadDigital', (data) => {
         console.log(JSON.parse(data))
     })
+
     socket.on('C-WriteDigital', (data) => {
         console.log(JSON.parse(data.substring(0, data.lastIndexOf("[CRC 32 BIT]"))))
     })
     socket.on('C-ReadADC', (data) => {
-        console.log(JSON.parse(data.substring(0, data.lastIndexOf("[CRC 32 BIT]"))))
+        let
     })
     socket.on('C-ReadI2C', (data) => {
         console.log(JSON.parse(data.substring(0, data.lastIndexOf("[CRC 32 BIT]"))))
@@ -77,6 +93,8 @@ io.on('connection', (socket) => {
     socket.on('C-ResponseError', (data) => {
         console.log(JSON.parse(data.substring(0, data.lastIndexOf("[CRC 32 BIT]"))))
     })
+
+    // NHẬN TỪ USER//
     socket.on('den1on', (data) => {
         var jsonData = JSON.stringify({ data: data })
         console.log(data)
