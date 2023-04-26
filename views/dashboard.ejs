@@ -323,7 +323,8 @@
     <script src="/socket.io/socket.io.js"></script>
     <script>
         const socket = io();
-        //socket.emit('read digital', '{ "houseID": 1, "Response": "Read digital", "address": 1, "value": 209 }')
+        socket.emit('C-ReadDigital', '{ "houseID": 1, "Response": "Read digital", "address": 1, "data": "fe" }')
+        socket.emit('C-ReadDigital', '{ "houseID": 2, "Response": "Read digital", "address": 1, "data": "ea" }')
     </script>
     <!-- Đổi biểu đồ: -->
     <script>
@@ -333,16 +334,143 @@
         var bt_on4 = document.querySelector('.btn_on4');
         var bt_on5 = document.querySelector('.btn_on5');
         var bt_on6 = document.querySelector('.btn_on6');
-        var bt_on26 = document.querySelector('.btn_on26');
         var bt_on21 = document.querySelector('.btn_on21');
         var bt_on22 = document.querySelector('.btn_on22');
         var bt_on23 = document.querySelector('.btn_on23');
         var bt_on24 = document.querySelector('.btn_on24');
         var bt_on25 = document.querySelector('.btn_on25');
+        var bt_on26 = document.querySelector('.btn_on26');
         socket.on('display1', (data) => {
             let jsonData = JSON.parse(data)
             let value = parseInt(jsonData.data, 16).toString(2)
             console.log(value)
+            let bitsArray = value.split("");
+            let bit1 = bitsArray[0];
+            let bit2 = bitsArray[1];
+            let bit3 = bitsArray[2];
+            let bit4 = bitsArray[3];
+            let bit5 = bitsArray[4];
+            let bit6 = bitsArray[5];
+            let bit7 = bitsArray[6];
+            let bit8 = bitsArray[7];
+            //console.log(bit8 + " " + bit7 + " " + bit6 + " " + bit5 + " " + bit4 + " " + bit3)
+            switch (bit8.toString()) {
+                case "1":
+                    bt_on1.classList.remove('light');
+                    break;
+                case "0":
+
+                    bt_on1.classList.add('light');
+                    break;
+            }
+            switch (bit7.toString()) {
+                case "1":
+
+                    bt_on2.classList.remove('light');
+                    break;
+                case "0":
+
+                    bt_on2.classList.add('light');
+                    break;
+            }
+            switch (bit6.toString()) {
+                case "1":
+                    bt_on3.classList.remove('light');
+                    break;
+                case "0":
+                    bt_on3.classList.add('light');
+                    break;
+            }
+            switch (bit5.toString()) {
+                case "1":
+                    bt_on4.classList.remove('light');
+                    break;
+                case "0":
+                    bt_on4.classList.add('light');
+                    break;
+            }
+            switch (bit4.toString()) {
+                case "1":
+                    bt_on5.classList.remove('light');
+                    break;
+                case "0":
+                    bt_on5.classList.add('light');
+                    break;
+            }
+            switch (bit3.toString()) {
+                case "1":
+                    bt_on6.classList.remove('light');
+                    break;
+                case "0":
+                    bt_on6.classList.add('light');
+                    break;
+            }
+        })
+        socket.on('display2', (data) => {
+            let jsonData = JSON.parse(data)
+            let value = parseInt(jsonData.data, 16).toString(2)
+            console.log(value)
+            let bitsArray = value.split("");
+            let bit1 = bitsArray[0];
+            let bit2 = bitsArray[1];
+            let bit3 = bitsArray[2];
+            let bit4 = bitsArray[3];
+            let bit5 = bitsArray[4];
+            let bit6 = bitsArray[5];
+            let bit7 = bitsArray[6];
+            let bit8 = bitsArray[7];
+            //console.log(bit8 + " " + bit7 + " " + bit6 + " " + bit5 + " " + bit4 + " " + bit3)
+            switch (bit8.toString()) {
+                case "1":
+                    bt_on21.classList.remove('light');
+                    break;
+                case "0":
+
+                    bt_on21.classList.add('light');
+                    break;
+            }
+            switch (bit7.toString()) {
+                case "1":
+
+                    bt_on22.classList.remove('light');
+                    break;
+                case "0":
+
+                    bt_on22.classList.add('light');
+                    break;
+            }
+            switch (bit6.toString()) {
+                case "1":
+                    bt_on23.classList.remove('light');
+                    break;
+                case "0":
+                    bt_on23.classList.add('light');
+                    break;
+            }
+            switch (bit5.toString()) {
+                case "1":
+                    bt_on24.classList.remove('light');
+                    break;
+                case "0":
+                    bt_on24.classList.add('light');
+                    break;
+            }
+            switch (bit4.toString()) {
+                case "1":
+                    bt_on25.classList.remove('light');
+                    break;
+                case "0":
+                    bt_on25.classList.add('light');
+                    break;
+            }
+            switch (bit3.toString()) {
+                case "1":
+                    bt_on26.classList.remove('light');
+                    break;
+                case "0":
+                    bt_on26.classList.add('light');
+                    break;
+            }
         })
         bt_on1.addEventListener('click', addlight1);
         function addlight1() {
@@ -422,7 +550,7 @@
         bt_on21.addEventListener('click', addlight21);
         function addlight21() {
             bt_on21.classList.toggle('light');
-            if (bt_on21.classList.value == 'btn btn_on21 light') {
+            if (bt_on21.classList.value == 'btn1 btn_on21 light') {
                 //console.log(1)
                 socket.emit('den7on', '{"server":{"houseID":2,"request":"WriteDigital","lenght":"2","DO":"0","value":"0"}}');
             }
@@ -435,7 +563,7 @@
         bt_on22.addEventListener('click', addlight22);
         function addlight22() {
             bt_on22.classList.toggle('light');
-            if (bt_on22.classList.value == 'btn btn_on22 light') {
+            if (bt_on22.classList.value == 'btn1 btn_on22 light') {
                 //console.log(1)
                 socket.emit('den8on', '{"server":{"houseID":2,"request":"WriteDigital","lenght":"2","DO":"1","value":"0"}}');
             }
@@ -448,7 +576,7 @@
         bt_on23.addEventListener('click', addlight23);
         function addlight23() {
             bt_on23.classList.toggle('light');
-            if (bt_on23.classList.value == 'btn btn_on23 light') {
+            if (bt_on23.classList.value == 'btn1 btn_on23 light') {
                 //console.log(1)
                 socket.emit('den9on', '{"server":{"houseID":2,"request":"WriteDigital","lenght":"2","DO":"2","value":"0"}}');
             }
@@ -461,7 +589,7 @@
         bt_on24.addEventListener('click', addlight24);
         function addlight24() {
             bt_on24.classList.toggle('light');
-            if (bt_on24.classList.value == 'btn btn_on24 light') {
+            if (bt_on24.classList.value == 'btn1 btn_on24 light') {
                 //console.log(1)
                 socket.emit('den10on', '{"server":{"houseID":2,"request":"WriteDigital","lenght":"2","DO":"3","value":"0"}}');
             }
@@ -474,7 +602,7 @@
         bt_on25.addEventListener('click', addlight25);
         function addlight25() {
             bt_on25.classList.toggle('light');
-            if (bt_on25.classList.value == 'btn btn_on25 light') {
+            if (bt_on25.classList.value == 'btn1 btn_on25 light') {
                 //console.log(1)
                 socket.emit('den11on', '{"server":{"houseID":2,"request":"WriteDigital","lenght":"2","DO":"4","value":"0"}}');
             }
@@ -487,7 +615,7 @@
         bt_on26.addEventListener('click', addlight26);
         function addlight26() {
             bt_on26.classList.toggle('light');
-            if (bt_on26.classList.value == 'btn btn_on26 light') {
+            if (bt_on26.classList.value == 'btn1 btn_on26 light') {
                 //console.log(1)
                 socket.emit('den12on', '{"server":{"houseID":2,"request":"WriteDigital","lenght":"2","DO":"5","value":"0"}}');
             }

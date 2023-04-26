@@ -71,9 +71,16 @@ io.on('connection', (socket) => {
     socket.on('C-ReadDigital', (data) => {
         jsonData = JSON.parse(data)
         console.log(JSON.parse(data))
-        // let data1 = jsonData.data
+        switch (jsonData.houseID.toString()) {
+            case "1":
+                io.emit('display1', data)
+                break;
+            case "2":
+                io.emit('display2', data)
+                break;
+        }
         // console.log(data1)
-        io.emit('display1', data)
+
     })
 
     socket.on('C-WriteDigital', (data) => {
