@@ -250,6 +250,9 @@
         var bt_on1 = document.querySelector('.btn_on1');
         var bt_on2 = document.querySelector('.btn_on2');
         var bt_on3 = document.querySelector('.btn_on3');
+        var bt_on4 = document.querySelector('.btn_on4');
+        var bt_on5 = document.querySelector('.btn_on5');
+        var bt_on6 = document.querySelector('.btn_on6');
         socket.on('display button house 1', (data) => {
             let value = data.value.toString(2);
             let bitsArray = value.split("");
@@ -296,36 +299,74 @@
         function addlight1() {
             bt_on1.classList.toggle('light');
             if (bt_on1.classList.value == 'btn btn_on1 light') {
-                console.log(1)
-                socket.emit('den1on', '{"server":{"houseID":1,"request":"WriteDigital","lenght":"2","DO":"0","value":"1"}}');
+                //console.log(1)
+                socket.emit('den1on', '{"server":{"houseID":1,"request":"WriteDigital","lenght":"2","DO":"0","value":"0"}}');
             }
             else {
-                console.log(0)
-                socket.emit('den1off', '{"server":{"houseID":1,"request":"WriteDigital","lenght":"2","DO":"0","value":"0"}}');
+                //console.log(0)
+                socket.emit('den1off', '{"server":{"houseID":1,"request":"WriteDigital","lenght":"2","DO":"0","value":"1"}}');
             }
         }
         bt_on2.addEventListener('click', addlight2);
         function addlight2() {
             bt_on2.classList.toggle('light');
             if (bt_on2.classList.value == 'btn btn_on2 light') {
-                console.log(1)
-                socket.emit('den2on', '{"server":{"houseID":1,"request":"WriteDigital","lenght":"2","DO":"1","value":"1"}}');
+                //console.log(1)
+                socket.emit('den2on', '{"server":{"houseID":1,"request":"WriteDigital","lenght":"2","DO":"1","value":"0"}}');
             }
             else {
-                console.log(0)
-                socket.emit('den2off', '{"server":{"houseID":1,"request":"WriteDigital","lenght":"2","DO":"1","value":"0"}}');
+                //console.log(0)
+                socket.emit('den2off', '{"server":{"houseID":1,"request":"WriteDigital","lenght":"2","DO":"1","value":"1"}}');
             }
         }
         bt_on3.addEventListener('click', addlight3);
         function addlight3() {
             bt_on3.classList.toggle('light');
             if (bt_on3.classList.value == 'btn btn_on3 light') {
-                console.log(1)
-                socket.emit('den3on', '{"server":{"houseID":1,"request":"WriteDigital","lenght":"2","DO":"2","value":"1"}}');
+                //console.log(1)
+                socket.emit('den3on', '{"server":{"houseID":1,"request":"WriteDigital","lenght":"2","DO":"2","value":"0"}}');
             }
             else {
-                console.log(0)
-                socket.emit('den3off', '{"server":{"houseID":1,"request":"WriteDigital","lenght":"2","DO":"2","value":"0"}}');
+                //console.log(0)
+                socket.emit('den3off', '{"server":{"houseID":1,"request":"WriteDigital","lenght":"2","DO":"2","value":"1"}}');
+            }
+        }
+        bt_on4.addEventListener('click', addlight4);
+        function addlight4() {
+            bt_on4.classList.toggle('light');
+            if (bt_on4.classList.value == 'btn1 btn_on4 light') {
+                //console.log(1)
+                socket.emit('den7on', '{"server":{"houseID":2,"request":"WriteDigital","lenght":"2","DO":"0","value":"0"}}');
+            }
+            else {
+                //console.log(0)
+                socket.emit('den7off', '{"server":{"houseID":2,"request":"WriteDigital","lenght":"2","DO":"0","value":"1"}}');
+            }
+        }
+
+        bt_on5.addEventListener('click', addlight5);
+        function addlight5() {
+            bt_on5.classList.toggle('light');
+            if (bt_on5.classList.value == 'btn1 btn_on5 light') {
+                //console.log(1)
+                socket.emit('den8on', '{"server":{"houseID":2,"request":"WriteDigital","lenght":"2","DO":"1","value":"0"}}');
+            }
+            else {
+                //console.log(0)
+                socket.emit('den8off', '{"server":{"houseID":2,"request":"WriteDigital","lenght":"2","DO":"1","value":"1"}}');
+            }
+        }
+
+        bt_on6.addEventListener('click', addlight6);
+        function addlight6() {
+            bt_on6.classList.toggle('light');
+            if (bt_on6.classList.value == 'btn1 btn_on6 light') {
+                //console.log(1)
+                socket.emit('den9on', '{"server":{"houseID":2,"request":"WriteDigital","lenght":"2","DO":"2","value":"0"}}');
+            }
+            else {
+                //console.log(0)
+                socket.emit('den9off', '{"server":{"houseID":2,"request":"WriteDigital","lenght":"2","DO":"2","value":"1"}}');
             }
         }
 

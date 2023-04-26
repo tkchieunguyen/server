@@ -73,7 +73,7 @@ io.on('connection', (socket) => {
     })
 
     socket.on('C-WriteDigital', (data) => {
-        console.log(JSON.parse(data.substring(0, data.lastIndexOf("[CRC 32 BIT]"))))
+        console.log(JSON.parse(data))
     })
     socket.on('C-ReadADC', (data) => {
         let
@@ -130,6 +130,42 @@ io.on('connection', (socket) => {
         console.log(data)
         //io.emit('den3offsv', jsonData)
         io.emit('den3offsv', data)
+    })
+    socket.on('den7on', (data) => {
+        var jsonData = JSON.stringify({ data: data })
+        console.log(data)
+        // io.emit('den3onsv', jsonData)
+        io.emit('den7onsv', data)
+    })
+    socket.on('den7off', (data) => {
+        var jsonData = JSON.stringify({ data: data })
+        console.log(data)
+        //io.emit('den3offsv', jsonData)
+        io.emit('den7offsv', data)
+    })
+    socket.on('den8on', (data) => {
+        var jsonData = JSON.stringify({ data: data })
+        console.log(data)
+        // io.emit('den3onsv', jsonData)
+        io.emit('den8onsv', data)
+    })
+    socket.on('den8off', (data) => {
+        var jsonData = JSON.stringify({ data: data })
+        console.log(data)
+        //io.emit('den3offsv', jsonData)
+        io.emit('den8offsv', data)
+    })
+    socket.on('den9on', (data) => {
+        var jsonData = JSON.stringify({ data: data })
+        console.log(data)
+        // io.emit('den3onsv', jsonData)
+        io.emit('den9onsv', data)
+    })
+    socket.on('den9off', (data) => {
+        var jsonData = JSON.stringify({ data: data })
+        console.log(data)
+        //io.emit('den3offsv', jsonData)
+        io.emit('den9offsv', data)
     })
     socket.on('disconnect', () => {
         console.log("disconnection");
