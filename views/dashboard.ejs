@@ -340,138 +340,7 @@
         var bt_on24 = document.querySelector('.btn_on24');
         var bt_on25 = document.querySelector('.btn_on25');
         var bt_on26 = document.querySelector('.btn_on26');
-        socket.on('display1', (data) => {
-            let jsonData = JSON.parse(data)
-            let value = parseInt(jsonData.data, 16).toString(2)
-            console.log(value)
-            let bitsArray = value.split("");
-            let bit1 = bitsArray[0];
-            let bit2 = bitsArray[1];
-            let bit3 = bitsArray[2];
-            let bit4 = bitsArray[3];
-            let bit5 = bitsArray[4];
-            let bit6 = bitsArray[5];
-            let bit7 = bitsArray[6];
-            let bit8 = bitsArray[7];
-            //console.log(bit8 + " " + bit7 + " " + bit6 + " " + bit5 + " " + bit4 + " " + bit3)
-            switch (bit8.toString()) {
-                case "1":
-                    bt_on1.classList.remove('light');
-                    break;
-                case "0":
 
-                    bt_on1.classList.add('light');
-                    break;
-            }
-            switch (bit7.toString()) {
-                case "1":
-
-                    bt_on2.classList.remove('light');
-                    break;
-                case "0":
-
-                    bt_on2.classList.add('light');
-                    break;
-            }
-            switch (bit6.toString()) {
-                case "1":
-                    bt_on3.classList.remove('light');
-                    break;
-                case "0":
-                    bt_on3.classList.add('light');
-                    break;
-            }
-            switch (bit5.toString()) {
-                case "1":
-                    bt_on4.classList.remove('light');
-                    break;
-                case "0":
-                    bt_on4.classList.add('light');
-                    break;
-            }
-            switch (bit4.toString()) {
-                case "1":
-                    bt_on5.classList.remove('light');
-                    break;
-                case "0":
-                    bt_on5.classList.add('light');
-                    break;
-            }
-            switch (bit3.toString()) {
-                case "1":
-                    bt_on6.classList.remove('light');
-                    break;
-                case "0":
-                    bt_on6.classList.add('light');
-                    break;
-            }
-        })
-        socket.on('display2', (data) => {
-            let jsonData = JSON.parse(data)
-            let value = parseInt(jsonData.data, 16).toString(2)
-            console.log(value)
-            let bitsArray = value.split("");
-            let bit1 = bitsArray[0];
-            let bit2 = bitsArray[1];
-            let bit3 = bitsArray[2];
-            let bit4 = bitsArray[3];
-            let bit5 = bitsArray[4];
-            let bit6 = bitsArray[5];
-            let bit7 = bitsArray[6];
-            let bit8 = bitsArray[7];
-            //console.log(bit8 + " " + bit7 + " " + bit6 + " " + bit5 + " " + bit4 + " " + bit3)
-            switch (bit8.toString()) {
-                case "1":
-                    bt_on21.classList.remove('light');
-                    break;
-                case "0":
-
-                    bt_on21.classList.add('light');
-                    break;
-            }
-            switch (bit7.toString()) {
-                case "1":
-
-                    bt_on22.classList.remove('light');
-                    break;
-                case "0":
-
-                    bt_on22.classList.add('light');
-                    break;
-            }
-            switch (bit6.toString()) {
-                case "1":
-                    bt_on23.classList.remove('light');
-                    break;
-                case "0":
-                    bt_on23.classList.add('light');
-                    break;
-            }
-            switch (bit5.toString()) {
-                case "1":
-                    bt_on24.classList.remove('light');
-                    break;
-                case "0":
-                    bt_on24.classList.add('light');
-                    break;
-            }
-            switch (bit4.toString()) {
-                case "1":
-                    bt_on25.classList.remove('light');
-                    break;
-                case "0":
-                    bt_on25.classList.add('light');
-                    break;
-            }
-            switch (bit3.toString()) {
-                case "1":
-                    bt_on26.classList.remove('light');
-                    break;
-                case "0":
-                    bt_on26.classList.add('light');
-                    break;
-            }
-        })
         bt_on1.addEventListener('click', addlight1);
         function addlight1() {
             bt_on1.classList.toggle('light');
@@ -624,7 +493,138 @@
                 socket.emit('den12off', '{"server":{"houseID":2,"request":"WriteDigital","lenght":"2","DO":"5","value":"1"}}');
             }
         }
+        socket.on('display1', (data) => {
+            let jsonData = JSON.parse(data)
+            let value = parseInt(jsonData.data, 16).toString(2)
+            console.log(value)
+            let bitsArray = value.split("");
+            let bit1 = bitsArray[0];
+            let bit2 = bitsArray[1];
+            let bit3 = bitsArray[2];
+            let bit4 = bitsArray[3];
+            let bit5 = bitsArray[4];
+            let bit6 = bitsArray[5];
+            let bit7 = bitsArray[6];
+            let bit8 = bitsArray[7];
+            //console.log(bit8 + " " + bit7 + " " + bit6 + " " + bit5 + " " + bit4 + " " + bit3)
+            switch (bit8.toString()) {
+                case "1":
+                    bt_on1.classList.remove('light');
+                    break;
+                case "0":
 
+                    bt_on1.classList.add('light');
+                    break;
+            }
+            switch (bit7.toString()) {
+                case "1":
+
+                    bt_on2.classList.remove('light');
+                    break;
+                case "0":
+
+                    bt_on2.classList.add('light');
+                    break;
+            }
+            switch (bit6.toString()) {
+                case "1":
+                    bt_on3.classList.remove('light');
+                    break;
+                case "0":
+                    bt_on3.classList.add('light');
+                    break;
+            }
+            switch (bit5.toString()) {
+                case "1":
+                    bt_on4.classList.remove('light');
+                    break;
+                case "0":
+                    bt_on4.classList.add('light');
+                    break;
+            }
+            switch (bit4.toString()) {
+                case "1":
+                    bt_on5.classList.remove('light');
+                    break;
+                case "0":
+                    bt_on5.classList.add('light');
+                    break;
+            }
+            switch (bit3.toString()) {
+                case "1":
+                    bt_on6.classList.remove('light');
+                    break;
+                case "0":
+                    bt_on6.classList.add('light');
+                    break;
+            }
+        })
+        socket.on('display2', (data) => {
+            let jsonData = JSON.parse(data)
+            let value = parseInt(jsonData.data, 16).toString(2)
+            console.log(value)
+            let bitsArray = value.split("");
+            let bit1 = bitsArray[0];
+            let bit2 = bitsArray[1];
+            let bit3 = bitsArray[2];
+            let bit4 = bitsArray[3];
+            let bit5 = bitsArray[4];
+            let bit6 = bitsArray[5];
+            let bit7 = bitsArray[6];
+            let bit8 = bitsArray[7];
+            //console.log(bit8 + " " + bit7 + " " + bit6 + " " + bit5 + " " + bit4 + " " + bit3)
+            switch (bit8.toString()) {
+                case "1":
+                    bt_on21.classList.remove('light');
+                    break;
+                case "0":
+
+                    bt_on21.classList.add('light');
+                    break;
+            }
+            switch (bit7.toString()) {
+                case "1":
+
+                    bt_on22.classList.remove('light');
+                    break;
+                case "0":
+
+                    bt_on22.classList.add('light');
+                    break;
+            }
+            switch (bit6.toString()) {
+                case "1":
+                    bt_on23.classList.remove('light');
+                    break;
+                case "0":
+                    bt_on23.classList.add('light');
+                    break;
+            }
+            switch (bit5.toString()) {
+                case "1":
+                    bt_on24.classList.remove('light');
+                    break;
+                case "0":
+                    bt_on24.classList.add('light');
+                    break;
+            }
+            switch (bit4.toString()) {
+                case "1":
+                    bt_on25.classList.remove('light');
+                    break;
+                case "0":
+                    bt_on25.classList.add('light');
+                    break;
+            }
+            switch (bit3.toString()) {
+                case "1":
+                    bt_on26.classList.remove('light');
+                    break;
+                case "0":
+                    bt_on26.classList.add('light');
+                    break;
+            }
+        })
 
     </script>
 </body>
