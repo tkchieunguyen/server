@@ -1,12 +1,10 @@
 // Chart.register(ChartDataLabels);
-//var bt_on2 = document.querySelector('.btn_on2');
-// var bt_on3 = document.querySelector('.btn_on3');
+var bt_on1 = document.querySelector('.btn-on1');
+var bt_on2 = document.querySelector('.btn_on2');
+var bt_on3 = document.querySelector('.btn_on3');
 var bt_on4 = document.querySelector('.btn_on4');
 var bt_on5 = document.querySelector('.btn_on5');
 var bt_on6 = document.querySelector('.btn_on6');
-var bt_on7 = document.querySelector('.btn_on7');
-var bt_on8 = document.querySelector('.btn_on8');
-var bt_on9 = document.querySelector('.btn_on9');
 var giatri = document.querySelector('.val');
 var dis_auto = document.querySelector('.dis_auto');
 var dis_manual = document.querySelector('.dis_manual');
@@ -57,12 +55,19 @@ function addactive() {
   document.querySelector('.element2').classList.toggle('display-none');
   bt_on3.classList.toggle('display-none');
   document.querySelector('.element3').classList.toggle('display-none');
-  document.querySelector('.element10').classList.toggle('display-none');
-  document.querySelector('.btn_on20').classList.toggle('display-none');
-  document.querySelector('.element11').classList.toggle('display-none');
-  document.querySelector('.btn_on21').classList.toggle('display-none');
-  document.querySelector('.element12').classList.toggle('display-none');
-  document.querySelector('.btn_on22').classList.toggle('display-none');
+  // document.querySelector('.element10').classList.toggle('display-none');
+  // document.querySelector('.btn_on20').classList.toggle('display-none');
+  // document.querySelector('.element11').classList.toggle('display-none');
+  // document.querySelector('.btn_on21').classList.toggle('display-none');
+  // document.querySelector('.element12').classList.toggle('display-none');
+  // document.querySelector('.btn_on22').classList.toggle('display-none');
+  bt_on4.classList.toggle('display-none');
+  document.querySelector('.element4').classList.toggle('display-none');
+  bt_on5.classList.toggle('display-none');
+  document.querySelector('.element5').classList.toggle('display-none');
+  bt_on6.classList.toggle('display-none');
+  document.querySelector('.element6').classList.toggle('display-none');
+
 }
 box_on.addEventListener('click', addactive)
 
@@ -71,12 +76,19 @@ function addactive1() {
   btn_on1.classList.toggle('btnactive');
   dis_auto2.classList.toggle('light');
   dis_manual2.classList.toggle('light');
-  bt_on4.classList.toggle('display-none');
-  document.querySelector('.element4').classList.toggle('display-none');
-  bt_on5.classList.toggle('display-none');
-  document.querySelector('.element5').classList.toggle('display-none');
-  bt_on6.classList.toggle('display-none');
-  document.querySelector('.element6').classList.toggle('display-none');
+  document.querySelector('.element21').classList.toggle('display-none');
+  document.querySelector('.btn_on21').classList.toggle('display-none');
+  document.querySelector('.element22').classList.toggle('display-none');
+  document.querySelector('.btn_on22').classList.toggle('display-none');
+  document.querySelector('.element23').classList.toggle('display-none');
+  document.querySelector('.btn_on23').classList.toggle('display-none');
+  document.querySelector('.element24').classList.toggle('display-none');
+  document.querySelector('.btn_on24').classList.toggle('display-none');
+  document.querySelector('.element25').classList.toggle('display-none');
+  document.querySelector('.btn_on25').classList.toggle('display-none');
+  document.querySelector('.element26').classList.toggle('display-none');
+  document.querySelector('.btn_on26').classList.toggle('display-none');
+
 }
 box_on1.addEventListener('click', addactive1)
 
@@ -98,20 +110,20 @@ box_on1.addEventListener('click', addactive1)
 //   bt_on3.classList.toggle('light');
 // }
 
-bt_on4.addEventListener('click', addlight4);
-function addlight4() {
-  bt_on4.classList.toggle('light');
-}
+// bt_on4.addEventListener('click', addlight4);
+// function addlight4() {
+//   bt_on4.classList.toggle('light');
+// }
 
-bt_on5.addEventListener('click', addlight5);
-function addlight5() {
-  bt_on5.classList.toggle('light');
-}
+// bt_on5.addEventListener('click', addlight5);
+// function addlight5() {
+//   bt_on5.classList.toggle('light');
+// }
 
-bt_on6.addEventListener('click', addlight6);
-function addlight6() {
-  bt_on6.classList.toggle('light');
-}
+// bt_on6.addEventListener('click', addlight6);
+// function addlight6() {
+//   bt_on6.classList.toggle('light');
+// }
 
 
 // // BIEU DO 1

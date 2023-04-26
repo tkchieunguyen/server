@@ -139,7 +139,7 @@
                                 <div class="btn2 center-me">ON</div>
                             </div>
                         </div>
-                    
+
                     </div>
                     <!-- 4 BOM -->
                     <div class="row">
@@ -147,7 +147,7 @@
                         <div class="col-four border background_color text-center hei79">
                             <h4 class="border text-center">BƠM 1</h4>
                             <input type="button" class="btn btn_on3 " value="ON">
-                           
+
                             <div class="display-none element3">
                                 <div class="btn2 center-me">ON</div>
                             </div>
@@ -156,7 +156,7 @@
                         <div class="col-four border background_color text-center hei79">
                             <h4 class="border text-center">BƠM 2</h4>
                             <input type="button" class="btn btn_on4 " value="ON">
-                           
+
                             <div class="display-none element4">
                                 <div class="btn2 center-me">ON</div>
                             </div>
@@ -165,7 +165,7 @@
                         <div class="col-four border background_color text-center hei79">
                             <h4 class="border text-center">BƠM 3</h4>
                             <input type="button" class="btn btn_on5 " value="ON">
-                           
+
                             <div class="display-none element5">
                                 <div class="btn2 center-me">ON</div>
                             </div>
@@ -174,7 +174,7 @@
                         <div class="col-four border background_color text-center hei79">
                             <h4 class="border text-center">BƠM 4</h4>
                             <input type="button" class="btn btn_on6 " value="ON">
-                           
+
                             <div class="display-none element6">
                                 <div class="btn2 center-me">ON</div>
                             </div>
@@ -264,15 +264,15 @@
                                 <div class="btn2 center-me ">ON</div>
                             </div>
                         </div>
-                        
+
                     </div>
                     <div class="row">
-                        
+
                         <!-- BOM1 -->
                         <div class="col-four border background_color text-center hei79">
                             <h4 class="border text-center">BƠM 1</h4>
                             <input type="button" class="btn1 btn_on23" value="ON">
-                           
+
                             <div class="display-none element23">
                                 <div class="btn2 center-me">ON</div>
                             </div>
@@ -281,7 +281,7 @@
                         <div class="col-four border background_color text-center hei79">
                             <h4 class="border text-center">BƠM 2</h4>
                             <input type="button" class="btn1 btn_on24 " value="ON">
-                           
+
                             <div class="display-none element24">
                                 <div class="btn2 center-me">ON</div>
                             </div>
@@ -290,7 +290,7 @@
                         <div class="col-four border background_color text-center hei79">
                             <h4 class="border text-center">BƠM 3</h4>
                             <input type="button" class="btn1 btn_on25 " value="ON">
-                           
+
                             <div class="display-none element25">
                                 <div class="btn2 center-me">ON</div>
                             </div>
@@ -299,7 +299,7 @@
                         <div class="col-four border background_color text-center hei79">
                             <h4 class="border text-center">BƠM 4</h4>
                             <input type="button" class="btn1 btn_on26 " value="ON">
-                           
+
                             <div class="display-none element26">
                                 <div class="btn2 center-me">ON</div>
                             </div>
@@ -314,7 +314,7 @@
 
 
 
-    
+
     <input type="number" class="giatri1" placeholder="Nhiet do bieu do 1">
     <input type="number" class="giatri2" placeholder="Nhiet do bieu do 2">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -330,58 +330,30 @@
         var bt_on1 = document.querySelector('.btn_on1');
         var bt_on2 = document.querySelector('.btn_on2');
         var bt_on3 = document.querySelector('.btn_on3');
-        socket.on('display button house 1', (data) => {
-            let value = data.value.toString(2);
-            let bitsArray = value.split("");
-            let bit1 = bitsArray[0];
-            let bit2 = bitsArray[1];
-            let bit3 = bitsArray[2];
-            let bit4 = bitsArray[3];
-            let bit5 = bitsArray[4];
-            let bit6 = bitsArray[5];
-            let bit7 = bitsArray[6];
-            let bit8 = bitsArray[7];
-            //console.log(bit1 + " " + bit2 + " " + bit3 + " " + bit4 + " " + bit5 + " " + bit6)
-            switch (bit3.toString()) {
-                case "1":
-                    bt_on1.classList.remove('light');
-                    break;
-                case "0":
-
-                    bt_on1.classList.add('light');
-                    break;
-            }
-            switch (bit4.toString()) {
-                case "1":
-
-                    bt_on2.classList.remove('light');
-                    break;
-                case "0":
-
-                    bt_on2.classList.add('light');
-                    break;
-            }
-            switch (bit5.toString()) {
-                case "1":
-
-                    bt_on3.classList.remove('light');
-                    break;
-                case "0":
-
-                    bt_on3.classList.add('light');
-                    break;
-            }
+        var bt_on4 = document.querySelector('.btn_on4');
+        var bt_on5 = document.querySelector('.btn_on5');
+        var bt_on6 = document.querySelector('.btn_on6');
+        var bt_on26 = document.querySelector('.btn_on26');
+        var bt_on21 = document.querySelector('.btn_on21');
+        var bt_on22 = document.querySelector('.btn_on22');
+        var bt_on23 = document.querySelector('.btn_on23');
+        var bt_on24 = document.querySelector('.btn_on24');
+        var bt_on25 = document.querySelector('.btn_on25');
+        socket.on('display1', (data) => {
+            let jsonData = JSON.parse(data)
+            let value = parseInt(jsonData.data, 16).toString(2)
+            console.log(value)
         })
         bt_on1.addEventListener('click', addlight1);
         function addlight1() {
             bt_on1.classList.toggle('light');
             if (bt_on1.classList.value == 'btn btn_on1 light') {
                 console.log(1)
-                socket.emit('den1on', '{"server":{"houseID":1,"request":"WriteDigital","lenght":"2","DO":"0","value":"1"}}');
+                socket.emit('den1on', '{"server":{"houseID":1,"request":"WriteDigital","lenght":"2","DO":"0","value":"0"}}');
             }
             else {
                 console.log(0)
-                socket.emit('den1off', '{"server":{"houseID":1,"request":"WriteDigital","lenght":"2","DO":"0","value":"0"}}');
+                socket.emit('den1off', '{"server":{"houseID":1,"request":"WriteDigital","lenght":"2","DO":"0","value":"1"}}');
             }
         }
         bt_on2.addEventListener('click', addlight2);
@@ -389,11 +361,11 @@
             bt_on2.classList.toggle('light');
             if (bt_on2.classList.value == 'btn btn_on2 light') {
                 console.log(1)
-                socket.emit('den2on', '{"server":{"houseID":1,"request":"WriteDigital","lenght":"2","DO":"1","value":"1"}}');
+                socket.emit('den2on', '{"server":{"houseID":1,"request":"WriteDigital","lenght":"2","DO":"1","value":"0"}}');
             }
             else {
                 console.log(0)
-                socket.emit('den2off', '{"server":{"houseID":1,"request":"WriteDigital","lenght":"2","DO":"1","value":"0"}}');
+                socket.emit('den2off', '{"server":{"houseID":1,"request":"WriteDigital","lenght":"2","DO":"1","value":"1"}}');
             }
         }
         bt_on3.addEventListener('click', addlight3);
@@ -401,11 +373,127 @@
             bt_on3.classList.toggle('light');
             if (bt_on3.classList.value == 'btn btn_on3 light') {
                 console.log(1)
-                socket.emit('den3on', '{"server":{"houseID":1,"request":"WriteDigital","lenght":"2","DO":"2","value":"1"}}');
+                socket.emit('den3on', '{"server":{"houseID":1,"request":"WriteDigital","lenght":"2","DO":"2","value":"0"}}');
             }
             else {
                 console.log(0)
-                socket.emit('den3off', '{"server":{"houseID":1,"request":"WriteDigital","lenght":"2","DO":"2","value":"0"}}');
+                socket.emit('den3off', '{"server":{"houseID":1,"request":"WriteDigital","lenght":"2","DO":"2","value":"1"}}');
+            }
+        }
+        bt_on4.addEventListener('click', addlight4);
+        function addlight4() {
+            bt_on4.classList.toggle('light');
+            if (bt_on4.classList.value == 'btn btn_on4 light') {
+                //console.log(1)
+                socket.emit('den4on', '{"server":{"houseID":1,"request":"WriteDigital","lenght":"2","DO":"3","value":"0"}}');
+            }
+            else {
+                //console.log(0)
+                socket.emit('den4off', '{"server":{"houseID":1,"request":"WriteDigital","lenght":"2","DO":"3","value":"1"}}');
+            }
+        }
+
+        bt_on5.addEventListener('click', addlight5);
+        function addlight5() {
+            bt_on5.classList.toggle('light');
+            if (bt_on5.classList.value == 'btn btn_on5 light') {
+                //console.log(1)
+                socket.emit('den5on', '{"server":{"houseID":1,"request":"WriteDigital","lenght":"2","DO":"4","value":"0"}}');
+            }
+            else {
+                //console.log(0)
+                socket.emit('den5off', '{"server":{"houseID":1,"request":"WriteDigital","lenght":"2","DO":"4","value":"1"}}');
+            }
+        }
+
+        bt_on6.addEventListener('click', addlight6);
+        function addlight6() {
+            bt_on6.classList.toggle('light');
+            if (bt_on6.classList.value == 'btn btn_on6 light') {
+                //console.log(1)
+                socket.emit('den6on', '{"server":{"houseID":1,"request":"WriteDigital","lenght":"2","DO":"5","value":"0"}}');
+            }
+            else {
+                //console.log(0)
+                socket.emit('den6off', '{"server":{"houseID":1,"request":"WriteDigital","lenght":"2","DO":"5","value":"1"}}');
+            }
+        }
+
+        bt_on21.addEventListener('click', addlight21);
+        function addlight21() {
+            bt_on21.classList.toggle('light');
+            if (bt_on21.classList.value == 'btn btn_on21 light') {
+                //console.log(1)
+                socket.emit('den7on', '{"server":{"houseID":2,"request":"WriteDigital","lenght":"2","DO":"0","value":"0"}}');
+            }
+            else {
+                //console.log(0)
+                socket.emit('den7off', '{"server":{"houseID":2,"request":"WriteDigital","lenght":"2","DO":"0","value":"1"}}');
+            }
+        }
+
+        bt_on22.addEventListener('click', addlight22);
+        function addlight22() {
+            bt_on22.classList.toggle('light');
+            if (bt_on22.classList.value == 'btn btn_on22 light') {
+                //console.log(1)
+                socket.emit('den8on', '{"server":{"houseID":2,"request":"WriteDigital","lenght":"2","DO":"1","value":"0"}}');
+            }
+            else {
+                //console.log(0)
+                socket.emit('den8off', '{"server":{"houseID":2,"request":"WriteDigital","lenght":"2","DO":"1","value":"1"}}');
+            }
+        }
+
+        bt_on23.addEventListener('click', addlight23);
+        function addlight23() {
+            bt_on23.classList.toggle('light');
+            if (bt_on23.classList.value == 'btn btn_on23 light') {
+                //console.log(1)
+                socket.emit('den9on', '{"server":{"houseID":2,"request":"WriteDigital","lenght":"2","DO":"2","value":"0"}}');
+            }
+            else {
+                //console.log(0)
+                socket.emit('den9off', '{"server":{"houseID":2,"request":"WriteDigital","lenght":"2","DO":"2","value":"1"}}');
+            }
+        }
+
+        bt_on24.addEventListener('click', addlight24);
+        function addlight24() {
+            bt_on24.classList.toggle('light');
+            if (bt_on24.classList.value == 'btn btn_on24 light') {
+                //console.log(1)
+                socket.emit('den10on', '{"server":{"houseID":2,"request":"WriteDigital","lenght":"2","DO":"3","value":"0"}}');
+            }
+            else {
+                //console.log(0)
+                socket.emit('den10off', '{"server":{"houseID":2,"request":"WriteDigital","lenght":"2","DO":"3","value":"1"}}');
+            }
+        }
+
+        bt_on25.addEventListener('click', addlight25);
+        function addlight25() {
+            bt_on25.classList.toggle('light');
+            if (bt_on25.classList.value == 'btn btn_on25 light') {
+                //console.log(1)
+                socket.emit('den11on', '{"server":{"houseID":2,"request":"WriteDigital","lenght":"2","DO":"4","value":"0"}}');
+            }
+            else {
+                //console.log(0)
+                socket.emit('den11off', '{"server":{"houseID":2,"request":"WriteDigital","lenght":"2","DO":"4","value":"1"}}');
+            }
+        }
+
+        bt_on26.addEventListener('click', addlight26);
+        function addlight26() {
+            bt_on26.classList.toggle('light');
+            if (bt_on26.classList.value == 'btn btn_on26 light') {
+                //console.log(1)
+                socket.emit('den12on', '{"server":{"houseID":2,"request":"WriteDigital","lenght":"2","DO":"5","value":"0"}}');
+            }
+            else {
+                //console.log(0)
+                socket.emit('den12off', '{"server":{"houseID":2,"request":"WriteDigital","lenght":"2","DO":"5","value":"1"}}');
             }
         }
 
