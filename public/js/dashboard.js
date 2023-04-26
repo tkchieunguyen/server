@@ -1,9 +1,9 @@
 // Chart.register(ChartDataLabels);
 //var bt_on2 = document.querySelector('.btn_on2');
 // var bt_on3 = document.querySelector('.btn_on3');
-// var bt_on4 = document.querySelector('.btn_on4');
-// var bt_on5 = document.querySelector('.btn_on5');
-// var bt_on6 = document.querySelector('.btn_on6');
+var bt_on4 = document.querySelector('.btn_on4');
+var bt_on5 = document.querySelector('.btn_on5');
+var bt_on6 = document.querySelector('.btn_on6');
 var bt_on7 = document.querySelector('.btn_on7');
 var bt_on8 = document.querySelector('.btn_on8');
 var bt_on9 = document.querySelector('.btn_on9');
@@ -57,6 +57,12 @@ function addactive() {
   document.querySelector('.element2').classList.toggle('display-none');
   bt_on3.classList.toggle('display-none');
   document.querySelector('.element3').classList.toggle('display-none');
+  document.querySelector('.element10').classList.toggle('display-none');
+  document.querySelector('.btn_on20').classList.toggle('display-none');
+  document.querySelector('.element11').classList.toggle('display-none');
+  document.querySelector('.btn_on21').classList.toggle('display-none');
+  document.querySelector('.element12').classList.toggle('display-none');
+  document.querySelector('.btn_on22').classList.toggle('display-none');
 }
 box_on.addEventListener('click', addactive)
 
@@ -92,20 +98,20 @@ box_on1.addEventListener('click', addactive1)
 //   bt_on3.classList.toggle('light');
 // }
 
-// bt_on4.addEventListener('click', addlight4);
-// function addlight4() {
-//   bt_on4.classList.toggle('light');
-// }
+bt_on4.addEventListener('click', addlight4);
+function addlight4() {
+  bt_on4.classList.toggle('light');
+}
 
-// bt_on5.addEventListener('click', addlight5);
-// function addlight5() {
-//   bt_on5.classList.toggle('light');
-// }
+bt_on5.addEventListener('click', addlight5);
+function addlight5() {
+  bt_on5.classList.toggle('light');
+}
 
-// bt_on6.addEventListener('click', addlight6);
-// function addlight6() {
-//   bt_on6.classList.toggle('light');
-// }
+bt_on6.addEventListener('click', addlight6);
+function addlight6() {
+  bt_on6.classList.toggle('light');
+}
 
 
 // // BIEU DO 1
@@ -199,21 +205,31 @@ box_on1.addEventListener('click', addactive1)
 document.querySelector('.NPK1').addEventListener('click', chartNPK1);
 function chartNPK1() {
   myChart1.data.datasets[0].label = '#NPK';
-  // xóa cmt để sử dụng khi muốn thay đổi dữ liệu
-  // myChart1.data.datasets[0].data=[mang gia tri tren sv gui ve]
+  myChart1.update();
+}
+// PH
+document.querySelector('.PH1').addEventListener('click', chartPH1);
+function chartPH1() {
+  myChart1.data.datasets[0].label = '#PH';
+  myChart1.update();
+}
+// Temperrature1
+document.querySelector('.Temperature1').addEventListener('click', chartTemperature1);
+function chartTemperature1() {
+  myChart1.data.datasets[0].label = '#Temperature';
   myChart1.update();
 }
 
-// DO AM
+// DO AM1
 document.querySelector('.Do-am1').addEventListener('click', chartDoAm1);
 function chartDoAm1() {
   myChart1.data.datasets[0].label = '#Do Am';
   myChart1.update();
 }
-// Luong Mua
-document.querySelector('.Luong-mua1').addEventListener('click', chartLuongMua1);
-function chartLuongMua1() {
-  myChart1.data.datasets[0].label = '#Luong Mua';
+// Anh Sang1
+document.querySelector('.AnhSang1').addEventListener('click', chartAnhSang1);
+function chartAnhSang1() {
+  myChart1.data.datasets[0].label = '#Light Intensity';
   myChart1.update();
 }
 // Bieu Do

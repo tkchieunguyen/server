@@ -39,6 +39,16 @@ h5 {
     position: relative;
 }
 
+body{
+    /* background-image: url(https://images.pexels.com/photos/956999/milky-way-starry-sky-night-sky-star-956999.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1); */
+    background-image: url(https://png.pngtree.com/background/20210712/original/pngtree-mysterious-cosmic-space-galaxy-nebula-background-picture-image_1179108.jpg);
+}
+
+#curClock{
+    color:white ;
+    line-height: 59.5px
+}
+
 
 .background_color_grey {
     background-color: #f0f0f0;
@@ -85,11 +95,17 @@ h5 {
     width: 100%;
 }
 
+.col-four {
+    width:25%
+}
+
 .btn,
 .btn1 {
     border-radius: 50%;
     width: 40px;
     height: 40px;
+    border: #000 solid 2px;
+    font-size: 13px;
 }
 
 .btn2 {
@@ -101,7 +117,8 @@ h5 {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-left: 56px;
+    margin-left: auto;
+    margin-right: auto;
     font-size: 13px;
 }
 
@@ -110,13 +127,12 @@ h5 {
 }
 
 .size {
-    max-width: 1000px;
-    min-width: 500px;
-    min-height: 500px;
+    max-width: 1200px;
+    min-width: 700px;
     box-sizing: border-box;
     margin-left: auto;
     margin-right: auto;
-
+    background-color: white;
 }
 
 .light {
@@ -161,11 +177,12 @@ h5 {
 
 .box1,
 .box3 {
-    width: 27px;
-    height: 27px;
+    width: 26px;
+    height: 26px;
     border-radius: 50%;
     background-color: #99FFFF;
-    margin-top: -2px;
+    margin-top: auto;
+    margin-bottom: auto;
 }
 
 .btnactive {

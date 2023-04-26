@@ -21,11 +21,11 @@
         </div>
         <div class="col-half text-cennter">
             <ul id="nav">
-                <li><a href="">Home</a></li>
-                <li><a href="#content">Services</a></li>
+                <li><a href="http://localhost:1234/">Home</a></li>
+                <li><a href="/dashboard">Dashboard</a></li>
                 <li><a href="#tour">About</a></li>
                 <li><a href="#contact">Contact</a></li>
-                <li><a href="#">
+                <!-- <li><a href="#">
                         More
                         <i class="nav-down ti-angle-down"></i>
                     </a>
@@ -34,7 +34,7 @@
                         <li><a href="">Extras</a></li>
                         <li><a href="">Media</a></li>
                     </ul>
-                </li>
+                </li> -->
             </ul>
         </div>
         <div class="col-quarter">
@@ -44,48 +44,56 @@
             <div class="user-btn">
                 <i class="user-icon ti-user"></i>
             </div>
+            <div><span id="curClock"></span></div>
         </div>
     </div>
     <!-- DASHH BORD -->
-    <div style="margin-top: 100px;">
+    <div style="margin-top: 70px;">
         <div class="size border box-borderbox">
             <h1 class="border box-borderbox text-center">QUAN LY NHA KINH</h1>
             <div class="row">
                 <div class="col-half border ">
                     <h5 class="border text-center">Nha Kinh 1</h5>
+                    <h5 class="border text-center">YEU TO MOI TRUONG</h5>
                     <div class="row">
                         <div class="col-third boder ">
-                            <div class="border background_color text-center NPK1">
-                                <h4 class="border "> NPK</h4>
+                            <div class="border background_color text-center Temperature1 ">
+                                <h4 class="border "> Nhiet Do</h4>
                                 <div class="mg_mid9"><span class="nd1">kjkg</span></div>
                             </div>
                         </div>
                         <div class="col-third boder ">
+                            <div class="border background_color text-center AnhSang1">
+                                <h4 class="border">Anh Sang</h4>
+                                <div class="mg_mid9"><span>kjkg</span></div>
+                            </div>
+                        </div>
+                        <div class="col-third boder">
                             <div class="border background_color text-center Do-am1">
                                 <h4 class="border">Do Am</h4>
                                 <div class="mg_mid9"><span>kjkg</span></div>
                             </div>
                         </div>
-                        <div class="col-third boder">
-                            <div class="border background_color text-center Luong-mua1">
-                                <h4 class="border">Luong Mua</h4>
-                                <div class="mg_mid9"><span>kjkg</span></div>
-                            </div>
-                        </div>
                     </div>
 
-                    <h5 class="border text-center">Nhiet DO</h5>
+                    <h5 class="border text-center">YEU TO TRONG DAT</h5>
                     <div class="row">
-                        <div class="col-half border">
-                            <div class="border background_color text-center">
-                                <h4 class="border text-center"> Khong Khi</h4>
+                        <div class="col-third boder ">
+                            <div class="border background_color text-center PH1">
+                                <h4 class="border">PH</h4>
                                 <div class="mg_mid9"><span>kjkg</span></div>
                             </div>
                         </div>
-                        <div class="col-half border">
-                            <div class="border background_color text-centertext-center">
-                                <h4 class="border text-center"> Dat</h4>
-                                <div class="mg_mid9 text-center"><span>kjkg</span></div>
+                        <div class="col-third boder ">
+                            <div class="border background_color text-center NPK1">
+                                <h4 class="border">NPK</h4>
+                                <div class="mg_mid9"><span>kjkg</span></div>
+                            </div>
+                        </div>
+                        <div class="col-third boder ">
+                            <div class="border background_color text-center ">
+                                <h4 class="border">Do Am</h4>
+                                <div class="mg_mid9"><span>kjkg</span></div>
                             </div>
                         </div>
                     </div>
@@ -113,30 +121,62 @@
                             <option value="0" class="value1">AUTO</option>
                             <option value="1" class="value2">MANUAL</option>
                         </select> -->
-                    <h5 class="border text-center">Trang Thai 1</h5>
+                    <h5 class="border text-center">Trang Thai</h5>
                     <div class="row">
-                        <div class="col-third border background_color hei79 text-center center-parent">
+                        <div class="col-half border background_color hei79 text-center center-parent">
                             <h4 class="border text-center">ĐÈN</h4>
                             <input type="button" id="btn1" class="btn btn_on1 " value="ON">
                             <!-- <input type="button" class="btn2 btn_on7 display-none" value="ON"> -->
                             <div class="display-none element1">
-                                <div class="btn2 center-me btn_on7">ON</div>
+                                <div class="btn2 center-me">ON</div>
                             </div>
                         </div>
-                        <div class="col-third border background_color text-center hei79">
+                        <div class="col-half border background_color text-center hei79">
                             <h4 class="border text-center">QUẠT</h4>
                             <input type="button" class="btn btn_on2 " value="ON">
                             <!-- <input type="button" class="btn2 btn_on8 display-none" value="ON"> -->
                             <div class="display-none element2">
-                                <div class="btn2 center-me btn_on8">ON</div>
+                                <div class="btn2 center-me">ON</div>
                             </div>
                         </div>
-                        <div class="col-third border background_color text-center hei79">
-                            <h4 class="border text-center">BƠM</h4>
+                    
+                    </div>
+                    <!-- 4 BOM -->
+                    <div class="row">
+                        <!-- BOM1 -->
+                        <div class="col-four border background_color text-center hei79">
+                            <h4 class="border text-center">BƠM 1</h4>
                             <input type="button" class="btn btn_on3 " value="ON">
-                            <!-- <input type="button" class="btn2 btn_on9 display-none" value="ON"> -->
+                           
                             <div class="display-none element3">
-                                <div class="btn2 center-me btn_on9">ON</div>
+                                <div class="btn2 center-me">ON</div>
+                            </div>
+                        </div>
+                        <!-- BOM2 -->
+                        <div class="col-four border background_color text-center hei79">
+                            <h4 class="border text-center">BƠM 2</h4>
+                            <input type="button" class="btn btn_on4 " value="ON">
+                           
+                            <div class="display-none element4">
+                                <div class="btn2 center-me">ON</div>
+                            </div>
+                        </div>
+                        <!-- BOM3 -->
+                        <div class="col-four border background_color text-center hei79">
+                            <h4 class="border text-center">BƠM 3</h4>
+                            <input type="button" class="btn btn_on5 " value="ON">
+                           
+                            <div class="display-none element5">
+                                <div class="btn2 center-me">ON</div>
+                            </div>
+                        </div>
+                        <!-- BOM4 -->
+                        <div class="col-four border background_color text-center hei79">
+                            <h4 class="border text-center">BƠM 4</h4>
+                            <input type="button" class="btn btn_on6 " value="ON">
+                           
+                            <div class="display-none element6">
+                                <div class="btn2 center-me">ON</div>
                             </div>
                         </div>
                     </div>
@@ -145,10 +185,17 @@
                 <!-- NHA KINH 2 -->
                 <div class="col-half border">
                     <h5 class="border text-center text-center">Nha Kinh 2</h5>
+                    <h5 class="border text-center text-center">YEU TO MOI TRUONG</h5>
                     <div class="row text-center">
                         <div class="col-third boder ">
                             <div class="border background_color">
-                                <h4 class="border ">NPK</h4>
+                                <h4 class="border ">Nhiet DO</h4>
+                                <div class="mg_mid9"><span>kjkg</span></div>
+                            </div>
+                        </div>
+                        <div class="col-third boder">
+                            <div class="border background_color">
+                                <h4 class="border">Anh Sang</h4>
                                 <div class="mg_mid9"><span>kjkg</span></div>
                             </div>
                         </div>
@@ -158,26 +205,26 @@
                                 <div class="mg_mid9"><span>kjkg</span></div>
                             </div>
                         </div>
-                        <div class="col-third boder">
-                            <div class="border background_color">
-                                <h4 class="border">Luong Mua</h4>
-                                <div class="mg_mid9"><span>kjkg</span></div>
-                            </div>
-                        </div>
 
                     </div>
-                    <h5 class="border text-center">Nhiet DO</h5>
+                    <h5 class="border text-center">YEU TO TRONG DAT</h5>
                     <div class="row">
-                        <div class="col-half border">
-                            <div class="border background_color text-center">
-                                <h4 class="border text-center"> Khong Khi</h4>
+                        <div class="col-third boder ">
+                            <div class="border background_color text-center ">
+                                <h4 class="border">PH</h4>
                                 <div class="mg_mid9"><span>kjkg</span></div>
                             </div>
                         </div>
-                        <div class="col-half border">
-                            <div class="border background_color text-centertext-center">
-                                <h4 class="border text-center"> Dat</h4>
-                                <div class="mg_mid9 text-center"><span>kjkg</span></div>
+                        <div class="col-third boder ">
+                            <div class="border background_color text-center ">
+                                <h4 class="border">NPK</h4>
+                                <div class="mg_mid9"><span>kjkg</span></div>
+                            </div>
+                        </div>
+                        <div class="col-third boder ">
+                            <div class="border background_color text-center ">
+                                <h4 class="border">Do Am</h4>
+                                <div class="mg_mid9"><span>kjkg</span></div>
                             </div>
                         </div>
                     </div>
@@ -201,27 +248,60 @@
                         </div>
                         <span class="mg_tba border dis_manual2">AUTO</span>
                     </div>
-                    <h5 class="border text-center">Trang Thai 2</h5>
+                    <h5 class="border text-center">Trang Thai</h5>
                     <div class="row text-center">
-                        <div class="col-third border background_color hei79">
+                        <div class="col-half border background_color hei79">
                             <h4 class="border">ĐÈN</h4>
-                            <input type="button" class="btn1 btn_on4" value="ON">
-                            <div class="display-none element4">
-                                <div class="btn2 center-me btn_on10">ON</div>
+                            <input type="button" class="btn1 btn_on21" value="ON">
+                            <div class="display-none element21">
+                                <div class="btn2 center-me ">ON</div>
                             </div>
                         </div>
-                        <div class="col-third border background_color hei79">
+                        <div class="col-half border background_color hei79">
                             <h4 class="border">QUẠT</h4>
-                            <input type="button" class="btn1 btn_on5" value="ON">
-                            <div class="display-none element5">
-                                <div class="btn2 center-me btn_on11">ON</div>
+                            <input type="button" class="btn1 btn_on22" value="ON">
+                            <div class="display-none element22">
+                                <div class="btn2 center-me ">ON</div>
                             </div>
                         </div>
-                        <div class="col-third border background_color hei79">
-                            <h4 class="border">BƠM</h4>
-                            <input type="button" class="btn1 btn_on6" value="ON">
-                            <div class="display-none element6">
-                                <div class="btn2 center-me btn_on12">ON</div>
+                        
+                    </div>
+                    <div class="row">
+                        
+                        <!-- BOM1 -->
+                        <div class="col-four border background_color text-center hei79">
+                            <h4 class="border text-center">BƠM 1</h4>
+                            <input type="button" class="btn1 btn_on23" value="ON">
+                           
+                            <div class="display-none element23">
+                                <div class="btn2 center-me">ON</div>
+                            </div>
+                        </div>
+                        <!-- BOM2 -->
+                        <div class="col-four border background_color text-center hei79">
+                            <h4 class="border text-center">BƠM 2</h4>
+                            <input type="button" class="btn1 btn_on24 " value="ON">
+                           
+                            <div class="display-none element24">
+                                <div class="btn2 center-me">ON</div>
+                            </div>
+                        </div>
+                        <!-- BOM3 -->
+                        <div class="col-four border background_color text-center hei79">
+                            <h4 class="border text-center">BƠM 3</h4>
+                            <input type="button" class="btn1 btn_on25 " value="ON">
+                           
+                            <div class="display-none element25">
+                                <div class="btn2 center-me">ON</div>
+                            </div>
+                        </div>
+                        <!-- BOM4 -->
+                        <div class="col-four border background_color text-center hei79">
+                            <h4 class="border text-center">BƠM 4</h4>
+                            <input type="button" class="btn1 btn_on26 " value="ON">
+                           
+                            <div class="display-none element26">
+                                <div class="btn2 center-me">ON</div>
                             </div>
                         </div>
                     </div>
@@ -234,7 +314,7 @@
 
 
 
-    <span id="curClock"></span>
+    
     <input type="number" class="giatri1" placeholder="Nhiet do bieu do 1">
     <input type="number" class="giatri2" placeholder="Nhiet do bieu do 2">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -250,9 +330,6 @@
         var bt_on1 = document.querySelector('.btn_on1');
         var bt_on2 = document.querySelector('.btn_on2');
         var bt_on3 = document.querySelector('.btn_on3');
-        var bt_on4 = document.querySelector('.btn_on4');
-        var bt_on5 = document.querySelector('.btn_on5');
-        var bt_on6 = document.querySelector('.btn_on6');
         socket.on('display button house 1', (data) => {
             let value = data.value.toString(2);
             let bitsArray = value.split("");
@@ -299,74 +376,36 @@
         function addlight1() {
             bt_on1.classList.toggle('light');
             if (bt_on1.classList.value == 'btn btn_on1 light') {
-                //console.log(1)
-                socket.emit('den1on', '{"server":{"houseID":1,"request":"WriteDigital","lenght":"2","DO":"0","value":"0"}}');
+                console.log(1)
+                socket.emit('den1on', '{"server":{"houseID":1,"request":"WriteDigital","lenght":"2","DO":"0","value":"1"}}');
             }
             else {
-                //console.log(0)
-                socket.emit('den1off', '{"server":{"houseID":1,"request":"WriteDigital","lenght":"2","DO":"0","value":"1"}}');
+                console.log(0)
+                socket.emit('den1off', '{"server":{"houseID":1,"request":"WriteDigital","lenght":"2","DO":"0","value":"0"}}');
             }
         }
         bt_on2.addEventListener('click', addlight2);
         function addlight2() {
             bt_on2.classList.toggle('light');
             if (bt_on2.classList.value == 'btn btn_on2 light') {
-                //console.log(1)
-                socket.emit('den2on', '{"server":{"houseID":1,"request":"WriteDigital","lenght":"2","DO":"1","value":"0"}}');
+                console.log(1)
+                socket.emit('den2on', '{"server":{"houseID":1,"request":"WriteDigital","lenght":"2","DO":"1","value":"1"}}');
             }
             else {
-                //console.log(0)
-                socket.emit('den2off', '{"server":{"houseID":1,"request":"WriteDigital","lenght":"2","DO":"1","value":"1"}}');
+                console.log(0)
+                socket.emit('den2off', '{"server":{"houseID":1,"request":"WriteDigital","lenght":"2","DO":"1","value":"0"}}');
             }
         }
         bt_on3.addEventListener('click', addlight3);
         function addlight3() {
             bt_on3.classList.toggle('light');
             if (bt_on3.classList.value == 'btn btn_on3 light') {
-                //console.log(1)
-                socket.emit('den3on', '{"server":{"houseID":1,"request":"WriteDigital","lenght":"2","DO":"2","value":"0"}}');
+                console.log(1)
+                socket.emit('den3on', '{"server":{"houseID":1,"request":"WriteDigital","lenght":"2","DO":"2","value":"1"}}');
             }
             else {
-                //console.log(0)
-                socket.emit('den3off', '{"server":{"houseID":1,"request":"WriteDigital","lenght":"2","DO":"2","value":"1"}}');
-            }
-        }
-        bt_on4.addEventListener('click', addlight4);
-        function addlight4() {
-            bt_on4.classList.toggle('light');
-            if (bt_on4.classList.value == 'btn1 btn_on4 light') {
-                //console.log(1)
-                socket.emit('den7on', '{"server":{"houseID":2,"request":"WriteDigital","lenght":"2","DO":"0","value":"0"}}');
-            }
-            else {
-                //console.log(0)
-                socket.emit('den7off', '{"server":{"houseID":2,"request":"WriteDigital","lenght":"2","DO":"0","value":"1"}}');
-            }
-        }
-
-        bt_on5.addEventListener('click', addlight5);
-        function addlight5() {
-            bt_on5.classList.toggle('light');
-            if (bt_on5.classList.value == 'btn1 btn_on5 light') {
-                //console.log(1)
-                socket.emit('den8on', '{"server":{"houseID":2,"request":"WriteDigital","lenght":"2","DO":"1","value":"0"}}');
-            }
-            else {
-                //console.log(0)
-                socket.emit('den8off', '{"server":{"houseID":2,"request":"WriteDigital","lenght":"2","DO":"1","value":"1"}}');
-            }
-        }
-
-        bt_on6.addEventListener('click', addlight6);
-        function addlight6() {
-            bt_on6.classList.toggle('light');
-            if (bt_on6.classList.value == 'btn1 btn_on6 light') {
-                //console.log(1)
-                socket.emit('den9on', '{"server":{"houseID":2,"request":"WriteDigital","lenght":"2","DO":"2","value":"0"}}');
-            }
-            else {
-                //console.log(0)
-                socket.emit('den9off', '{"server":{"houseID":2,"request":"WriteDigital","lenght":"2","DO":"2","value":"1"}}');
+                console.log(0)
+                socket.emit('den3off', '{"server":{"houseID":1,"request":"WriteDigital","lenght":"2","DO":"2","value":"0"}}');
             }
         }
 

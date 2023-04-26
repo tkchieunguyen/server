@@ -98,7 +98,7 @@ html {
     right: 0;
     z-index: 1;
     display: flex;
-
+    min-width: 1190px;
 }
 
 #header .icon-web {
