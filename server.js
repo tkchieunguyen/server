@@ -41,19 +41,19 @@ app.use(limiter)
 
 io.on('connection', (socket) => {
     console.log('a user connected')
-    socket.on('read digital', (data) => {
-        let jsonData = JSON.parse(data)
-        //console.log(jsonData.houseID);
-        switch (jsonData.houseID.toString()) {
-            case "1":
-                io.emit('display button house 1', jsonData)
-                break;
-            case "2":
-                io.emit('display button house 2', jsonData)
-                break;
-        }
+    // socket.on('read digital', (data) => {
+    //     let jsonData = JSON.parse(data)
+    //     //console.log(jsonData.houseID);
+    //     switch (jsonData.houseID.toString()) {
+    //         case "1":
+    //             io.emit('display button house 1', jsonData)
+    //             break;
+    //         case "2":
+    //             io.emit('display button house 2', jsonData)
+    //             break;
+    //     }
 
-    })
+    // })
     // setInterval(() => {
     //     let data = Math.floor(Math.random() * 31) + 20
     //     //let data = "hiếu"
@@ -67,24 +67,23 @@ io.on('connection', (socket) => {
     //     socket.emit('s-c-data2', data2)
     // }, 5000)
 
-    //NHẬN TỪ ESP//
+    //NHẬN TỪ ESP// READ DIGITAL
     socket.on('C-ReadDigital', (data) => {
         jsonData = JSON.parse(data)
         console.log(JSON.parse(data))
-        switch (jsonData.houseID.toString()) {
-            case "1":
-                io.emit('display1', data)
-                break;
-            case "2":
-                io.emit('display2', data)
-                break;
-        }
+        setInterval(() => {
+            switch (jsonData.houseID.toString()) {
+                case "1":
+                    io.emit('display1', data)
+                    break;
+                case "2":
+                    io.emit('display2', data)
+                    break;
+            }
+        }, 700)
+
         // console.log(data1)
 
-    })
-
-    socket.on('C-WriteDigital', (data) => {
-        //console.log(JSON.parse(data))
     })
     socket.on('C-ReadADC', (data) => {
     })
@@ -104,7 +103,7 @@ io.on('connection', (socket) => {
         console.log(JSON.parse(data.substring(0, data.lastIndexOf("[CRC 32 BIT]"))))
     })
 
-    // NHẬN TỪ USER//
+    // NHẬN TỪ USER// WRITE DIGITAL
     socket.on('den1on', (data) => {
         var jsonData = JSON.stringify({ data: data })
         console.log(data)
