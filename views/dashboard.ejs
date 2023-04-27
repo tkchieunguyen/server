@@ -121,7 +121,7 @@
                             <option value="0" class="value1">AUTO</option>
                             <option value="1" class="value2">MANUAL</option>
                         </select> -->
-                    <h5 class="border text-center">Trang Thai</h5>
+                    <h5 class="border text-center">Trạng Thái</h5>
                     <div class="row">
                         <div class="col-half border background_color hei79 text-center center-parent">
                             <h4 class="border text-center">ĐÈN</h4>
@@ -248,7 +248,7 @@
                         </div>
                         <span class="mg_tba border dis_manual2">AUTO</span>
                     </div>
-                    <h5 class="border text-center">Trang Thai</h5>
+                    <h5 class="border text-center">Trạng Thái</h5>
                     <div class="row text-center">
                         <div class="col-half border background_color hei79">
                             <h4 class="border">ĐÈN</h4>
@@ -323,8 +323,8 @@
     <script src="/socket.io/socket.io.js"></script>
     <script>
         const socket = io();
-        //socket.emit('C-ReadDigital', '{ "houseID": 1, "Response": "Read digital", "address": 1, "data": "fe" }')
-        //socket.emit('C-ReadDigital', '{ "houseID": 2, "Response": "Read digital", "address": 1, "data": "ea" }')
+        //socket.emit('C-ReadDigital', '{ "houseID": 1, "Response": "Read digital", "address": 1, "data": "ea" }')
+        //socket.emit('C-ReadDigital', '{ "houseID": 2, "Response": "Read digital", "address": 1, "data": "d5" }')
     </script>
     <!-- Đổi biểu đồ: -->
     <script>
@@ -345,11 +345,11 @@
         function addlight1() {
             bt_on1.classList.toggle('light');
             if (bt_on1.classList.value == 'btn btn_on1 light') {
-                console.log(1)
+                //console.log(1)
                 socket.emit('den1on', '{"server":{"houseID":1,"request":"WriteDigital","lenght":"2","DO":"0","value":"0"}}');
             }
             else {
-                console.log(0)
+                //console.log(0)
                 socket.emit('den1off', '{"server":{"houseID":1,"request":"WriteDigital","lenght":"2","DO":"0","value":"1"}}');
             }
         }
@@ -357,11 +357,11 @@
         function addlight2() {
             bt_on2.classList.toggle('light');
             if (bt_on2.classList.value == 'btn btn_on2 light') {
-                console.log(1)
+                //console.log(1)
                 socket.emit('den2on', '{"server":{"houseID":1,"request":"WriteDigital","lenght":"2","DO":"1","value":"0"}}');
             }
             else {
-                console.log(0)
+                //console.log(0)
                 socket.emit('den2off', '{"server":{"houseID":1,"request":"WriteDigital","lenght":"2","DO":"1","value":"1"}}');
             }
         }
@@ -369,11 +369,11 @@
         function addlight3() {
             bt_on3.classList.toggle('light');
             if (bt_on3.classList.value == 'btn btn_on3 light') {
-                console.log(1)
+                //console.log(1)
                 socket.emit('den3on', '{"server":{"houseID":1,"request":"WriteDigital","lenght":"2","DO":"2","value":"0"}}');
             }
             else {
-                console.log(0)
+                //console.log(0)
                 socket.emit('den3off', '{"server":{"houseID":1,"request":"WriteDigital","lenght":"2","DO":"2","value":"1"}}');
             }
         }
@@ -495,8 +495,9 @@
         }
         socket.on('display1', (data) => {
             let jsonData = JSON.parse(data)
+            //console.log(jsonData)
             let value = parseInt(jsonData.data, 16).toString(2)
-            console.log(value)
+            //console.log(value)
             let bitsArray = value.split("");
             let bit1 = bitsArray[0];
             let bit2 = bitsArray[1];
@@ -561,6 +562,7 @@
         })
         socket.on('display2', (data) => {
             let jsonData = JSON.parse(data)
+            console.log(jsonData)
             let value = parseInt(jsonData.data, 16).toString(2)
             console.log(value)
             let bitsArray = value.split("");
@@ -625,6 +627,7 @@
                     break;
             }
         })
+
 
     </script>
 </body>

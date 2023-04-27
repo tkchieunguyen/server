@@ -68,23 +68,27 @@ io.on('connection', (socket) => {
     // }, 5000)
 
     //NHẬN TỪ ESP// READ DIGITAL
+    let houseId_ReadDigital = null
+    let jsonData__ReadDigital = null
     socket.on('C-ReadDigital', (data) => {
-        jsonData = JSON.parse(data)
-        console.log(JSON.parse(data))
-        setInterval(() => {
-            switch (jsonData.houseID.toString()) {
-                case "1":
-                    io.emit('display1', data)
-                    break;
-                case "2":
-                    io.emit('display2', data)
-                    break;
-            }
-        }, 700)
-
-        // console.log(data1)
-
+        jsonData__ReadDigital = JSON.parse(data)
+        console.log(data);
+        //console.log(JSON.parse(jsonData__ReadDigital))
+        houseId_ReadDigital = parseInt(jsonData__ReadDigital.HouseID, 10)
+        //console.log(houseId)
     })
+    setInterval(() => {
+        switch (houseId_ReadDigital) {
+            case 1:
+                //console.log(houseId)
+                io.emit('display1', JSON.stringify(jsonData__ReadDigital))
+                break;
+            case 2:
+                //console.log(houseId)
+                io.emit('display2', JSON.stringify(jsonData__ReadDigital))
+                break;
+        }
+    }, 1)
     socket.on('C-ReadADC', (data) => {
     })
     socket.on('C-ReadI2C', (data) => {
