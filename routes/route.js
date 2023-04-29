@@ -32,7 +32,8 @@ const initWebRoute = (app) => {
     router.get('/', controller.getHomePage)
     router.get('/login', controller.getLogin)
     router.post('/login', controller.postLogin)
-    router.get('/dashboard', checkLogin, controller.getDashboard)
+    //router.get('/dashboard', checkLogin, controller.getDashboard)
+    router.get('/dashboard', controller.getDashboard)
     router.post('/register', upload_image.single('file'), controller.postRegister)
     return app.use('/', router)
 }
