@@ -97,10 +97,10 @@ io.on('connection', (socket) => {
     socket.on('C-RequestI2C', (data) => {
         console.log(JSON.parse(data.substring(0, data.lastIndexOf("[CRC 32 BIT]"))))
     })
-    socket.on('C-ScanI2C', (data) => {
-        console.log(JSON.parse(data))
-        io.emit('GET_I2C_DEVICE', JSON.parse(data))
-    })
+    // socket.on('C-ScanI2C', (data) => {
+    //     console.log(JSON.parse(data))
+    //     io.emit('GET_I2C_DEVICE', JSON.parse(data))
+    // })
     socket.on('C-CheckStatus', (data) => {
         console.log(JSON.parse(data.substring(0, data.lastIndexOf("[CRC 32 BIT]"))))
     })
@@ -123,10 +123,9 @@ io.on('connection', (socket) => {
         'den11on', 'den11off',
         'den12on', 'den12off',];
     events.forEach(event => {
-        socket.on(event, data => {
-            const jsonData = JSON.stringify({ data });
+        socket.on(event, (data) => {
             console.log(data);
-            io.emit(`${event}sv`, jsonData);
+            io.emit(`${event}sv`, data);
         });
     });
     socket.on('config', (data) => {
