@@ -88,7 +88,7 @@ io.on('connection', (socket) => {
                 io.emit('display2', JSON.stringify(jsonData__ReadDigital))
                 break;
         }
-    }, 1)
+    }, 100)
     socket.on('C-ReadADC', (data) => {
         console.log(data)
     })
