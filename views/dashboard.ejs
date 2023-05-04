@@ -93,7 +93,9 @@
                         <div class="col-third boder ">
                             <div class="border background_color text-center ">
                                 <h4 class="border">Do Am</h4>
-                                <div class="mg_mid9"><span>kjkg</span></div>
+                                <div class="mg_mid9"><span>
+                                        <div class="do_am_dat"></div>
+                                    </span></div>
                             </div>
                         </div>
                     </div>
@@ -323,7 +325,13 @@
     <script src="/socket.io/socket.io.js"></script>
     <script>
         const socket = io();
-
+        socket.on('S-ReadADC', (value) => {
+            console.log(value);
+            const divElement = document.querySelector('.do_am_dat');
+            if (divElement) {
+                divElement.textContent = value.toFixed(0) + "%";
+            }
+        })
         //socket.emit('C-ReadDigital', '{ "houseID": 1, "Response": "Read digital", "address": 1, "data": "ea" }')
         //socket.emit('C-ReadDigital', '{ "houseID": 2, "Response": "Read digital", "address": 1, "data": "d5" }')
     </script>
@@ -628,8 +636,6 @@
                     break;
             }
         })
-
-
     </script>
 </body>
 

@@ -16,6 +16,7 @@ const { stringify } = require('querystring')
 const API_initWebRoute = require('./routes/api')
 const server = http.createServer(app)
 const io = require('socket.io')(server);
+const { connection } = require('./MySQL')
 
 
 
@@ -99,7 +100,7 @@ io.on('connection', (socket) => {
         let Vin = decNumber * 3.3 / 65535
         let R = (5 - Vin) * 10000 / Vin
         let value = (decNumber - 1450) * 100 / (600 - 1450)
-        console.log(value)
+        io.emit('S-ReadADC', value)
     })
     socket.on('C-ReadI2C', (data) => {
         console.log(JSON.parse(data.substring(0, data.lastIndexOf("[CRC 32 BIT]"))))
