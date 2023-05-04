@@ -13,6 +13,7 @@ const initWebRoute = require('./routes/route')
 const http = require('http')
 const { json } = require('body-parser')
 const { stringify } = require('querystring')
+const API_initWebRoute = require('./routes/api')
 const server = http.createServer(app)
 const io = require('socket.io')(server);
 
@@ -88,9 +89,17 @@ io.on('connection', (socket) => {
                 io.emit('display2', JSON.stringify(jsonData__ReadDigital))
                 break;
         }
-    }, 100)
+    }, 10)
     socket.on('C-ReadADC', (data) => {
-        console.log(data)
+        let jsonData = JSON.parse(data)
+        let msb = jsonData.data_1_MSB
+        let lsb = jsonData.data_1_LSB
+        let hexString = msb + lsb
+        let decNumber = parseInt(hexString);
+        let Vin = decNumber * 3.3 / 65535
+        let R = (5 - Vin) * 10000 / Vin
+        let value = (decNumber - 1450) * 100 / (600 - 1450)
+        console.log(value)
     })
     socket.on('C-ReadI2C', (data) => {
         console.log(JSON.parse(data.substring(0, data.lastIndexOf("[CRC 32 BIT]"))))
@@ -146,3 +155,4 @@ server.listen(port, () =>
 )
 db.connect()
 initWebRoute(app)
+API_initWebRoute(app)
