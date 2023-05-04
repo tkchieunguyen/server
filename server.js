@@ -97,10 +97,10 @@ io.on('connection', (socket) => {
     socket.on('C-RequestI2C', (data) => {
         console.log(JSON.parse(data.substring(0, data.lastIndexOf("[CRC 32 BIT]"))))
     })
-    // socket.on('C-ScanI2C', (data) => {
-    //     console.log(JSON.parse(data))
-    //     io.emit('GET_I2C_DEVICE', JSON.parse(data))
-    // })
+    socket.on('C-ScanI2C', (data) => {
+        console.log(JSON.parse(data))
+        io.emit('GET_I2C_DEVICE', JSON.parse(data))
+    })
     socket.on('C-CheckStatus', (data) => {
         console.log(JSON.parse(data.substring(0, data.lastIndexOf("[CRC 32 BIT]"))))
     })

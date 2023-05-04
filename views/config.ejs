@@ -5,6 +5,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/dashboard/header.css">
+    <link rel="stylesheet" href="/css/config.css">
+    <link rel="stylesheet" href="/css/themify-icons/themify-icons.css">
     <title>Document</title>
     <style>
         form {
@@ -14,25 +17,99 @@
 </head>
 
 <body>
+    <!-- header -->
+    <div id="header">
+        <div class="col-quarter icon-web">
+            <img src="/img/logo-canh-cay.PNG" alt="logo-IUH" class="logo-canh-cay">
+            <h5>DHDKTD K15</h5>
+        </div>
+        <div class="col-half text-cennter">
+            <ul id="nav">
+                <li><a href="http://localhost:1234/">Home</a></li>
+                <li><a href="/dashboard">Dashboard</a></li>
+                <li><a href="/config">Configuration</a></li>
+                <li><a href="/contact">Contact</a></li>
+            </ul>
+        </div>
+        <div class="col-quarter">
+            <div class="input-user user-btn">
+                Log In
+            </div>
+            <div class="user-btn">
+                <i class="user-icon ti-user"></i>
+            </div>
+            <div><span id="curClock"></span></div>
+        </div>
+    </div>
+
+    <!-- config -->
+    <div style="margin-top: 70px; text-align: center;">
     <h1>đây là config</h1>
-    <button class="scani2c1">SCAN I2C HOUSE 1</button><br>
+    <!-- <button class="scani2c1">SCAN I2C HOUSE 1</button><br>
     <button class="scani2c2">SCAN I2C HOUSE 2</button><br><br>
     <form onsubmit="sendData(event)">
         <label for="adcInput">Nhập giá trị ADC:</label>
         <input type="number" id="adcInput" name="adcInput">
         <button type="submit">Gửi</button>
     </form>
-    <!-- <form onsubmit="sendData2(event)">
+    <form onsubmit="sendData2(event)">
         <label for="i2cInput">Nhập giá trị Read I2C:</label>
         <input type="number" id="i2cInput" name="i2cInput">
         <button type="submit">Gửi</button>
-    </form> -->
+    </form>
     <div id="formContainer"></div>
     <form onsubmit="sendData1(event)">
         <label for="rs485Input">Nhập giá trị RS485:</label>
         <input type="number" id="rs485Input" name="rs485Input">
         <button type="submit">Gửi</button>
-    </form>
+    </form> -->
+
+    <div class="row">
+        <div class="col-half">
+            <button class="scani2c1">SCAN I2C HOUSE 1</button><br>
+            <div style=" padding-left: 10px;padding-right: 10px;">
+            <form onsubmit="sendData(event)">
+                <label for="adcInput">Nhập giá trị ADC:</label>
+                <input type="number" id="adcInput" name="adcInput">
+                <button type="submit">Gửi</button>
+            </form>
+            <form onsubmit="sendData2(event)">
+                <label for="i2cInput">Nhập giá trị Read I2C:</label>
+                <input type="number" id="i2cInput" name="i2cInput">
+                <button type="submit">Gửi</button>
+            </form>
+            <div id="formContainer"></div>
+            <form onsubmit="sendData1(event)">
+                <label for="rs485Input">Nhập giá trị RS485:</label>
+                <input type="number" id="rs485Input" name="rs485Input">
+                <button type="submit">Gửi</button>
+            </form>
+            </div>
+        </div>
+        <div class="col-half">
+            <button class="scani2c1">SCAN I2C HOUSE 2</button><br>
+            <form onsubmit="sendData3(event)">
+                <label for="adcInput">Nhập giá trị ADC:</label>
+                <input type="number" id="adcInput" name="adcInput">
+                <button type="submit">Gửi</button>
+            </form>
+            <form onsubmit="sendData5(event)">
+                <label for="i2cInput">Nhập giá trị Read I2C:</label>
+                <input type="number" id="i2cInput" name="i2cInput">
+                <button type="submit">Gửi</button>
+            </form>
+            <div id="formContainer2"></div>
+            <form onsubmit="sendData4(event)">
+                <label for="rs485Input">Nhập giá trị RS485:</label>
+                <input type="number" id="rs485Input" name="rs485Input">
+                <button type="submit">Gửi</button>
+            </form>
+        </div>
+    </div>
+    
+
+
+    </div>
     <script src="/socket.io/socket.io.js"></script>
     <script>
         const socket = io();
