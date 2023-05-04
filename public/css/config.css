@@ -1,0 +1,11 @@
+.col-half {
+    width: 50%;
+}
+
+.row {
+    display: flex;
+}
+
+.item-right{
+    float: right;
+}
