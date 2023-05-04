@@ -98,7 +98,8 @@ io.on('connection', (socket) => {
         console.log(JSON.parse(data.substring(0, data.lastIndexOf("[CRC 32 BIT]"))))
     })
     socket.on('C-ScanI2C', (data) => {
-        console.log(JSON.parse(data.substring(0, data.lastIndexOf("[CRC 32 BIT]"))))
+        console.log(JSON.parse(data))
+        io.emit('GET_I2C_DEVICE', JSON.parse(data))
     })
     socket.on('C-CheckStatus', (data) => {
         console.log(JSON.parse(data.substring(0, data.lastIndexOf("[CRC 32 BIT]"))))
@@ -108,149 +109,32 @@ io.on('connection', (socket) => {
     })
 
     // NHẬN TỪ USER// WRITE DIGITAL
-    socket.on('den1on', (data) => {
-        var jsonData = JSON.stringify({ data: data })
+    const events = [
+        'den1on', 'den1off',
+        'den2on', 'den2off',
+        'den3on', 'den3off',
+        'den4on', 'den4off',
+        'den5on', 'den5off',
+        'den6on', 'den6off',
+        'den7on', 'den7off',
+        'den8on', 'den8off',
+        'den9on', 'den9off',
+        'den10on', 'den10off',
+        'den11on', 'den11off',
+        'den12on', 'den12off',];
+    events.forEach(event => {
+        socket.on(event, data => {
+            const jsonData = JSON.stringify({ data });
+            console.log(data);
+            io.emit(`${event}sv`, jsonData);
+        });
+    });
+    socket.on('config', (data) => {
         console.log(data)
-        //io.emit('den1onsv', jsonData)
-        io.emit('den1onsv', data)
     })
-    socket.on('den1off', (data) => {
-        var jsonData = JSON.stringify({ data: data })
-        console.log(data)
-        //io.emit('den1offsv', jsonData)
-        io.emit('den1offsv', data)
-    })
-    socket.on('den2on', (data) => {
-        var jsonData = JSON.stringify({ data: data })
-        console.log(data)
-        // io.emit('den2onsv', jsonData)
-        io.emit('den2onsv', data)
-    })
-    socket.on('den2off', (data) => {
-        var jsonData = JSON.stringify({ data: data })
-        console.log(data)
-        //io.emit('den2offsv', jsonData)
-        io.emit('den2offsv', data)
-    })
-    socket.on('den3on', (data) => {
-        var jsonData = JSON.stringify({ data: data })
-        console.log(data)
-        // io.emit('den3onsv', jsonData)
-        io.emit('den3onsv', data)
-    })
-    socket.on('den3off', (data) => {
-        var jsonData = JSON.stringify({ data: data })
-        console.log(data)
-        //io.emit('den3offsv', jsonData)
-        io.emit('den3offsv', data)
-    })
-    socket.on('den4on', (data) => {
-        var jsonData = JSON.stringify({ data: data })
-        console.log(data)
-        // io.emit('den2onsv', jsonData)
-        io.emit('den4onsv', data)
-    })
-    socket.on('den4off', (data) => {
-        var jsonData = JSON.stringify({ data: data })
-        console.log(data)
-        //io.emit('den2offsv', jsonData)
-        io.emit('den4offsv', data)
-    })
-    socket.on('den5on', (data) => {
-        var jsonData = JSON.stringify({ data: data })
-        console.log(data)
-        // io.emit('den2onsv', jsonData)
-        io.emit('den5onsv', data)
-    })
-    socket.on('den5off', (data) => {
-        var jsonData = JSON.stringify({ data: data })
-        console.log(data)
-        //io.emit('den2offsv', jsonData)
-        io.emit('den5offsv', data)
-    })
-    socket.on('den6on', (data) => {
-        var jsonData = JSON.stringify({ data: data })
-        console.log(data)
-        // io.emit('den2onsv', jsonData)
-        io.emit('den6onsv', data)
-    })
-    socket.on('den6off', (data) => {
-        var jsonData = JSON.stringify({ data: data })
-        console.log(data)
-        //io.emit('den2offsv', jsonData)
-        io.emit('den6offsv', data)
-    })
-    socket.on('den7on', (data) => {
-        var jsonData = JSON.stringify({ data: data })
-        console.log(data)
-        // io.emit('den3onsv', jsonData)
-        io.emit('den7onsv', data)
-    })
-    socket.on('den7off', (data) => {
-        var jsonData = JSON.stringify({ data: data })
-        console.log(data)
-        //io.emit('den3offsv', jsonData)
-        io.emit('den7offsv', data)
-    })
-    socket.on('den8on', (data) => {
-        var jsonData = JSON.stringify({ data: data })
-        console.log(data)
-        // io.emit('den3onsv', jsonData)
-        io.emit('den8onsv', data)
-    })
-    socket.on('den8off', (data) => {
-        var jsonData = JSON.stringify({ data: data })
-        console.log(data)
-        //io.emit('den3offsv', jsonData)
-        io.emit('den8offsv', data)
-    })
-    socket.on('den9on', (data) => {
-        var jsonData = JSON.stringify({ data: data })
-        console.log(data)
-        // io.emit('den3onsv', jsonData)
-        io.emit('den9onsv', data)
-    })
-    socket.on('den9off', (data) => {
-        var jsonData = JSON.stringify({ data: data })
-        console.log(data)
-        //io.emit('den3offsv', jsonData)
-        io.emit('den9offsv', data)
-    })
-    socket.on('den10on', (data) => {
-        var jsonData = JSON.stringify({ data: data })
-        console.log(data)
-        // io.emit('den3onsv', jsonData)
-        io.emit('den10onsv', data)
-    })
-    socket.on('den10off', (data) => {
-        var jsonData = JSON.stringify({ data: data })
-        console.log(data)
-        //io.emit('den3offsv', jsonData)
-        io.emit('den10offsv', data)
-    })
-    socket.on('den11on', (data) => {
-        var jsonData = JSON.stringify({ data: data })
-        console.log(data)
-        // io.emit('den3onsv', jsonData)
-        io.emit('den11onsv', data)
-    })
-    socket.on('den11off', (data) => {
-        var jsonData = JSON.stringify({ data: data })
-        console.log(data)
-        //io.emit('den3offsv', jsonData)
-        io.emit('den11offsv', data)
-    })
-    socket.on('den12on', (data) => {
-        var jsonData = JSON.stringify({ data: data })
-        console.log(data)
-        // io.emit('den3onsv', jsonData)
-        io.emit('den12onsv', data)
-    })
-    socket.on('den12off', (data) => {
-        var jsonData = JSON.stringify({ data: data })
-        console.log(data)
-        //io.emit('den3offsv', jsonData)
-        io.emit('den12offsv', data)
+    socket.on('scan_i2c', (data) => {
+        console.log(data);
+        io.emit('scan_i2csv', (data))
     })
     socket.on('disconnect', () => {
         console.log("disconnection");

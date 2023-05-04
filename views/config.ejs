@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        form {
+            display: flex;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>đây là config</h1>
+    <button class="scani2c1">SCAN I2C HOUSE 1</button><br>
+    <button class="scani2c2">SCAN I2C HOUSE 2</button><br><br>
+    <form onsubmit="sendData(event)">
+        <label for="adcInput">Nhập giá trị ADC:</label>
+        <input type="number" id="adcInput" name="adcInput">
+        <button type="submit">Gửi</button>
+    </form>
+    <!-- <form onsubmit="sendData2(event)">
+        <label for="i2cInput">Nhập giá trị Read I2C:</label>
+        <input type="number" id="i2cInput" name="i2cInput">
+        <button type="submit">Gửi</button>
+    </form> -->
+    <div id="formContainer"></div>
+    <form onsubmit="sendData1(event)">
+        <label for="rs485Input">Nhập giá trị RS485:</label>
+        <input type="number" id="rs485Input" name="rs485Input">
+        <button type="submit">Gửi</button>
+    </form>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io();
+        socket.emit('C-ScanI2C', '{"HouseID":1,"cmd":"SCAN I2C","lenght":2,"address1":45,"address2":41}')
+        socket.on("GET_I2C_DEVICE", (data) => {
+            for (let i = 1; i <= data.lenght; i++) {
+                const addressKey = `address${i}`;
+                const addressValue = data[addressKey];
+                console.log(`${addressKey}: ${addressValue}`);
+                const form = document.createElement("form");
+                form.addEventListener("submit", (event) => sendData2(event, addressValue));
+
+                const label = document.createElement("label");
+                label.setAttribute("for", `i2cInput${addressValue}`);
+                label.textContent = `Nhập giá trị Read I2C cho địa chỉ ${addressValue}:`;
+
+                const input = document.createElement("input");
+                input.setAttribute("type", "number");
+                input.setAttribute("id", `i2cInput${addressValue}`);
+                input.setAttribute("name", "i2cInput");
+
+                const button = document.createElement("button");
+                button.setAttribute("type", "submit");
+                button.textContent = "Gửi";
+
+                form.appendChild(label);
+                form.appendChild(input);
+                form.appendChild(button);
+
+                // Thêm form vào HTML
+                const container = document.getElementById("formContainer");
+                container.appendChild(form);
+            }
+        })
+        function sendData(event) {
+            event.preventDefault();
+            let adcInput = parseInt(document.getElementById("adcInput").value);
+            let hexString = adcInput.toString(16).padStart(4, '0');
+            let hexBytes = [hexString.substr(0, 2), hexString.substr(2, 2)];
+            socket.emit("config", '{"houseID":1,"cmd":9,"cmdAuto":1,"lenght":3,"cmdID":20,"time1":' + hexBytes[0] + ',"time2":' + hexBytes[1] + '}');
+            document.getElementById("adcInput").value = "";
+        }
+        function sendData1(event) {
+            event.preventDefault();
+            let rs485Input = parseInt(document.getElementById("rs485Input").value);
+            let hexString = rs485Input.toString(16).padStart(4, '0');
+            let hexBytes = [hexString.substr(0, 2), hexString.substr(2, 2)];
+            socket.emit("config", '{"houseID":1,"cmd":9,"cmdAuto":8,"lenght":3,"cmdID":22,"time1":' + hexBytes[0] + ',"time2":' + hexBytes[1] + '}');
+            document.getElementById("rs485Input").value = "";
+        }
+        function sendData2(event, addressValue) {
+            event.preventDefault();
+            let i2cInput = parseInt(document.getElementById(`i2cInput${addressValue}`).value);
+            let hexString = i2cInput.toString(16).padStart(4, '0');
+            let hexBytes = [hexString.substr(0, 2), hexString.substr(2, 2)];
+            socket.emit("config", '{"houseID":1,"cmd":9,"cmdAuto":5,"lenght":4,"address I2C":' + addressValue + ',"cmdID":21,"time1":' + hexBytes[0] + ',"time2":' + hexBytes[1] + '}');
+            document.getElementById(`i2cInput${addressValue}`).value = "";
+        }
+        var scani2c1 = document.querySelector('.scani2c1');
+        scani2c1.addEventListener('click', () => {
+            socket.emit('scan_i2c', '{"houseID":1,"cmd":3,"lenght":0}')
+        })
+        var scani2c2 = document.querySelector('.scani2c2');
+        scani2c2.addEventListener('click', () => {
+            socket.emit('scan_i2c', '{"houseID":2,"cmd":3,"lenght":0}')
+        })
+    </script>
+</body>
+
+</html>
