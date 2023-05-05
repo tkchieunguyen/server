@@ -214,11 +214,11 @@ box_on1.addEventListener('click', addactive1)
 // })
 
 // NPK
-document.querySelector('.NPK1').addEventListener('click', chartNPK1);
-function chartNPK1() {
-  myChart1.data.datasets[0].label = '#NPK';
-  myChart1.update();
-}
+// document.querySelector('.NPK1').addEventListener('click', chartNPK1);
+// function chartNPK1() {
+//   myChart1.data.datasets[0].label = '#NPK';
+//   myChart1.update();
+// }
 // PH
 document.querySelector('.PH1').addEventListener('click', chartPH1);
 function chartPH1() {
@@ -292,10 +292,10 @@ myChart1 = new Chart(ctx, val2);
 
 setInterval(function (e) {
   const randomvalue= Math.floor(Math.random(39) * 100)
-  if (randomvalue>=50){
-    bt_on1.classList.add('light')
-  }
-  else {bt_on1.classList.remove('light')}
+  // if (randomvalue>=50){
+  //   bt_on1.classList.add('light')
+  // }
+  // else {bt_on1.classList.remove('light')}
   if (valdata.length < 6) {  
     myChart1.data.datasets.data = valdata.push(randomvalue);
     myChart1.data.labels.push(clock2);
