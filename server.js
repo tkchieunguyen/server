@@ -17,6 +17,7 @@ const API_initWebRoute = require('./routes/api')
 const server = http.createServer(app)
 const io = require('socket.io')(server);
 const { connection } = require('./MySQL')
+const moment = require('moment')
 
 
 
@@ -37,7 +38,7 @@ const limiter = rateLimit({
     // 15 minutes
     windowMs: 60 * 15 * 1000,
     // limit each IP to 100 requests per windowMs
-    max: 100
+    max: 1000
 });
 app.use(limiter)
 
@@ -100,10 +101,29 @@ io.on('connection', (socket) => {
         let Vin = decNumber * 3.3 / 65535
         let R = (5 - Vin) * 10000 / Vin
         let value = (decNumber - 1450) * 100 / (600 - 1450)
+        let time = moment().format('YYYY-MM-DD HH:mm:ss')
+        connection.execute('INSERT INTO adc_1(value,time) VALUES (?,?)', [value, time])
         io.emit('S-ReadADC', value)
     })
+    // SEND DATA TO CHART
+    // let values = []
+    // let times = []
+    // setInterval(() => {
+    //     let query = "SELECT value, time FROM adc_1 ORDER BY time DESC LIMIT 6"
+    //     connection.query(query, (error, results, fields) => {
+    //         if (error) throw error
+    //         results.forEach(result => {
+    //             values.unshift(result.value) // thêm giá trị vào đầu mảng
+    //             times.unshift(result.time) // thêm thời gian vào đầu mảng
+    //         })
+    //         console.log(values) // hiển thị mảng giá trị
+    //         console.log(times) // hiển thị mảng thời gian
+    //     })
+    // }, 5000)
+
+
     socket.on('C-ReadI2C', (data) => {
-        console.log(JSON.parse(data.substring(0, data.lastIndexOf("[CRC 32 BIT]"))))
+        //console.log(JSON.parse(data.substring(0, data.lastIndexOf("[CRC 32 BIT]"))))
     })
     socket.on('C-RequestI2C', (data) => {
         console.log(JSON.parse(data.substring(0, data.lastIndexOf("[CRC 32 BIT]"))))

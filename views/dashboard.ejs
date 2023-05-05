@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="/css/dashboard/main.css">
     <link rel="stylesheet" href="/css/dashboard/header.css">
     <link rel="stylesheet" href="/css/themify-icons/themify-icons.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
     <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script> -->
     <title>GIAO DIỆN IOT</title>
@@ -78,7 +79,7 @@
 
                     <h5 class="border text-center">YEU TO TRONG DAT</h5>
                     <div class="row">
-                        
+
                         <div class="col-half boder ">
                             <div class="border hei71 background_color text-center PH1">
                                 <h4 class="border">PH</h4>
@@ -363,8 +364,66 @@
                 divElement.textContent = value.toFixed(0) + "%";
             }
         })
-        //socket.emit('C-ReadDigital', '{ "houseID": 1, "Response": "Read digital", "address": 1, "data": "ea" }')
-        //socket.emit('C-ReadDigital', '{ "houseID": 2, "Response": "Read digital", "address": 1, "data": "d5" }')
+        var values = []
+        var times = []
+        const ctx = document.getElementById('myChart')
+        var val2 = {
+            type: 'line',
+            data: {
+                labels: times,
+                datasets: [{
+                    label: '# Temperate',
+                    data: values,
+                    borderWidth: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        }
+        myChart1 = new Chart(ctx, val2);
+
+        fetch('/api/adc1Start')
+            .then(response => response.json())
+            .then(data => {
+                data.forEach((item) => {
+                    let localTime = moment.utc(item.time).utcOffset("+07:00").format("HH:mm:ss");
+                    //console.log(localTime);
+                    //console.log(item.value);
+                    values.unshift(item.value);
+                    times.unshift(localTime);
+                    myChart1.update();
+                });
+                console.log(values);
+                console.log(times);
+            })
+            .catch(error => {
+                console.error(error)
+            })
+        function fetchADC() {
+            fetch('/api/adc1Active')
+                .then(response => response.json())
+                .then(data => {
+                    let data1 = data;
+                    data.map(function (data1) {
+                        let localTime = moment.utc(data1.time).utcOffset("+07:00").format("HH:mm:ss");
+                        console.log(data1.value);
+                        console.log(localTime);
+                        values.shift();
+                        values.push(data1.value);
+                        times.shift();
+                        times.push(localTime);
+                        myChart1.update();
+                    })
+                });
+        }
+        setInterval(fetchADC, 5000);
     </script>
     <!-- Đổi biểu đồ: -->
     <script>

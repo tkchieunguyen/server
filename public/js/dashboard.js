@@ -245,32 +245,32 @@ function chartAnhSang1() {
   myChart1.update();
 }
 // Bieu Do
-const ctx = document.getElementById('myChart')
+// const ctx = document.getElementById('myChart')
 const ctx1 = document.getElementById('myChart1')
 var valdata = [];
-var val2 = {
-  type: 'line',
-  data: {
-    labels: [],
-    datasets: [{
-      label: '# Temperate',
-      data: valdata,
-      borderWidth: 4
-    }]
-  },
-  options: {
-    responsive: true,
-    maintainAspectRatio: false,
-    scales: {
-      y: {
-        beginAtZero: true
-      }
-    }
-  }
+// var val2 = {
+//   type: 'line',
+//   data: {
+//     labels: [],
+//     datasets: [{
+//       label: '# Temperate',
+//       data: valdata,
+//       borderWidth: 4
+//     }]
+//   },
+//   options: {
+//     responsive: true,
+//     maintainAspectRatio: false,
+//     scales: {
+//       y: {
+//         beginAtZero: true
+//       }
+//     }
+//   }
 
-}
+// }
 
-myChart1 = new Chart(ctx, val2);
+// myChart1 = new Chart(ctx, val2);
 
 // XOA PHAN CMT NAY BEN FILE JS
 // XOA PHAN CMT NAY BEN FILE JS
@@ -290,23 +290,23 @@ myChart1 = new Chart(ctx, val2);
 //     }
 // }
 
-setInterval(function (e) {
-  const randomvalue= Math.floor(Math.random(39) * 100)
-  // if (randomvalue>=50){
-  //   bt_on1.classList.add('light')
-  // }
-  // else {bt_on1.classList.remove('light')}
-  if (valdata.length < 6) {  
-    myChart1.data.datasets.data = valdata.push(randomvalue);
-    myChart1.data.labels.push(clock2);
-    myChart1.update();
-  }
-  else {
-    myChart1.data.datasets.data = valdata.push(randomvalue);
-    myChart1.data.datasets.data = valdata.shift();
-    myChart1.update();
-  }
-}, 5000)
+// setInterval(function (e) {
+//   const randomvalue = Math.floor(Math.random(39) * 100)
+//   // if (randomvalue>=50){
+//   //   bt_on1.classList.add('light')
+//   // }
+//   // else {bt_on1.classList.remove('light')}
+//   if (valdata.length < 6) {
+//     myChart1.data.datasets.data = valdata.push(randomvalue);
+//     myChart1.data.labels.push(clock2);
+//     myChart1.update();
+//   }
+//   else {
+//     myChart1.data.datasets.data = valdata.push(randomvalue);
+//     myChart1.data.datasets.data = valdata.shift();
+//     myChart1.update();
+//   }
+// }, 5000)
 
 // BIEU DO 2
 var valdata1 = [];
