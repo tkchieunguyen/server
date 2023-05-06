@@ -220,7 +220,7 @@
                     </div>
                     <h5 class="border text-center">YEU TO TRONG DAT</h5>
                     <div class="row">
-                        <div class="col-half boder ">
+                        <div class="col-half boder valuepH2">
                             <div class="border hei71 background_color text-center ">
                                 <h4 class="border">PH</h4>
                                 <div class="mg_mid9"><span>
@@ -228,7 +228,7 @@
                                     </span></div>
                             </div>
                         </div>
-                        <div class="col-half boder ">
+                        <div class="col-half boder valueHumdity2">
                             <div class="border hei71 background_color text-center ">
                                 <h4 class="border">Do Am</h4>
                                 <div class="mg_mid9"><span>
@@ -239,15 +239,15 @@
                     </div>
                     <!-- NPK -->
                     <div class="row">
-                        <div class="col-third boder ">
-                            <div class="border hei71 background_color text-center">
+                        <div class="col-third boder valueN2">
+                            <div class="border hei71 background_color text-center ">
                                 <h4 class="border">N</h4>
                                 <div class="mg_mid9"><span>
                                         <div class="N2"></div>
                                     </span></div>
                             </div>
                         </div>
-                        <div class="col-third boder ">
+                        <div class="col-third boder valueP2">
                             <div class="border hei71 background_color text-center">
                                 <h4 class="border">P</h4>
                                 <div class="mg_mid9"><span>
@@ -255,7 +255,7 @@
                                     </span></div>
                             </div>
                         </div>
-                        <div class="col-third boder ">
+                        <div class="col-third boder valueK2">
                             <div class="border hei71 background_color text-center">
                                 <h4 class="border">K</h4>
                                 <div class="mg_mid9"><span>
@@ -346,7 +346,7 @@
     <input type="number" class="giatri1" placeholder="Nhiet do bieu do 1">
     <input type="number" class="giatri2" placeholder="Nhiet do bieu do 2">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="/js/dashboard.js"></script>
+    <script type="module" src="/js/dashboard.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script>
@@ -378,114 +378,6 @@
                 K.textContent = K_value + "mg/kg";
             }
         })
-        var values = []
-        var times = []
-        const ctx = document.getElementById('myChart')
-        var val2 = {
-            type: 'line',
-            data: {
-                labels: [],
-                datasets: [{
-                    label: '# Temperate',
-                    data: [],
-                    borderWidth: 4
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: {
-                    y: {
-                        beginAtZero: false
-                    }
-                }
-            }
-        }
-        myChart1 = new Chart(ctx, val2);
-        fetch('/api/adc1Start')
-            .then(response => response.json())
-            .then(data => {
-                data.forEach((item) => {
-                    let localTime = moment.utc(item.time).utcOffset("+07:00").format("HH:mm:ss");
-                    //console.log(localTime);
-                    //console.log(item.value);
-                    values.unshift(item.value);
-                    times.unshift(localTime);
-                    myChart1.update();
-                });
-            })
-            .catch(error => {
-                console.error(error)
-            })
-        function fetchADC() {
-            fetch('/api/adc1Active')
-                .then(response => response.json())
-                .then(data => {
-                    let data1 = data;
-                    data.map(function (data1) {
-                        let localTime = moment.utc(data1.time).utcOffset("+07:00").format("HH:mm:ss");
-                        //console.log(data1.value);
-                        //console.log(localTime);
-                        values.shift();
-                        values.push(data1.value);
-                        times.shift();
-                        times.push(localTime);
-                        myChart1.update();
-                    })
-                });
-        }
-        setInterval(fetchADC, 5000)
-        var values1 = []
-        var times1 = []
-        fetch('/api/adc1Start')
-            .then(response => response.json())
-            .then(data => {
-                data.forEach((item) => {
-                    let localTime = moment.utc(item.time).utcOffset("+07:00").format("HH:mm:ss");
-                    //console.log(localTime);
-                    //console.log(item.value);
-                    values1.unshift(item.value + 1);
-                    times1.unshift(localTime);
-                    myChart1.update();
-                });
-            })
-            .catch(error => {
-                console.error(error)
-            })
-        function fetchADC1() {
-            fetch('/api/adc1Active')
-                .then(response => response.json())
-                .then(data => {
-                    let data1 = data;
-                    data.map(function (data1) {
-                        let localTime = moment.utc(data1.time).utcOffset("+07:00").format("HH:mm:ss");
-                        //console.log(data1.value);
-                        //console.log(localTime);
-                        values1.shift();
-                        values1.push(data1.value + 1);
-                        times1.shift();
-                        times1.push(localTime);
-                        myChart1.update();
-                    })
-                });
-        }
-        setInterval(fetchADC1, 5000)
-        // DO AM1
-        document.querySelector('.Do-am1').addEventListener('click', chartDoAm1);
-        function chartDoAm1() {
-            myChart1.data.datasets[0].label = '#Do Am';
-            myChart1.data.datasets[0].data = values;
-            myChart1.data.labels = times
-            myChart1.update();
-        }
-        // Anh Sang1
-        document.querySelector('.AnhSang1').addEventListener('click', chartAnhSang1);
-        function chartAnhSang1() {
-            myChart1.data.datasets[0].label = '#Light Intensity';
-            myChart1.data.datasets[0].data = values1;
-            myChart1.data.labels = times1
-            myChart1.update();
-        }
 
     </script>
     <!-- Đổi biểu đồ: -->
