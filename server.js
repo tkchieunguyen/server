@@ -92,6 +92,8 @@ io.on('connection', (socket) => {
                 break;
         }
     }, 10)
+
+    //DOC GIA TRI ADC
     socket.on('C-ReadADC', (data) => {
         let jsonData = JSON.parse(data)
         let msb = jsonData.data_1_MSB
@@ -105,38 +107,45 @@ io.on('connection', (socket) => {
         connection.execute('INSERT INTO adc_1(value,time) VALUES (?,?)', [value, time])
         io.emit('S-ReadADC', value)
     })
-    // SEND DATA TO CHART
-    // let values = []
-    // let times = []
-    // setInterval(() => {
-    //     let query = "SELECT value, time FROM adc_1 ORDER BY time DESC LIMIT 6"
-    //     connection.query(query, (error, results, fields) => {
-    //         if (error) throw error
-    //         results.forEach(result => {
-    //             values.unshift(result.value) // thêm giá trị vào đầu mảng
-    //             times.unshift(result.time) // thêm thời gian vào đầu mảng
-    //         })
-    //         console.log(values) // hiển thị mảng giá trị
-    //         console.log(times) // hiển thị mảng thời gian
-    //     })
-    // }, 5000)
 
+    //DOC GIA TRI RS485
+    socket.on('C-ReadRS485', (data) => {
+        let jsonData = JSON.parse(data)
+        //console.log(jsonData)
+        let houseID = jsonData.HouseID
+        let N = parseInt(jsonData.data_1 + jsonData.data_2, 16)
+        let P = parseInt(jsonData.data_3 + jsonData.data_4, 16)
+        let K = parseInt(jsonData.data_5 + jsonData.data_6, 16)
+        let Hum = parseInt(jsonData.data_7 + jsonData.data_8, 16) / 10
+        let pH = parseInt(jsonData.data_9 + jsonData.data_10, 16) / 10
+        let time = moment().format('YYYY-MM-DD HH:mm:ss')
+        //console.log(N + "  " + P + "  " + K + "  " + Hum + "  " + pH)
+        switch (houseID) {
+            case '1':
+                break
+            case '2':
+                connection.execute('INSERT INTO rs485_2(time,N,P,K,humdity,pH) VALUES (?,?,?,?,?,?)', [time, N, P, K, Hum, pH])
+                io.emit('RS485_value', '{"N":' + N + ',"P":' + P + ',"K":' + K + ',"Hum":' + Hum + ',"pH":' + pH + '}')
+                break
+        }
+
+    })
 
     socket.on('C-ReadI2C', (data) => {
         //console.log(JSON.parse(data.substring(0, data.lastIndexOf("[CRC 32 BIT]"))))
     })
     socket.on('C-RequestI2C', (data) => {
-        console.log(JSON.parse(data.substring(0, data.lastIndexOf("[CRC 32 BIT]"))))
+        console.log(JSON.parse(data))
     })
     socket.on('C-ScanI2C', (data) => {
         console.log(JSON.parse(data))
         io.emit('GET_I2C_DEVICE', JSON.parse(data))
     })
     socket.on('C-CheckStatus', (data) => {
-        console.log(JSON.parse(data.substring(0, data.lastIndexOf("[CRC 32 BIT]"))))
+        console.log(JSON.parse(data))
     })
     socket.on('C-ResponseError', (data) => {
-        console.log(JSON.parse(data.substring(0, data.lastIndexOf("[CRC 32 BIT]"))))
+        console.log(JSON.parse(data))
     })
 
     // NHẬN TỪ USER// WRITE DIGITAL
@@ -169,6 +178,10 @@ io.on('connection', (socket) => {
     socket.on('disconnect', () => {
         console.log("disconnection");
     });
+    socket.on('RS485_value', (data) => {
+        //let jsonData = JSON.parse(data)
+        console.log(JSON.parse(data));
+    })
 });
 
 server.listen(port, () =>

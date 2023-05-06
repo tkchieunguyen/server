@@ -233,17 +233,17 @@ function chartTemperature1() {
 }
 
 // DO AM1
-document.querySelector('.Do-am1').addEventListener('click', chartDoAm1);
-function chartDoAm1() {
-  myChart1.data.datasets[0].label = '#Do Am';
-  myChart1.update();
-}
+// document.querySelector('.Do-am1').addEventListener('click', chartDoAm1);
+// function chartDoAm1() {
+//   myChart1.data.datasets[0].label = '#Do Am';
+//   myChart1.update();
+// }
 // Anh Sang1
-document.querySelector('.AnhSang1').addEventListener('click', chartAnhSang1);
-function chartAnhSang1() {
-  myChart1.data.datasets[0].label = '#Light Intensity';
-  myChart1.update();
-}
+// document.querySelector('.AnhSang1').addEventListener('click', chartAnhSang1);
+// function chartAnhSang1() {
+//   myChart1.data.datasets[0].label = '#Light Intensity';
+//   myChart1.update();
+// }
 // Bieu Do
 // const ctx = document.getElementById('myChart')
 const ctx1 = document.getElementById('myChart1')
