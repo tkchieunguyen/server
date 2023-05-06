@@ -1,5 +1,4 @@
-import { ChartDataLabels } from 'chartjs-plugin-datalabels'
-// Chart.register(ChartDataLabels);
+//Chart.register(ChartDataLabels);
 var bt_on1 = document.querySelector('.btn-on1');
 var bt_on2 = document.querySelector('.btn_on2');
 var bt_on3 = document.querySelector('.btn_on3');
