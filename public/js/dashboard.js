@@ -1,9 +1,5 @@
-<<<<<<< HEAD
 
-// Chart.register(ChartDataLabels);
-=======
 //Chart.register(ChartDataLabels);
->>>>>>> ed32ac58f3d36e1ef9585e76d1637d96ded7372f
 var bt_on1 = document.querySelector('.btn-on1');
 var bt_on2 = document.querySelector('.btn_on2');
 var bt_on3 = document.querySelector('.btn_on3');
