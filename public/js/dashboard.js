@@ -1,3 +1,4 @@
+import { ChartDataLabels } from 'chartjs-plugin-datalabels'
 // Chart.register(ChartDataLabels);
 var bt_on1 = document.querySelector('.btn-on1');
 var bt_on2 = document.querySelector('.btn_on2');
@@ -316,7 +317,7 @@ var val3 = {
     labels: [],
     datasets: [{
       label: '# Temperate',
-      data: valdata1,
+      data: [],
       borderWidth: 4
     }]
   },
@@ -325,7 +326,7 @@ var val3 = {
     maintainAspectRatio: false,
     scales: {
       y: {
-        beginAtZero: true
+        beginAtZero: false
       }
     }
   }
@@ -333,18 +334,162 @@ var val3 = {
 }
 
 myChart2 = new Chart(ctx1, val3);
+// Bieu Do 1
 
-setInterval(function (e) {
-  if (valdata1.length < 6) {
-    myChart2.data.datasets.data = valdata1.push(Math.floor(Math.random(39) * 100));
-    myChart2.data.labels.push(clock3);
-    myChart2.update();
+
+var values = []
+var times = []
+const ctx = document.getElementById('myChart')
+var val2 = {
+  type: 'line',
+  data: {
+    labels: [],
+    datasets: [{
+      label: '# Temperate',
+      data: [],
+      borderWidth: 4
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    scales: {
+      y: {
+        beginAtZero: false
+      }
+    }
   }
-  else {
-    myChart2.data.datasets.data = valdata1.push(Math.floor(Math.random(39) * 100));
-    myChart2.data.datasets.data = valdata1.shift();
-    myChart2.update();
-  }
-}, 5000)
-
-
+}
+myChart1 = new Chart(ctx, val2);
+fetch('/api/adc1Start')
+  .then(response => response.json())
+  .then(data => {
+    data.forEach((item) => {
+      let localTime = moment.utc(item.time).utcOffset("+07:00").format("HH:mm:ss");
+      //console.log(localTime);
+      //console.log(item.value);
+      values.unshift(item.value);
+      times.unshift(localTime);
+      myChart1.update();
+    });
+  })
+  .catch(error => {
+    console.error(error)
+  })
+function fetchADC() {
+  fetch('/api/adc1Active')
+    .then(response => response.json())
+    .then(data => {
+      let data1 = data;
+      data.map(function (data1) {
+        let localTime = moment.utc(data1.time).utcOffset("+07:00").format("HH:mm:ss");
+        //console.log(data1.value);
+        //console.log(localTime);
+        values.shift();
+        values.push(data1.value);
+        times.shift();
+        times.push(localTime);
+        myChart1.update();
+      })
+    });
+}
+setInterval(fetchADC, 5000)
+var valuesN = []
+var valuesP = []
+var valuesK = []
+var valuespH = []
+var valuesHumdity = []
+var times1 = []
+fetch('/api/Rs485Start')
+  .then(response => response.json())
+  .then(data => {
+    data.forEach((item) => {
+      let localTime = moment.utc(item.time).utcOffset("+07:00").format("HH:mm:ss");
+      //console.log(localTime);
+      //console.log(item.value);
+      valuesN.unshift(item.N);
+      valuesP.unshift(item.P);
+      valuesK.unshift(item.K);
+      valuespH.unshift(item.pH);
+      valuesHumdity.unshift(item.humdity);
+      times1.unshift(localTime);
+      myChart2.update();
+    });
+  })
+  .catch(error => {
+    console.error(error)
+  })
+function fetchRS485() {
+  fetch('/api/Rs485Active')
+    .then(response => response.json())
+    .then(data => {
+      let data1 = data;
+      data.map(function (data1) {
+        let localTime = moment.utc(data1.time).utcOffset("+07:00").format("HH:mm:ss");
+        //console.log(data1.value);
+        //console.log(localTime);
+        valuesN.shift();
+        valuesN.push(data1.N);
+        valuesP.shift();
+        valuesP.push(data1.P);
+        valuesK.shift();
+        valuesK.push(data1.K);
+        valuespH.shift();
+        valuespH.push(data1.pH);
+        valuesHumdity.shift();
+        valuesHumdity.push(data1.humdity);
+        times1.shift();
+        times1.push(localTime);
+        myChart2.update();
+      })
+    });
+}
+setInterval(fetchRS485, 5000)
+// DO AM1
+document.querySelector('.Do-am1').addEventListener('click', chartDoAm1);
+function chartDoAm1() {
+  myChart1.data.datasets[0].label = '#Do Am';
+  myChart1.data.datasets[0].data = values;
+  myChart1.data.labels = times
+  myChart1.update();
+}
+// N2
+document.querySelector('.valueN2').addEventListener('click', chartvalueN2);
+function chartvalueN2() {
+  myChart2.data.datasets[0].label = '#N';
+  myChart2.data.datasets[0].data = valuesN;
+  myChart2.data.labels = times1
+  myChart2.update();
+}
+// P2
+document.querySelector('.valueP2').addEventListener('click', chartvalueP2);
+function chartvalueP2() {
+  myChart2.data.datasets[0].label = '#P';
+  myChart2.data.datasets[0].data = valuesP;
+  myChart2.data.labels = times1
+  myChart2.update();
+}
+// K2
+document.querySelector('.valueK2').addEventListener('click', chartvalueK2);
+function chartvalueK2() {
+  myChart2.data.datasets[0].label = '#K';
+  myChart2.data.datasets[0].data = valuesK;
+  myChart2.data.labels = times1
+  myChart2.update();
+}
+// K2
+document.querySelector('.valuepH2').addEventListener('click', chartvaluepH2);
+function chartvaluepH2() {
+  myChart2.data.datasets[0].label = '#pH';
+  myChart2.data.datasets[0].data = valuespH;
+  myChart2.data.labels = times1
+  myChart2.update();
+}
+// K2
+document.querySelector('.valueHumdity2').addEventListener('click', chartvalueHumdity2);
+function chartvalueHumdity2() {
+  myChart2.data.datasets[0].label = '#Humdity';
+  myChart2.data.datasets[0].data = valuesHumdity;
+  myChart2.data.labels = times1
+  myChart2.update();
+}

@@ -25,17 +25,18 @@ let getADCActive = async (req, res) => {
         res.status(500).json({ message: err.message })
     }
 }
-let getNs = async (req, res) => {
+
+let getRS485Start = async (req, res) => {
     try {
-        let [data] = await connection.execute('SELECT N,time FROM adc_1 ORDER BY id DESC LIMIT 6;')
+        let [data] = await connection.execute('SELECT N,P,K,humdity,pH,time FROM rs485_2 ORDER BY id DESC LIMIT 6;')
         res.status(200).json(data)
     } catch (err) {
         res.status(500).json({ message: err.message })
     }
 }
-let getN = async (req, res) => {
+let getRS485Active = async (req, res) => {
     try {
-        let [data] = await connection.execute('SELECT N,time FROM adc_1 ORDER BY id DESC LIMIT 1;')
+        let [data] = await connection.execute('SELECT N,P,K,humdity,pH,time FROM rs485_2 ORDER BY id DESC LIMIT 1;')
         res.status(200).json(data)
     } catch (err) {
         res.status(500).json({ message: err.message })
@@ -45,6 +46,6 @@ module.exports = {
     getUser,
     getADCStart,
     getADCActive,
-    getNs,
-    getN
+    getRS485Start,
+    getRS485Active,
 }
