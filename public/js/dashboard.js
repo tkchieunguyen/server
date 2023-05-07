@@ -1,5 +1,3 @@
-
-//Chart.register(ChartDataLabels);
 var bt_on1 = document.querySelector('.btn-on1');
 var bt_on2 = document.querySelector('.btn_on2');
 var bt_on3 = document.querySelector('.btn_on3');
@@ -15,14 +13,6 @@ var box_on = document.querySelector('.box');
 var btn_on = document.querySelector('.box1');
 var box_on1 = document.querySelector('.box2');
 var btn_on1 = document.querySelector('.box3');
-// BIEU DO 1
-// var val5 = document.querySelector('.giatri1');
-// const ctx = document.getElementById('myChart')
-// var clock2 = [];
-// // BIEU DO 2
-// var val6 = document.querySelector('.giatri2');
-// const ctx1 = document.getElementById('myChart1')
-// var clock3 = [];
 
 // DONG HO
 setInterval(() => {
@@ -56,12 +46,6 @@ function addactive() {
   document.querySelector('.element2').classList.toggle('display-none');
   bt_on3.classList.toggle('display-none');
   document.querySelector('.element3').classList.toggle('display-none');
-  // document.querySelector('.element10').classList.toggle('display-none');
-  // document.querySelector('.btn_on20').classList.toggle('display-none');
-  // document.querySelector('.element11').classList.toggle('display-none');
-  // document.querySelector('.btn_on21').classList.toggle('display-none');
-  // document.querySelector('.element12').classList.toggle('display-none');
-  // document.querySelector('.btn_on22').classList.toggle('display-none');
   bt_on4.classList.toggle('display-none');
   document.querySelector('.element4').classList.toggle('display-none');
   bt_on5.classList.toggle('display-none');
@@ -94,133 +78,6 @@ function addactive1() {
 box_on1.addEventListener('click', addactive1)
 
 
-// if (luutru1 = 1){
-
-// }
-// else{
-
-
-
-// bt_on2.addEventListener('click', addlight2);
-// function addlight2() {
-//   bt_on2.classList.toggle('light');
-// }
-
-// bt_on3.addEventListener('click', addlight3);
-// function addlight3() {
-//   bt_on3.classList.toggle('light');
-// }
-
-// bt_on4.addEventListener('click', addlight4);
-// function addlight4() {
-//   bt_on4.classList.toggle('light');
-// }
-
-// bt_on5.addEventListener('click', addlight5);
-// function addlight5() {
-//   bt_on5.classList.toggle('light');
-// }
-
-// bt_on6.addEventListener('click', addlight6);
-// function addlight6() {
-//   bt_on6.classList.toggle('light');
-// }
-
-
-// // BIEU DO 1
-// var valdata = [];
-// var val2 = {
-//   type: 'line',
-//   data: {
-//     labels: [],
-//     datasets: [{
-//       label: 'Temperate',
-//       data: valdata,
-//       borderWidth: 4
-//     }]
-//   },
-//   options: {
-//     responsive: true,
-//     maintainAspectRatio: false,
-//     scales: {
-//       y: {
-//         beginAtZero: true
-//       }
-//     }
-//   }
-
-// }
-// // event listener có thể sẽ sửa đổi thành 'input' nếu  input auto từ server
-// myChart1 = new Chart(ctx, val2);
-// val5.addEventListener('input', function (e) {
-//   //if (e.key === 'Enter') {
-//   console.log(e.target.value)
-//   if (valdata.length < 6) {
-//     myChart1.data.datasets.data = valdata.push(e.target.value);
-//     myChart1.data.labels.push(clock2);
-//     // console.log(myChart1);
-//     myChart1.update();
-//   }
-//   else {
-//     myChart1.data.datasets.data = valdata.push(e.target.value);
-//     myChart1.data.datasets.data = valdata.shift(e.target.value);
-//     myChart1.update();
-//   }
-//   //}
-// })
-
-
-// // BIEU DO 2
-// var valdata1 = [];
-// var val4 = {
-//   type: 'line',
-//   data: {
-//     labels: [],
-//     datasets: [{
-//       label: 'Temperate',
-//       data: valdata1,
-//       borderWidth: 4
-//     }]
-//   },
-//   options: {
-//     responsive: true,
-//     maintainAspectRatio: false,
-//     scales: {
-//       y: {
-//         beginAtZero: true
-//       }
-//     }
-//   }
-// }
-
-// myChart2 = new Chart(ctx1, val4);
-// val6.addEventListener('input', function (e) {
-//   //if (e.key === 'Enter') {
-//   console.log(e.target.value)
-//   if (valdata1.length < 6) {
-//     myChart2.data.datasets.data = valdata1.push(e.target.value);
-//     myChart2.data.labels.push(clock3);
-//     // console.log(myChart2);
-//     myChart2.update();
-//   }
-//   else {
-//     myChart2.data.datasets.data = valdata1.push(e.target.value);
-//     myChart2.data.datasets.data = valdata1.shift(e.target.value);
-//     myChart2.update();
-//   }
-//   //}
-// })
-// val5.addEventListener('onchange', (e) => {
-//   console.log(val5.value);
-// })
-
-// NPK
-// document.querySelector('.NPK1').addEventListener('click', chartNPK1);
-// function chartNPK1() {
-//   myChart1.data.datasets[0].label = '#NPK';
-//   myChart1.update();
-// }
-// PH
 document.querySelector('.PH1').addEventListener('click', chartPH1);
 function chartPH1() {
   myChart1.data.datasets[0].label = '#PH';
@@ -233,81 +90,9 @@ function chartTemperature1() {
   myChart1.update();
 }
 
-// DO AM1
-// document.querySelector('.Do-am1').addEventListener('click', chartDoAm1);
-// function chartDoAm1() {
-//   myChart1.data.datasets[0].label = '#Do Am';
-//   myChart1.update();
-// }
-// Anh Sang1
-// document.querySelector('.AnhSang1').addEventListener('click', chartAnhSang1);
-// function chartAnhSang1() {
-//   myChart1.data.datasets[0].label = '#Light Intensity';
-//   myChart1.update();
-// }
-// Bieu Do
-// const ctx = document.getElementById('myChart')
 const ctx1 = document.getElementById('myChart1')
 var valdata = [];
-// var val2 = {
-//   type: 'line',
-//   data: {
-//     labels: [],
-//     datasets: [{
-//       label: '# Temperate',
-//       data: valdata,
-//       borderWidth: 4
-//     }]
-//   },
-//   options: {
-//     responsive: true,
-//     maintainAspectRatio: false,
-//     scales: {
-//       y: {
-//         beginAtZero: true
-//       }
-//     }
-//   }
 
-// }
-
-// myChart1 = new Chart(ctx, val2);
-
-// XOA PHAN CMT NAY BEN FILE JS
-// XOA PHAN CMT NAY BEN FILE JS
-// XOA PHAN CMT NAY BEN FILE JS
-// cái gì quan trọng nói lại 3 lần
-
-// val5.onchange=function(e){
-//     if (valdata.length<6){
-//         myChart1.data.datasets.data=valdata.push(Number(e.target.value));
-//         myChart1.data.labels.push(clock2);
-//         myChart1.update();
-//     }
-//     else {
-//         myChart1.data.datasets.data=valdata.push(Number(e.target.value));
-//         myChart1.data.datasets.data=valdata.shift(Number(e.target.value));
-//         myChart1.update();
-//     }
-// }
-
-// setInterval(function (e) {
-//   const randomvalue = Math.floor(Math.random(39) * 100)
-//   // if (randomvalue>=50){
-//   //   bt_on1.classList.add('light')
-//   // }
-//   // else {bt_on1.classList.remove('light')}
-//   if (valdata.length < 6) {
-//     myChart1.data.datasets.data = valdata.push(randomvalue);
-//     myChart1.data.labels.push(clock2);
-//     myChart1.update();
-//   }
-//   else {
-//     myChart1.data.datasets.data = valdata.push(randomvalue);
-//     myChart1.data.datasets.data = valdata.shift();
-//     myChart1.update();
-//   }
-// }, 5000)
 
 // BIEU DO 2
 var valdata1 = [];

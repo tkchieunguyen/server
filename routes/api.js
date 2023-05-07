@@ -7,6 +7,7 @@ const API_initWebRoute = (app) => {
     apiRouter.get('/adc1Active', controller.getADCActive)
     apiRouter.get('/Rs485Start', controller.getRS485Start)
     apiRouter.get('/Rs485Active', controller.getRS485Active)
+    apiRouter.get('/getButton', controller.getButton)
     return app.use('/api/', apiRouter)
 }
 module.exports = API_initWebRoute

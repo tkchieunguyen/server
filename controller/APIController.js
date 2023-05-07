@@ -42,10 +42,20 @@ let getRS485Active = async (req, res) => {
         res.status(500).json({ message: err.message })
     }
 }
+let getButton = async (req, res) => {
+    try {
+        let [data] = await connection.execute('SELECT bit8,bit7,bit6,bit5,bit4,bit3 FROM button1 ORDER BY id DESC LIMIT 1;')
+        res.status(200).json(data)
+    }
+    catch (err) {
+        res.status(500).json({ message: err.message })
+    }
+}
 module.exports = {
     getUser,
     getADCStart,
     getADCActive,
     getRS485Start,
     getRS485Active,
+    getButton,
 }
