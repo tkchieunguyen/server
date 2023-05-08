@@ -339,10 +339,6 @@
 
     </div>
     </div>
-
-
-
-
     <input type="number" class="giatri1" placeholder="Nhiet do bieu do 1">
     <input type="number" class="giatri2" placeholder="Nhiet do bieu do 2">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -352,6 +348,9 @@
     <script src="/socket.io/socket.io.js"></script>
     <script>
         const socket = io();
+        socket.on('C-ReadDigital', (data) => {
+            console.log(data);
+        })
         socket.on('S-ReadADC', (value) => {
             //console.log(value);
             const divElement = document.querySelector('.do_am_dat1');
@@ -398,8 +397,8 @@
 
         bt_on1.addEventListener('click', addlight1);
         function addlight1() {
-            bt_on1.classList.toggle('light');
-            if (bt_on1.classList.value == 'btn btn_on1 light') {
+            //bt_on1.classList.toggle('light');
+            if (bt_on1.classList.value != 'btn btn_on1 light') {
                 //console.log(1)
                 socket.emit('den1on', '{"server":{"houseID":1,"request":"WriteDigital","lenght":"2","DO":"0","value":"0"}}');
             }
@@ -410,8 +409,8 @@
         }
         bt_on2.addEventListener('click', addlight2);
         function addlight2() {
-            bt_on2.classList.toggle('light');
-            if (bt_on2.classList.value == 'btn btn_on2 light') {
+            //bt_on2.classList.toggle('light');
+            if (bt_on2.classList.value != 'btn btn_on2 light') {
                 //console.log(1)
                 socket.emit('den2on', '{"server":{"houseID":1,"request":"WriteDigital","lenght":"2","DO":"1","value":"0"}}');
             }
@@ -422,8 +421,8 @@
         }
         bt_on3.addEventListener('click', addlight3);
         function addlight3() {
-            bt_on3.classList.toggle('light');
-            if (bt_on3.classList.value == 'btn btn_on3 light') {
+            //bt_on3.classList.toggle('light');
+            if (bt_on3.classList.value != 'btn btn_on3 light') {
                 //console.log(1)
                 socket.emit('den3on', '{"server":{"houseID":1,"request":"WriteDigital","lenght":"2","DO":"2","value":"0"}}');
             }
@@ -434,8 +433,8 @@
         }
         bt_on4.addEventListener('click', addlight4);
         function addlight4() {
-            bt_on4.classList.toggle('light');
-            if (bt_on4.classList.value == 'btn btn_on4 light') {
+            //bt_on4.classList.toggle('light');
+            if (bt_on4.classList.value != 'btn btn_on4 light') {
                 //console.log(1)
                 socket.emit('den4on', '{"server":{"houseID":1,"request":"WriteDigital","lenght":"2","DO":"3","value":"0"}}');
             }
@@ -447,8 +446,8 @@
 
         bt_on5.addEventListener('click', addlight5);
         function addlight5() {
-            bt_on5.classList.toggle('light');
-            if (bt_on5.classList.value == 'btn btn_on5 light') {
+            //bt_on5.classList.toggle('light');
+            if (bt_on5.classList.value != 'btn btn_on5 light') {
                 //console.log(1)
                 socket.emit('den5on', '{"server":{"houseID":1,"request":"WriteDigital","lenght":"2","DO":"4","value":"0"}}');
             }
@@ -460,8 +459,8 @@
 
         bt_on6.addEventListener('click', addlight6);
         function addlight6() {
-            bt_on6.classList.toggle('light');
-            if (bt_on6.classList.value == 'btn btn_on6 light') {
+            //bt_on6.classList.toggle('light');
+            if (bt_on6.classList.value != 'btn btn_on6 light') {
                 //console.log(1)
                 socket.emit('den6on', '{"server":{"houseID":1,"request":"WriteDigital","lenght":"2","DO":"5","value":"0"}}');
             }
@@ -473,8 +472,8 @@
 
         bt_on21.addEventListener('click', addlight21);
         function addlight21() {
-            bt_on21.classList.toggle('light');
-            if (bt_on21.classList.value == 'btn2 btn_on21 light') {
+            //bt_on21.classList.toggle('light');
+            if (bt_on21.classList.value != 'btn2 btn_on21 light') {
                 //console.log(1)
                 socket.emit('den7on', '{"server":{"houseID":2,"request":"WriteDigital","lenght":"2","DO":"0","value":"0"}}');
             }
@@ -486,8 +485,8 @@
 
         bt_on22.addEventListener('click', addlight22);
         function addlight22() {
-            bt_on22.classList.toggle('light');
-            if (bt_on22.classList.value == 'btn2 btn_on22 light') {
+            //bt_on22.classList.toggle('light');
+            if (bt_on22.classList.value != 'btn2 btn_on22 light') {
                 //console.log(1)
                 socket.emit('den8on', '{"server":{"houseID":2,"request":"WriteDigital","lenght":"2","DO":"1","value":"0"}}');
             }
@@ -499,8 +498,8 @@
 
         bt_on23.addEventListener('click', addlight23);
         function addlight23() {
-            bt_on23.classList.toggle('light');
-            if (bt_on23.classList.value == 'btn1 btn_on23 light') {
+            //bt_on23.classList.toggle('light');
+            if (bt_on23.classList.value != 'btn1 btn_on23 light') {
                 //console.log(1)
                 socket.emit('den9on', '{"server":{"houseID":2,"request":"WriteDigital","lenght":"2","DO":"2","value":"0"}}');
             }
@@ -512,8 +511,8 @@
 
         bt_on24.addEventListener('click', addlight24);
         function addlight24() {
-            bt_on24.classList.toggle('light');
-            if (bt_on24.classList.value == 'btn1 btn_on24 light') {
+            //bt_on24.classList.toggle('light');
+            if (bt_on24.classList.value != 'btn1 btn_on24 light') {
                 //console.log(1)
                 socket.emit('den10on', '{"server":{"houseID":2,"request":"WriteDigital","lenght":"2","DO":"3","value":"0"}}');
             }
@@ -525,8 +524,8 @@
 
         bt_on25.addEventListener('click', addlight25);
         function addlight25() {
-            bt_on25.classList.toggle('light');
-            if (bt_on25.classList.value == 'btn1 btn_on25 light') {
+            //bt_on25.classList.toggle('light');
+            if (bt_on25.classList.value != 'btn1 btn_on25 light') {
                 //console.log(1)
                 socket.emit('den11on', '{"server":{"houseID":2,"request":"WriteDigital","lenght":"2","DO":"4","value":"0"}}');
             }
@@ -538,8 +537,8 @@
 
         bt_on26.addEventListener('click', addlight26);
         function addlight26() {
-            bt_on26.classList.toggle('light');
-            if (bt_on26.classList.value == 'btn1 btn_on26 light') {
+            //bt_on26.classList.toggle('light');
+            if (bt_on26.classList.value != 'btn1 btn_on26 light') {
                 //console.log(1)
                 socket.emit('den12on', '{"server":{"houseID":2,"request":"WriteDigital","lenght":"2","DO":"5","value":"0"}}');
             }
@@ -548,69 +547,125 @@
                 socket.emit('den12off', '{"server":{"houseID":2,"request":"WriteDigital","lenght":"2","DO":"5","value":"1"}}');
             }
         }
+        //function fetchButton() {
+        fetch('/api/getButton')
+            .then(response => response.json())
+            .then(data => {
+                data.forEach((item) => {
+                    let bit8 = item.bit8;
+                    let bit7 = item.bit7;
+                    let bit6 = item.bit6;
+                    let bit5 = item.bit5;
+                    let bit4 = item.bit4;
+                    let bit3 = item.bit3;
+                    switch (bit8) {
+                        case 1:
+                            bt_on1.classList.remove('light');
+                            break;
+                        case 0:
+                            bt_on1.classList.add('light');
+                            break;
+                    }
+                    switch (bit7) {
+                        case 1:
+                            bt_on2.classList.remove('light');
+                            break;
+                        case 0:
+                            bt_on2.classList.add('light');
+                            break;
+                    }
+                    switch (bit6) {
+                        case 1:
+                            bt_on3.classList.remove('light');
+                            break;
+                        case 0:
+                            bt_on3.classList.add('light');
+                            break;
+                    }
+                    switch (bit5) {
+                        case 1:
+                            bt_on4.classList.remove('light');
+                            break;
+                        case 0:
+                            bt_on4.classList.add('light');
+                            break;
+                    }
+                    switch (bit4) {
+                        case 1:
+                            bt_on5.classList.remove('light');
+                            break;
+                        case 0:
+                            bt_on5.classList.add('light');
+                            break;
+                    }
+                    switch (bit3) {
+                        case 1:
+                            bt_on6.classList.remove('light');
+                            break;
+                        case 0:
+                            bt_on6.classList.add('light');
+                            break;
+                    }
+                })
+            })
+        //}
+        //setInterval(fetchButton, 100)
         socket.on('display1', (data) => {
             let jsonData = JSON.parse(data)
             //console.log(jsonData)
-            let value = parseInt(jsonData.data, 16).toString(2)
-            //console.log(value)
-            let bitsArray = value.split("");
-            let bit1 = bitsArray[0];
-            let bit2 = bitsArray[1];
-            let bit3 = bitsArray[2];
-            let bit4 = bitsArray[3];
-            let bit5 = bitsArray[4];
-            let bit6 = bitsArray[5];
-            let bit7 = bitsArray[6];
-            let bit8 = bitsArray[7];
-            //console.log(bit8 + " " + bit7 + " " + bit6 + " " + bit5 + " " + bit4 + " " + bit3)
-            switch (bit8.toString()) {
-                case "1":
+            let bit8 = jsonData.bit8
+            let bit7 = jsonData.bit7
+            let bit6 = jsonData.bit6
+            let bit5 = jsonData.bit5
+            let bit4 = jsonData.bit4
+            let bit3 = jsonData.bit3
+            switch (bit8) {
+                case 1:
                     bt_on1.classList.remove('light');
                     break;
-                case "0":
-
+                case 0:
                     bt_on1.classList.add('light');
                     break;
             }
-            switch (bit7.toString()) {
-                case "1":
+            switch (bit7) {
+                case 1:
 
                     bt_on2.classList.remove('light');
                     break;
-                case "0":
+                case 0:
 
                     bt_on2.classList.add('light');
                     break;
             }
-            switch (bit6.toString()) {
-                case "1":
+            switch (bit6) {
+                case 1:
                     bt_on3.classList.remove('light');
                     break;
-                case "0":
+                case 0:
                     bt_on3.classList.add('light');
                     break;
             }
-            switch (bit5.toString()) {
-                case "1":
+            switch (bit5) {
+                case 1:
                     bt_on4.classList.remove('light');
                     break;
-                case "0":
+                case 0:
                     bt_on4.classList.add('light');
                     break;
             }
-            switch (bit4.toString()) {
-                case "1":
+            switch (bit4) {
+                case 1:
                     bt_on5.classList.remove('light');
                     break;
-                case "0":
+                case 0:
                     bt_on5.classList.add('light');
                     break;
             }
-            switch (bit3.toString()) {
-                case "1":
+            switch (bit3) {
+                case 1:
                     bt_on6.classList.remove('light');
                     break;
-                case "0":
+                case 0:
                     bt_on6.classList.add('light');
                     break;
             }

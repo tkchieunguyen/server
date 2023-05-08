@@ -44,55 +44,36 @@ app.use(limiter)
 
 io.on('connection', (socket) => {
     console.log('a user connected')
-    // socket.on('read digital', (data) => {
-    //     let jsonData = JSON.parse(data)
-    //     //console.log(jsonData.houseID);
-    //     switch (jsonData.houseID.toString()) {
-    //         case "1":
-    //             io.emit('display button house 1', jsonData)
-    //             break;
-    //         case "2":
-    //             io.emit('display button house 2', jsonData)
-    //             break;
-    //     }
-
-    // })
-    // setInterval(() => {
-    //     let data = Math.floor(Math.random() * 31) + 20
-    //     //let data = "hiếu"
-    //     console.log('data1 gửi đi: ' + data)
-    //     socket.emit('s-c-data10', data.toString())
-    // }, 1)
-
-    // setInterval(() => {
-    //     let data2 = Math.floor(Math.random() * 31) + 20
-    //     console.log('data2 gửi đi: ' + data2)
-    //     socket.emit('s-c-data2', data2)
-    // }, 5000)
-
     //NHẬN TỪ ESP// READ DIGITAL
     let houseId_ReadDigital = null
     let jsonData__ReadDigital = null
+    var jsonLed
     socket.on('C-ReadDigital', (data) => {
         jsonData__ReadDigital = JSON.parse(data)
         console.log(data);
         //console.log(JSON.parse(jsonData__ReadDigital))
+        let led = parseInt(jsonData__ReadDigital.data, 16).toString(2)
+        console.log(led)
         houseId_ReadDigital = parseInt(jsonData__ReadDigital.HouseID, 10)
-        //console.log(houseId)
-    })
-    setInterval(() => {
+        let bitArray = led.split("")
+        // console.log(bitArray[7])
+        // console.log(bitArray[6])
+        // console.log(bitArray[5])
+        // console.log(bitArray[4])
+        // console.log(bitArray[3])
+        // console.log(bitArray[2])
+        jsonLed = '{"bit8":' + bitArray[7] + ',"bit7":' + bitArray[6] + ',"bit6":' + bitArray[5] + ',"bit5":' + bitArray[4] + ',"bit4":' + bitArray[3] + ',"bit3":' + bitArray[2] + '}'
         switch (houseId_ReadDigital) {
             case 1:
-                //console.log(houseId)
-                io.emit('display1', JSON.stringify(jsonData__ReadDigital))
+                connection.execute('INSERT INTO button1(bit8,bit7,bit6,bit5,bit4,bit3) VALUES (?,?,?,?,?,?)', [bitArray[7], bitArray[6], bitArray[5], bitArray[4], bitArray[3], bitArray[2]])
+                io.emit('display1', jsonLed)
                 break;
             case 2:
-                //console.log(houseId)
-                io.emit('display2', JSON.stringify(jsonData__ReadDigital))
+                io.emit('display2', jsonLed)
                 break;
         }
-    }, 10)
 
+    })
     //DOC GIA TRI ADC
     socket.on('C-ReadADC', (data) => {
         let jsonData = JSON.parse(data)
@@ -132,13 +113,13 @@ io.on('connection', (socket) => {
     })
 
     socket.on('C-ReadI2C', (data) => {
-        //console.log(JSON.parse(data.substring(0, data.lastIndexOf("[CRC 32 BIT]"))))
+        console.log(JSON.parse(data))
     })
     socket.on('C-RequestI2C', (data) => {
-        console.log(JSON.parse(data))
+        //console.log(JSON.parse(data))
     })
     socket.on('C-ScanI2C', (data) => {
-        console.log(JSON.parse(data))
+        //console.log(JSON.parse(data))
         io.emit('GET_I2C_DEVICE', JSON.parse(data))
     })
     socket.on('C-CheckStatus', (data) => {
