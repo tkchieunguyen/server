@@ -1,9 +1,4 @@
-<<<<<<< HEAD
-
-// Chart.register(ChartDataLabels);
-=======
-//Chart.register(ChartDataLabels);
->>>>>>> ed32ac58f3d36e1ef9585e76d1637d96ded7372f
+Chart.register(ChartDataLabels);
 var bt_on1 = document.querySelector('.btn-on1');
 var bt_on2 = document.querySelector('.btn_on2');
 var bt_on3 = document.querySelector('.btn_on3');
@@ -318,11 +313,12 @@ var valdata1 = [];
 var val3 = {
   type: 'line',
   data: {
-    labels: [],
+    labels: [1,5,2,3,7],
     datasets: [{
       label: '# Temperate',
-      data: [],
-      borderWidth: 4
+      data: [1,3,2,5,1],
+      borderWidth: 4,
+      borderColor:"red"
     }]
   },
   options: {
@@ -462,6 +458,7 @@ document.querySelector('.valueN2').addEventListener('click', chartvalueN2);
 function chartvalueN2() {
   myChart2.data.datasets[0].label = '#N';
   myChart2.data.datasets[0].data = valuesN;
+  myChart2.data.datasets[0].borderColor='pink'
   myChart2.data.labels = times1
   myChart2.update();
 }
@@ -470,6 +467,7 @@ document.querySelector('.valueP2').addEventListener('click', chartvalueP2);
 function chartvalueP2() {
   myChart2.data.datasets[0].label = '#P';
   myChart2.data.datasets[0].data = valuesP;
+  myChart2.data.datasets[0].borderColor='yellow'
   myChart2.data.labels = times1
   myChart2.update();
 }
