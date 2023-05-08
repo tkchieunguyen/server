@@ -114,6 +114,7 @@ io.on('connection', (socket) => {
 
     socket.on('C-ReadI2C', (data) => {
         console.log(JSON.parse(data))
+        let
     })
     socket.on('C-RequestI2C', (data) => {
         //console.log(JSON.parse(data))
@@ -151,18 +152,20 @@ io.on('connection', (socket) => {
     });
     socket.on('config', (data) => {
         console.log(data)
+        io.emit('timerADC', data)
     })
     socket.on('scan_i2c', (data) => {
         console.log(data);
         io.emit('scan_i2csv', (data))
     })
-    socket.on('disconnect', () => {
-        console.log("disconnection");
-    });
     socket.on('RS485_value', (data) => {
         //let jsonData = JSON.parse(data)
         console.log(JSON.parse(data));
     })
+    socket.on('disconnect', () => {
+        console.log("disconnection");
+    });
+
 });
 
 server.listen(port, () =>
