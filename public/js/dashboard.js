@@ -147,13 +147,13 @@ var val2 = {
   }
 }
 myChart1 = new Chart(ctx, val2);
+// 
+// ADC1
 fetch('/api/adc1Start')
   .then(response => response.json())
   .then(data => {
     data.forEach((item) => {
       let localTime = moment.utc(item.time).utcOffset("+07:00").format("HH:mm:ss");
-      //console.log(localTime);
-      //console.log(item.value);
       values.unshift(item.value);
       times.unshift(localTime);
       myChart1.update();
@@ -180,6 +180,43 @@ function fetchADC() {
     });
 }
 setInterval(fetchADC, 5000)
+// 
+// 
+// Light I2C 1
+var lights1 = []
+var timesLight = []
+fetch('/api/lightI2C1Start')
+  .then(response => response.json())
+  .then(data => {
+    data.forEach((item) => {
+      let localTime = moment.utc(item.time).utcOffset("+07:00").format("HH:mm:ss");
+      lights1.unshift(item.light);
+      timesLight.unshift(localTime);
+      myChart1.update();
+    });
+  })
+  .catch(error => {
+    console.error(error)
+  })
+function fetchLightI2C1() {
+  fetch('/api/lightI2C1Active')
+    .then(response => response.json())
+    .then(data => {
+      let data1 = data;
+      data.map(function (data1) {
+        let localTime = moment.utc(data1.time).utcOffset("+07:00").format("HH:mm:ss");
+        //console.log(data1.value);
+        //console.log(localTime);
+        lights1.shift();
+        lights1.push(data1.light);
+        timesLight.shift();
+        timesLight.push(localTime);
+        myChart1.update();
+      })
+    });
+}
+setInterval(fetchLightI2C1, 5000)
+// 
 var valuesN = []
 var valuesP = []
 var valuesK = []
@@ -237,6 +274,14 @@ function chartDoAm1() {
   myChart1.data.datasets[0].label = '#Do Am';
   myChart1.data.datasets[0].data = values;
   myChart1.data.labels = times
+  myChart1.update();
+}
+// LIGHT 1
+document.querySelector('.LightChart1').addEventListener('click', chartLight1);
+function chartLight1() {
+  myChart1.data.datasets[0].label = '#Light';
+  myChart1.data.datasets[0].data = lights1;
+  myChart1.data.labels = timesLight
   myChart1.update();
 }
 // N2
