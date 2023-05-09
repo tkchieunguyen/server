@@ -99,12 +99,12 @@ var valdata1 = [];
 var val3 = {
   type: 'line',
   data: {
-    labels: [1,5,2,3,7],
+    labels: [],
     datasets: [{
       label: '# Temperate',
-      data: [1,3,2,5,1],
+      data: [],
       borderWidth: 4,
-      borderColor:"red"
+      borderColor: "red"
     }]
   },
   options: {
@@ -232,7 +232,7 @@ function fetchRS485() {
 }
 setInterval(fetchRS485, 5000)
 // DO AM1
-document.querySelector('.Do-am1').addEventListener('click', chartDoAm1);
+document.querySelector('.Do-am2').addEventListener('click', chartDoAm1);
 function chartDoAm1() {
   myChart1.data.datasets[0].label = '#Do Am';
   myChart1.data.datasets[0].data = values;
@@ -244,7 +244,7 @@ document.querySelector('.valueN2').addEventListener('click', chartvalueN2);
 function chartvalueN2() {
   myChart2.data.datasets[0].label = '#N';
   myChart2.data.datasets[0].data = valuesN;
-  myChart2.data.datasets[0].borderColor='pink'
+  myChart2.data.datasets[0].borderColor = 'pink'
   myChart2.data.labels = times1
   myChart2.update();
 }
@@ -253,7 +253,7 @@ document.querySelector('.valueP2').addEventListener('click', chartvalueP2);
 function chartvalueP2() {
   myChart2.data.datasets[0].label = '#P';
   myChart2.data.datasets[0].data = valuesP;
-  myChart2.data.datasets[0].borderColor='yellow'
+  myChart2.data.datasets[0].borderColor = 'yellow'
   myChart2.data.labels = times1
   myChart2.update();
 }

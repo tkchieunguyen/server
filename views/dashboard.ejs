@@ -60,19 +60,25 @@
                         <div class="col-third boder ">
                             <div class="border hei71 background_color text-center Temperature1 ">
                                 <h4 class="border "> Nhiet Do</h4>
-                                <div class="mg_mid9"><span class="nd1">kjkg</span></div>
+                                <div class="mg_mid9"><span class="nd1">
+                                        <div class="temI2C1"></div>
+                                    </span></div>
                             </div>
                         </div>
                         <div class="col-third boder ">
                             <div class="border hei71 background_color text-center AnhSang1">
                                 <h4 class="border">Anh Sang</h4>
-                                <div class="mg_mid9"><span>kjkg</span></div>
+                                <div class="mg_mid9"><span>
+                                        <div class="lightI2C1"></div>
+                                    </span></div>
                             </div>
                         </div>
                         <div class="col-third boder ">
                             <div class="border hei71 background_color text-center Do-am1">
                                 <h4 class="border">Do Am</h4>
-                                <div class="mg_mid9"><span>kjkg</span></div>
+                                <div class="mg_mid9"><span>
+                                        <div class="humI2C1"></div>
+                                    </span></div>
                             </div>
                         </div>
                     </div>
@@ -83,11 +89,11 @@
                         <div class="col-half boder ">
                             <div class="border hei71 background_color text-center PH1">
                                 <h4 class="border">PH</h4>
-                                <div class="mg_mid9"><span>kjkg</span></div>
+                                <div class="mg_mid9"><span>NaN</span></div>
                             </div>
                         </div>
                         <div class="col-half boder ">
-                            <div class="border hei71 background_color text-center ">
+                            <div class="border hei71 background_color text-center Do-am2 ">
                                 <h4 class="border">Do Am</h4>
                                 <div class="mg_mid9"><span>
                                         <div class="do_am_dat1"></div>
@@ -99,19 +105,19 @@
                         <div class="col-third boder ">
                             <div class="border hei71 background_color text-center">
                                 <h4 class="border">N</h4>
-                                <div class="mg_mid9"><span>kjkg</span></div>
+                                <div class="mg_mid9"><span>NaN</span></div>
                             </div>
                         </div>
                         <div class="col-third boder ">
                             <div class="border hei71 background_color text-center">
                                 <h4 class="border">P</h4>
-                                <div class="mg_mid9"><span>kjkg</span></div>
+                                <div class="mg_mid9"><span>NaN</span></div>
                             </div>
                         </div>
                         <div class="col-third boder ">
                             <div class="border hei71 background_color text-center">
                                 <h4 class="border">K</h4>
-                                <div class="mg_mid9"><span>kjkg</span></div>
+                                <div class="mg_mid9"><span>NaN</span></div>
                             </div>
                         </div>
                     </div>
@@ -201,19 +207,25 @@
                         <div class="col-third boder ">
                             <div class="border hei71 background_color">
                                 <h4 class="border ">Nhiet DO</h4>
-                                <div class="mg_mid9"><span>kjkg</span></div>
+                                <div class="mg_mid9"><span>
+                                        <div class="temI2C2"></div>
+                                    </span></div>
                             </div>
                         </div>
                         <div class="col-third boder">
                             <div class="border hei71 background_color">
                                 <h4 class="border">Anh Sang</h4>
-                                <div class="mg_mid9"><span>kjkg</span></div>
+                                <div class="mg_mid9"><span>
+                                        <div class="lightI2C2"></div>
+                                    </span></div>
                             </div>
                         </div>
                         <div class="col-third boder">
                             <div class="border hei71 background_color">
                                 <h4 class="border">Do Am</h4>
-                                <div class="mg_mid9"><span>kjkg</span></div>
+                                <div class="mg_mid9"><span>
+                                        <div class="humI2C2"></div>
+                                    </span></div>
                             </div>
                         </div>
 
@@ -353,9 +365,21 @@
         })
         socket.on('S-ReadADC', (value) => {
             //console.log(value);
+            let jsonData = JSON.parse(value)
+            let msb = jsonData.data_1_MSB
+            let lsb = jsonData.data_1_LSB
+            let hexString = msb + lsb
+            let decNumber = parseInt(hexString, 16);
+            value1 = (decNumber - 1450) * 100 / (600 - 1450)
+            if (value1 >= 100) {
+                value1 = 100
+            }
+            if (value <= 0) {
+                value = 8
+            }
             const divElement = document.querySelector('.do_am_dat1');
             if (divElement) {
-                divElement.textContent = value.toFixed(0) + "%";
+                divElement.textContent = value1.toFixed(0) + "%";
             }
         })
         socket.on('RS485_value', (data) => {
@@ -377,6 +401,72 @@
                 P.textContent = P_value + "mg/kg";
                 K.textContent = K_value + "mg/kg";
             }
+        })
+        socket.emit()
+        socket.on('S-ReadI2C', (value) => {
+            let jsonData = JSON.parse(value)
+            var temI2C1
+            var humI2C1
+            var lightI2C1
+            var temI2C2
+            var humI2C2
+            var lightI2C2
+            switch (jsonData.HouseID) {
+                case '1':
+                    switch (jsonData.lenght) {
+                        case '3':
+                            lightI2C1 = (parseInt(jsonData.data_1 + jsonData.data_2, 16) / 1.2)
+                            break
+                        case '5':
+                            temI2C1 = (parseInt(jsonData.data_1 + jsonData.data_2, 16) * 175 / 65535) - 45
+                            humI2C1 = (parseInt(jsonData.data_3 + jsonData.data_4, 16) * 100 / 65535)
+                            break
+                    }
+                    break
+                case '2':
+                    switch (jsonData.lenght) {
+                        case '3':
+                            lightI2C2 = (parseInt(jsonData.data_1 + jsonData.data_2, 16) / 1.2)
+                            break
+                        case '5':
+                            temI2C2 = (parseInt(jsonData.data_1 + jsonData.data_2, 16) * 175 / 65535) - 45
+                            humI2C2 = (parseInt(jsonData.data_3 + jsonData.data_4, 16) * 100 / 65535)
+                            break
+                    }
+                    break
+            }
+            const temI2C1_display = querySelector('.temI2C1');
+            const temI2C2_display = querySelector('.temI2C2');
+
+            const humI2C1_display = querySelector('.humI2C1');
+            const humI2C2_display = querySelector('.humI2C2');
+
+            const lightI2C1_display = querySelector('.lightI2C1');
+            const lightI2C2_display = querySelector('.lightI2C2');
+
+            temI2C1 = 1;
+            temI2C2 = 2;
+            humI2C1 = 3;
+            humI2C2 = 4;
+            lightI2C1 = 5;
+            lightI2C2 = 6;
+            if (temI2C1_display || temI2C2_display || humI2C1_display || humI2C2_display || lightI2C1_display || lightI2C2_display) {
+                temI2C1_display.textContent = temI2C1 + " °C";
+                temI2C1_display.textContent = temI2C2 + " °C";
+
+                humI2C1_display.textContent = humI2C1 + " %";
+                humI2C2_display.textContent = humI2C2 + " %";
+
+                lightI2C1_display.textContent = lightI2C1 + " lux";
+                lightI2C2_display.textContent = lightI2C2 + " lux";
+            }
+            console.log(temI2C1);
+            console.log(temI2C2);
+            console.log(humI2C1);
+            console.log(humI2C2);
+            console.log(lightI2C1);
+            console.log(lightI2C2);
+
         })
 
     </script>

@@ -38,7 +38,7 @@ const limiter = rateLimit({
     // 15 minutes
     windowMs: 60 * 15 * 1000,
     // limit each IP to 100 requests per windowMs
-    max: 1000
+    max: 5000
 });
 app.use(limiter)
 
@@ -56,12 +56,6 @@ io.on('connection', (socket) => {
         console.log(led)
         houseId_ReadDigital = parseInt(jsonData__ReadDigital.HouseID, 10)
         let bitArray = led.split("")
-        // console.log(bitArray[7])
-        // console.log(bitArray[6])
-        // console.log(bitArray[5])
-        // console.log(bitArray[4])
-        // console.log(bitArray[3])
-        // console.log(bitArray[2])
         jsonLed = '{"bit8":' + bitArray[7] + ',"bit7":' + bitArray[6] + ',"bit6":' + bitArray[5] + ',"bit5":' + bitArray[4] + ',"bit4":' + bitArray[3] + ',"bit3":' + bitArray[2] + '}'
         switch (houseId_ReadDigital) {
             case 1:
@@ -69,24 +63,30 @@ io.on('connection', (socket) => {
                 io.emit('display1', jsonLed)
                 break;
             case 2:
+                connection.execute('INSERT INTO button2(bit8,bit7,bit6,bit5,bit4,bit3) VALUES (?,?,?,?,?,?)', [bitArray[7], bitArray[6], bitArray[5], bitArray[4], bitArray[3], bitArray[2]])
                 io.emit('display2', jsonLed)
                 break;
         }
 
     })
     //DOC GIA TRI ADC
+    var value
     socket.on('C-ReadADC', (data) => {
         let jsonData = JSON.parse(data)
         let msb = jsonData.data_1_MSB
         let lsb = jsonData.data_1_LSB
         let hexString = msb + lsb
-        let decNumber = parseInt(hexString);
-        let Vin = decNumber * 3.3 / 65535
-        let R = (5 - Vin) * 10000 / Vin
-        let value = (decNumber - 1450) * 100 / (600 - 1450)
+        let decNumber = parseInt(hexString, 16);
+        value = (decNumber - 1450) * 100 / (650 - 1450)
+        if (value >= 100) {
+            value = 100
+        }
+        if (value <= 0) {
+            value = 8
+        }
         let time = moment().format('YYYY-MM-DD HH:mm:ss')
         connection.execute('INSERT INTO adc_1(value,time) VALUES (?,?)', [value, time])
-        io.emit('S-ReadADC', value)
+        io.emit('S-ReadADC', data)
     })
 
     //DOC GIA TRI RS485
@@ -114,15 +114,47 @@ io.on('connection', (socket) => {
 
     socket.on('C-ReadI2C', (data) => {
         console.log(JSON.parse(data))
-        let
+        let jsonData = JSON.parse(data)
+        let temI2C
+        let humI2C
+        let lightI2C
+        let time = moment().format('YYYY-MM-DD HH:mm:ss')
+        switch (jsonData.lenght) {
+            case '3':
+                lightI2C = (parseInt(jsonData.data_1 + jsonData.data_2, 16) / 1.2)
+                switch (jsonData.HouseID) {
+                    case '1':
+                        connection.execute('INSERT INTO lighti2c1(light,time) VALUES (?,?)', [lightI2C, time])
+                        break
+                    case '2':
+                        connection.execute('INSERT INTO lighti2c2(light,time) VALUES (?,?)', [lightI2C, time])
+                        break
+                }
+
+                break
+            case '5':
+                temI2C = (parseInt(jsonData.data_1 + jsonData.data_2, 16) * 175 / 65535) - 45
+                humI2C = (parseInt(jsonData.data_3 + jsonData.data_4, 16) * 100 / 65535)
+                switch (jsonData.HouseID) {
+                    case '1':
+                        connection.execute('INSERT INTO tem_humi2c1(tem,hum,time) VALUES (?,?,?)', [temI2C, humI2C, time])
+                        break
+                    case '2':
+                        connection.execute('INSERT INTO tem_humi2c2(tem,hum,time) VALUES (?,?,?)', [temI2C, humI2C, time])
+                        break
+                }
+                break
+        }
+        io.emit('S-ReadI2C', data)
     })
     socket.on('C-RequestI2C', (data) => {
         //console.log(JSON.parse(data))
     })
     socket.on('C-ScanI2C', (data) => {
-        //console.log(JSON.parse(data))
-        io.emit('GET_I2C_DEVICE', JSON.parse(data))
+        console.log(JSON.parse(data))
+        io.emit('GET_I2C_DEVICE', data)
     })
+    // ONLINE STATUS
     socket.on('C-CheckStatus', (data) => {
         console.log(JSON.parse(data))
     })
@@ -154,6 +186,14 @@ io.on('connection', (socket) => {
         console.log(data)
         io.emit('timerADC', data)
     })
+    socket.on('configRS485', (data) => {
+        console.log(JSON.parse(data))
+        io.emit('timerRS485', data)
+    })
+    socket.on('configI2C', (data) => {
+        console.log(JSON.parse(data))
+        io.emit('timerI2C', data)
+    })
     socket.on('scan_i2c', (data) => {
         console.log(data);
         io.emit('scan_i2csv', (data))
@@ -165,8 +205,13 @@ io.on('connection', (socket) => {
     socket.on('disconnect', () => {
         console.log("disconnection");
     });
-
+    socket.emit("batden", '{hiếu}')
+    socket.on('batden', (data) => {
+        console.log(data)
+        io.emit('batdensv', data)
+    })
 });
+
 
 server.listen(port, () =>
     console.log(`App listening at http://localhost:${port}`)

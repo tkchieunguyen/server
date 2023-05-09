@@ -51,6 +51,40 @@ let getButton = async (req, res) => {
         res.status(500).json({ message: err.message })
     }
 }
+let getI2CHum_Tem1Start = async (req, res) => {
+    try {
+        let [data] = await connection.execute('SELECT tem,hum,time FROM tem_humi2c1 ORDER BY id DESC LIMIT 6;')
+        res.status(200).json(data)
+    }
+    catch (err) {
+        res.status(500).json({ message: err.message })
+    }
+}
+let getI2CHum_Tem1Active = async (req, res) => {
+    try {
+        let [data] = await connection.execute('SELECT tem,hum,time FROM tem_humi2c1 ORDER BY id DESC LIMIT 1;')
+        res.status(200).json(data)
+    } catch (err) {
+        res.status(500).json({ message: err.message })
+    }
+}
+let getI2CLight1Start = async (req, res) => {
+    try {
+        let [data] = await connection.execute('SELECT light,time FROM lighti2c1 ORDER BY id DESC LIMIT 6;')
+        res.status(200).json(data)
+    }
+    catch (err) {
+        res.status(500).json({ message: err.message })
+    }
+}
+let getI2CLight1Active = async (req, res) => {
+    try {
+        let [data] = await connection.execute('SELECT light,time FROM lighti2c1 ORDER BY id DESC LIMIT 1;')
+        res.status(200).json(data)
+    } catch (err) {
+        res.status(500).json({ message: err.message })
+    }
+}
 module.exports = {
     getUser,
     getADCStart,
@@ -58,4 +92,8 @@ module.exports = {
     getRS485Start,
     getRS485Active,
     getButton,
+    getI2CHum_Tem1Active,
+    getI2CHum_Tem1Start,
+    getI2CLight1Active,
+    getI2CLight1Start,
 }
