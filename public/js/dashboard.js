@@ -217,6 +217,124 @@ function fetchLightI2C1() {
 }
 setInterval(fetchLightI2C1, 5000)
 // 
+// 
+// Light I2C 2
+var lights2 = []
+var timesLight2 = []
+fetch('/api/lightI2C2Start')
+  .then(response => response.json())
+  .then(data => {
+    data.forEach((item) => {
+      let localTime = moment.utc(item.time).utcOffset("+07:00").format("HH:mm:ss");
+      lights2.unshift(item.light);
+      timesLight2.unshift(localTime);
+      myChart2.update();
+    });
+  })
+  .catch(error => {
+    console.error(error)
+  })
+function fetchLightI2C2() {
+  fetch('/api/lightI2C2Active')
+    .then(response => response.json())
+    .then(data => {
+      let data1 = data;
+      data.map(function (data1) {
+        let localTime = moment.utc(data1.time).utcOffset("+07:00").format("HH:mm:ss");
+        //console.log(data1.value);
+        //console.log(localTime);
+        lights2.shift();
+        lights2.push(data1.light);
+        timesLight2.shift();
+        timesLight2.push(localTime);
+        myChart2.update();
+      })
+    });
+}
+setInterval(fetchLightI2C2, 5000)
+// 
+// 
+// temHumI2C 1
+var HumI2C1 = []
+var TemI2C1 = []
+var timesI2C1 = []
+fetch('/api/temHumI2C1Start')
+  .then(response => response.json())
+  .then(data => {
+    data.forEach((item) => {
+      let localTime = moment.utc(item.time).utcOffset("+07:00").format("HH:mm:ss");
+      TemI2C1.unshift(item.tem);
+      HumI2C1.unshift(item.hum);
+      timesI2C1.unshift(localTime);
+      myChart1.update();
+    });
+  })
+  .catch(error => {
+    console.error(error)
+  })
+function fetchtemHumI2C1() {
+  fetch('/api/lightI2C1Active')
+    .then(response => response.json())
+    .then(data => {
+      let data1 = data;
+      data.map(function (data1) {
+        let localTime = moment.utc(data1.time).utcOffset("+07:00").format("HH:mm:ss");
+        //console.log(data1.value);
+        //console.log(localTime);
+        HumI2C1.shift();
+        HumI2C1.push(data1.hum);
+        TemI2C1.shift();
+        TemI2C1.push(data1.tem);
+        timesI2C1.shift();
+        timesI2C1.push(localTime);
+        myChart1.update();
+      })
+    });
+}
+setInterval(fetchtemHumI2C2, 5000)
+// 
+// 
+// temHumI2C 2
+var HumI2C2 = []
+var TemI2C2 = []
+var timesI2C2 = []
+fetch('/api/temHumI2C2Start')
+  .then(response => response.json())
+  .then(data => {
+    data.forEach((item) => {
+      let localTime = moment.utc(item.time).utcOffset("+07:00").format("HH:mm:ss");
+      TemI2C2.unshift(item.tem);
+      HumI2C2.unshift(item.hum);
+      timesI2C2.unshift(localTime);
+      myChart2.update();
+    });
+  })
+  .catch(error => {
+    console.error(error)
+  })
+function fetchtemHumI2C2() {
+  fetch('/api/temHumI2C2Active')
+    .then(response => response.json())
+    .then(data => {
+      let data1 = data;
+      data.map(function (data1) {
+        let localTime = moment.utc(data1.time).utcOffset("+07:00").format("HH:mm:ss");
+        //console.log(data1.value);
+        //console.log(localTime);
+        HumI2C2.shift();
+        HumI2C2.push(data1.hum);
+        TemI2C2.shift();
+        TemI2C2.push(data1.tem);
+        timesI2C2.shift();
+        timesI2C2.push(localTime);
+        myChart2.update();
+      })
+    });
+}
+setInterval(fetchtemHumI2C2, 5000)
+// 
+// 
+// NPK
 var valuesN = []
 var valuesP = []
 var valuesK = []
@@ -268,10 +386,10 @@ function fetchRS485() {
     });
 }
 setInterval(fetchRS485, 5000)
-// DO AM1
+// DO AM DAT 1
 document.querySelector('.Do-am2').addEventListener('click', chartDoAm1);
 function chartDoAm1() {
-  myChart1.data.datasets[0].label = '#Do Am';
+  myChart1.data.datasets[0].label = '#Soil Moisture';
   myChart1.data.datasets[0].data = values;
   myChart1.data.labels = times
   myChart1.update();
@@ -283,6 +401,46 @@ function chartLight1() {
   myChart1.data.datasets[0].data = lights1;
   myChart1.data.labels = timesLight
   myChart1.update();
+}
+// NHIET DO 1
+// document.querySelector('.TemI2C1').addEventListener('click', chartTemI2C1);
+// function chartTemI2C1() {
+  //   myChart1.data.datasets[0].label = '#Temperature';
+  //   myChart1.data.datasets[0].data = TemI2C1;
+  //   myChart1.data.labels = timesI2C1
+  //   myChart1.update();
+  // }
+  // DO AM KHONG KHI 1
+  document.querySelector('.HumI2C1').addEventListener('click', chartHumI2C1);
+  function chartHumI2C1() {
+    myChart1.data.datasets[0].label = '#Humidity';
+    myChart1.data.datasets[0].data = HumI2C1;
+    myChart1.data.labels = timesI2C1
+    myChart1.update();
+  }
+  // DO AM KHONG KHI 2
+  document.querySelector('.HumI2C2').addEventListener('click', chartHumI2C2);
+  function chartHumI2C2() {
+    myChart2.data.datasets[0].label = '#Humidity';
+    myChart2.data.datasets[0].data = HumI2C2;
+    myChart2.data.labels = timesI2C2
+    myChart2.update();
+  }
+// LIGHT 2
+document.querySelector('.LightChart2').addEventListener('click', chartLight2);
+function chartLight2() {
+  myChart2.data.datasets[0].label = '#Light';
+  myChart2.data.datasets[0].data = lights2;
+  myChart2.data.labels = timesLight2
+  myChart2.update();
+}
+// NHIET DO 2
+document.querySelector('.TemI2C2').addEventListener('click', chartTemI2C2);
+function chartTemI2C2() {
+  myChart2.data.datasets[0].label = '#Temperature';
+  myChart2.data.datasets[0].data = TemI2C2;
+  myChart2.data.labels = timesI2C2
+  myChart2.update();
 }
 // N2
 document.querySelector('.valueN2').addEventListener('click', chartvalueN2);
@@ -318,10 +476,10 @@ function chartvaluepH2() {
   myChart2.data.labels = times1
   myChart2.update();
 }
-// K2
+// DO AM DAT 2
 document.querySelector('.valueHumdity2').addEventListener('click', chartvalueHumdity2);
 function chartvalueHumdity2() {
-  myChart2.data.datasets[0].label = '#Humdity';
+  myChart2.data.datasets[0].label = '#Soil Moisture';
   myChart2.data.datasets[0].data = valuesHumdity;
   myChart2.data.labels = times1
   myChart2.update();

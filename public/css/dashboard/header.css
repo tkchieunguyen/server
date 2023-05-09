@@ -45,6 +45,7 @@ html {
     line-height: 59.5px;
     font-size: 25px;
     display: flex;
+    min-width: 235px;
 }
 
 
