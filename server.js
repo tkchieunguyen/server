@@ -148,10 +148,10 @@ io.on('connection', (socket) => {
         io.emit('S-ReadI2C', data)
     })
     socket.on('C-RequestI2C', (data) => {
-        //console.log(JSON.parse(data))
+        console.log(JSON.parse(data))
     })
     socket.on('C-ScanI2C', (data) => {
-        console.log(JSON.parse(data))
+        //console.log(JSON.parse(data))
         io.emit('GET_I2C_DEVICE', data)
     })
     // ONLINE STATUS
@@ -159,6 +159,9 @@ io.on('connection', (socket) => {
         console.log(JSON.parse(data))
     })
     socket.on('C-ResponseError', (data) => {
+        console.log(JSON.parse(data))
+    })
+    socket.on('C-ResponseTimer', (data) => {
         console.log(JSON.parse(data))
     })
 
@@ -183,7 +186,7 @@ io.on('connection', (socket) => {
         });
     });
     socket.on('config', (data) => {
-        console.log(data)
+        //console.log(data)
         io.emit('timerADC', data)
     })
     socket.on('configRS485', (data) => {
@@ -195,7 +198,7 @@ io.on('connection', (socket) => {
         io.emit('timerI2C', data)
     })
     socket.on('scan_i2c', (data) => {
-        console.log(data);
+        //console.log(data);
         io.emit('scan_i2csv', (data))
     })
     socket.on('RS485_value', (data) => {
@@ -205,14 +208,7 @@ io.on('connection', (socket) => {
     socket.on('disconnect', () => {
         console.log("disconnection");
     });
-    socket.emit("batden", '{hiếu}')
-    socket.on('batden', (data) => {
-        console.log(data)
-        io.emit('batdensv', data)
-    })
 });
-
-
 server.listen(port, () =>
     console.log(`App listening at http://localhost:${port}`)
 )

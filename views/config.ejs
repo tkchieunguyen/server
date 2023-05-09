@@ -69,7 +69,7 @@
                 <button class="scani2c1">SCAN I2C HOUSE 1</button><br>
                 <div style=" padding-left: 10px;padding-right: 10px;">
                     <form onsubmit="set_time_ADC_1(event)">
-                        <label for="adcInput">Nhập giá trị ADC:</label>
+                        <label for="adcInput">Nhập giá trị cài đặt thời gian ADC (Ms):</label>
                         <input type="number" id="adcInput" name="adcInput" required>
                         <button type="submit">Gửi</button>
                     </form>
@@ -90,17 +90,17 @@
                     <button type="submit">Gửi</button>
                 </form> -->
                 <form onsubmit="set_time_RS485_1_NPK(event)">
-                    <label for="npkInput1">Nhập giá trị NPK:</label>
+                    <label for="npkInput1">Nhập giá trị cài đặt thời gian NPK (Ms):</label>
                     <input type="number" id="npkInput1" name="npkInput1" required>
                     <button type="submit">Gửi</button>
                 </form>
                 <form onsubmit="set_time_RS485_1_pH(event)">
-                    <label for="phInput1">Nhập giá trị pH:</label>
+                    <label for="phInput1">Nhập giá trị cài đặt thời gian pH (Ms):</label>
                     <input type="number" step="0.1" id="phInput1" name="phInput1" required>
                     <button type="submit">Gửi</button>
                 </form>
                 <form onsubmit="set_time_RS485_1_Moisture(event)">
-                    <label for="moistureInput">Nhập giá trị Độ ẩm:</label>
+                    <label for="moistureInput">Nhập giá trị cài đặt thời gian Độ ẩm (Ms):</label>
                     <input type="number" id="moistureInput" name="moistureInput" required>
                     <button type="submit">Gửi</button>
                 </form>
@@ -237,7 +237,7 @@
             }
             let hexString = i2cInput.toString(16).padStart(4, '0');
             let hexBytes = [hexString.substr(0, 2), hexString.substr(2, 2)];
-            socket.emit("configI2C", '{"server":{"houseID":1,"request":"WriteCMD","lenght":6,"cmdAuto":5,"i2ca":"' + addressValue + '","numberOfByte":"' + numberOfByte + '","cmdID":21,"time1":' + parseInt(hexBytes[0], 16) + ',"time2":' + parseInt(hexBytes[1], 16) + '}}');
+            socket.emit("configI2C", '{"server":{"houseID":1,"request":"WriteCMD","lenght":5,"cmdAuto":5,"i2ca":"' + addressValue + '","cmdID":21,"time1":' + parseInt(hexBytes[0], 16) + ',"time2":' + parseInt(hexBytes[1], 16) + '}}');
             document.getElementById(`i2cInput${addressValue}`).value = "";
         }
         function sendData3(event, addressValue) {
@@ -252,7 +252,7 @@
             }
             let hexString = i2cInput.toString(16).padStart(4, '0');
             let hexBytes = [hexString.substr(0, 2), hexString.substr(2, 2)];
-            socket.emit("configI2C", '{"server":{"houseID":2,"request":"WriteCMD","cmdAuto":5,"lenght":4,"address I2C":"' + addressValue + '","numberOfByte":"' + numberOfByte + '","cmdID":21,"time1":' + parseInt(hexBytes[0], 16) + ',"time2":' + parseInt(hexBytes[1], 16) + '}}');
+            socket.emit("configI2C", '{"server":{"houseID":2,"request":"WriteCMD","cmdAuto":5,"lenght":5,"address I2C":"' + addressValue + '","cmdID":21,"time1":' + parseInt(hexBytes[0], 16) + ',"time2":' + parseInt(hexBytes[1], 16) + '}}');
             document.getElementById(`i2cInput${addressValue}`).value = "";
         }
         var scani2c1 = document.querySelector('.scani2c1');
