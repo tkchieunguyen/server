@@ -371,35 +371,46 @@
             let hexString = msb + lsb
             let decNumber = parseInt(hexString, 16);
             value1 = (decNumber - 1450) * 100 / (600 - 1450)
-            if (value1 >= 100) {
-                value1 = 100
-            }
-            if (value <= 0) {
-                value = 8
-            }
+            //if (value1 >= 100) {
+            //   value1 = 100
+            //}
+            //if (value <= 0) {
+            //    value = 8
+            //}
             const divElement = document.querySelector('.do_am_dat1');
             if (divElement) {
                 divElement.textContent = value1.toFixed(0) + "%";
             }
         })
-        socket.on('RS485_value', (data) => {
+        socket.on('RS485_NPKvalue', (data) => {
             let jsonData = JSON.parse(data)
             let N_value = jsonData.N;
             let P_value = jsonData.P;
             let K_value = jsonData.K;
-            let hum_value = jsonData.Hum;
-            let pH_value = jsonData.pH;
-            const pH2 = document.querySelector('.pH2');
-            const hum2 = document.querySelector('.hum2');
+
             const N = document.querySelector('.N2');
             const P = document.querySelector('.P2');
             const K = document.querySelector('.K2');
-            if (pH2 || hum2 || N || P || K) {
-                pH2.textContent = pH_value + "pH";
-                hum2.textContent = hum_value + "%";
+            if (N || P || K) {
                 N.textContent = N_value + "mg/kg";
                 P.textContent = P_value + "mg/kg";
                 K.textContent = K_value + "mg/kg";
+            }
+        })
+        socket.on('RS485_humvalue', (data) => {
+            let jsonData = JSON.parse(data)
+            let hum_value = jsonData.Hum;
+            const hum2 = document.querySelector('.hum2');
+            if (hum2) {
+                hum2.textContent = hum_value + "%";
+            }
+        })
+        socket.on('RS485_phvalue', (data) => {
+            let jsonData = JSON.parse(data)
+            let pH_value = jsonData.pH;
+            const pH2 = document.querySelector('.pH2');
+            if (pH2) {
+                pH2.textContent = pH_value + "pH";
             }
         })
         socket.emit()
@@ -409,7 +420,7 @@
         var temI2C2 = 0;
         var humI2C2 = 0;
         var lightI2C2 = 0;
-        socket.on('S-ReadI2C', (value) => {
+        socket.on('S-RequestI2C', (value) => {
             let jsonData = JSON.parse(value)
 
             switch (jsonData.HouseID) {
@@ -481,11 +492,11 @@
             //bt_on1.classList.toggle('light');
             if (bt_on1.classList.value != 'btn btn_on1 light') {
                 //console.log(1)
-                socket.emit('den1on', '{"server":{"houseID":1,"request":"WriteDigital","lenght":"2","DO":"0","value":"0"}}');
+                socket.emit('den1on', '{"server":{"houseID":1,"request":"WriteDigital","DO0":"0"}}');
             }
             else {
                 //console.log(0)
-                socket.emit('den1off', '{"server":{"houseID":1,"request":"WriteDigital","lenght":"2","DO":"0","value":"1"}}');
+                socket.emit('den1off', '{"server":{"houseID":1,"request":"WriteDigital","DO0":"1"}}');
             }
         }
         bt_on2.addEventListener('click', addlight2);
@@ -493,11 +504,11 @@
             //bt_on2.classList.toggle('light');
             if (bt_on2.classList.value != 'btn btn_on2 light') {
                 //console.log(1)
-                socket.emit('den2on', '{"server":{"houseID":1,"request":"WriteDigital","lenght":"2","DO":"1","value":"0"}}');
+                socket.emit('den2on', '{"server":{"houseID":1,"request":"WriteDigital","DO1":"0"}}');
             }
             else {
                 //console.log(0)
-                socket.emit('den2off', '{"server":{"houseID":1,"request":"WriteDigital","lenght":"2","DO":"1","value":"1"}}');
+                socket.emit('den2off', '{"server":{"houseID":1,"request":"WriteDigital","DO1":"1"}}');
             }
         }
         bt_on3.addEventListener('click', addlight3);
@@ -505,11 +516,11 @@
             //bt_on3.classList.toggle('light');
             if (bt_on3.classList.value != 'btn btn_on3 light') {
                 //console.log(1)
-                socket.emit('den3on', '{"server":{"houseID":1,"request":"WriteDigital","lenght":"2","DO":"2","value":"0"}}');
+                socket.emit('den3on', '{"server":{"houseID":1,"request":"WriteDigital","DO2":"0"}}');
             }
             else {
                 //console.log(0)
-                socket.emit('den3off', '{"server":{"houseID":1,"request":"WriteDigital","lenght":"2","DO":"2","value":"1"}}');
+                socket.emit('den3off', '{"server":{"houseID":1,"request":"WriteDigital","DO2":"1"}}');
             }
         }
         bt_on4.addEventListener('click', addlight4);
@@ -517,11 +528,11 @@
             //bt_on4.classList.toggle('light');
             if (bt_on4.classList.value != 'btn btn_on4 light') {
                 //console.log(1)
-                socket.emit('den4on', '{"server":{"houseID":1,"request":"WriteDigital","lenght":"2","DO":"3","value":"0"}}');
+                socket.emit('den4on', '{"server":{"houseID":1,"request":"WriteDigital","DO3":"0"}}');
             }
             else {
                 //console.log(0)
-                socket.emit('den4off', '{"server":{"houseID":1,"request":"WriteDigital","lenght":"2","DO":"3","value":"1"}}');
+                socket.emit('den4off', '{"server":{"houseID":1,"request":"WriteDigital","DO3":"1"}}');
             }
         }
 
@@ -530,11 +541,11 @@
             //bt_on5.classList.toggle('light');
             if (bt_on5.classList.value != 'btn btn_on5 light') {
                 //console.log(1)
-                socket.emit('den5on', '{"server":{"houseID":1,"request":"WriteDigital","lenght":"2","DO":"4","value":"0"}}');
+                socket.emit('den5on', '{"server":{"houseID":1,"request":"WriteDigital","DO4":"0"}}');
             }
             else {
                 //console.log(0)
-                socket.emit('den5off', '{"server":{"houseID":1,"request":"WriteDigital","lenght":"2","DO":"4","value":"1"}}');
+                socket.emit('den5off', '{"server":{"houseID":1,"request":"WriteDigital","DO4":"1"}}');
             }
         }
 
@@ -543,11 +554,11 @@
             //bt_on6.classList.toggle('light');
             if (bt_on6.classList.value != 'btn btn_on6 light') {
                 //console.log(1)
-                socket.emit('den6on', '{"server":{"houseID":1,"request":"WriteDigital","lenght":"2","DO":"5","value":"0"}}');
+                socket.emit('den6on', '{"server":{"houseID":1,"request":"WriteDigital,"DO5":"0"}}');
             }
             else {
                 //console.log(0)
-                socket.emit('den6off', '{"server":{"houseID":1,"request":"WriteDigital","lenght":"2","DO":"5","value":"1"}}');
+                socket.emit('den6off', '{"server":{"houseID":1,"request":"WriteDigital","DO5":"1"}}');
             }
         }
 
@@ -556,11 +567,11 @@
             //bt_on21.classList.toggle('light');
             if (bt_on21.classList.value != 'btn2 btn_on21 light') {
                 //console.log(1)
-                socket.emit('den7on', '{"server":{"houseID":2,"request":"WriteDigital","lenght":"2","DO":"0","value":"0"}}');
+                socket.emit('den7on', '{"server":{"houseID":2,"request":"WriteDigital","DO0":"0"}}');
             }
             else {
                 //console.log(0)
-                socket.emit('den7off', '{"server":{"houseID":2,"request":"WriteDigital","lenght":"2","DO":"0","value":"1"}}');
+                socket.emit('den7off', '{"server":{"houseID":2,"request":"WriteDigital","DO0":"1"}}');
             }
         }
 
@@ -569,11 +580,11 @@
             //bt_on22.classList.toggle('light');
             if (bt_on22.classList.value != 'btn2 btn_on22 light') {
                 //console.log(1)
-                socket.emit('den8on', '{"server":{"houseID":2,"request":"WriteDigital","lenght":"2","DO":"1","value":"0"}}');
+                socket.emit('den8on', '{"server":{"houseID":2,"request":"WriteDigital","DO1":"0"}}');
             }
             else {
                 //console.log(0)
-                socket.emit('den8off', '{"server":{"houseID":2,"request":"WriteDigital","lenght":"2","DO":"1","value":"1"}}');
+                socket.emit('den8off', '{"server":{"houseID":2,"request":"WriteDigital","DO1":"1"}}');
             }
         }
 
@@ -582,11 +593,11 @@
             //bt_on23.classList.toggle('light');
             if (bt_on23.classList.value != 'btn1 btn_on23 light') {
                 //console.log(1)
-                socket.emit('den9on', '{"server":{"houseID":2,"request":"WriteDigital","lenght":"2","DO":"2","value":"0"}}');
+                socket.emit('den9on', '{"server":{"houseID":2,"request":"WriteDigital","DO2":"0"}}');
             }
             else {
                 //console.log(0)
-                socket.emit('den9off', '{"server":{"houseID":2,"request":"WriteDigital","lenght":"2","DO":"2","value":"1"}}');
+                socket.emit('den9off', '{"server":{"houseID":2,"request":"WriteDigital","DO2":"1"}}');
             }
         }
 
@@ -595,11 +606,11 @@
             //bt_on24.classList.toggle('light');
             if (bt_on24.classList.value != 'btn1 btn_on24 light') {
                 //console.log(1)
-                socket.emit('den10on', '{"server":{"houseID":2,"request":"WriteDigital","lenght":"2","DO":"3","value":"0"}}');
+                socket.emit('den10on', '{"server":{"houseID":2,"request":"WriteDigital","DO3":"0"}}');
             }
             else {
                 //console.log(0)
-                socket.emit('den10off', '{"server":{"houseID":2,"request":"WriteDigital","lenght":"2","DO":"3","value":"1"}}');
+                socket.emit('den10off', '{"server":{"houseID":2,"request":"WriteDigital","DO3":"1"}}');
             }
         }
 
@@ -608,11 +619,11 @@
             //bt_on25.classList.toggle('light');
             if (bt_on25.classList.value != 'btn1 btn_on25 light') {
                 //console.log(1)
-                socket.emit('den11on', '{"server":{"houseID":2,"request":"WriteDigital","lenght":"2","DO":"4","value":"0"}}');
+                socket.emit('den11on', '{"server":{"houseID":2,"request":"WriteDigital","DO4":"0"}}');
             }
             else {
                 //console.log(0)
-                socket.emit('den11off', '{"server":{"houseID":2,"request":"WriteDigital","lenght":"2","DO":"4","value":"1"}}');
+                socket.emit('den11off', '{"server":{"houseID":2,"request":"WriteDigital","DO4":"1"}}');
             }
         }
 
@@ -621,11 +632,11 @@
             //bt_on26.classList.toggle('light');
             if (bt_on26.classList.value != 'btn1 btn_on26 light') {
                 //console.log(1)
-                socket.emit('den12on', '{"server":{"houseID":2,"request":"WriteDigital","lenght":"2","DO":"5","value":"0"}}');
+                socket.emit('den12on', '{"server":{"houseID":2,"request":"WriteDigital","DO5":"0"}}');
             }
             else {
                 //console.log(0)
-                socket.emit('den12off', '{"server":{"houseID":2,"request":"WriteDigital","lenght":"2","DO":"5","value":"1"}}');
+                socket.emit('den12off', '{"server":{"houseID":2,"request":"WriteDigital","DO5":"1"}}');
             }
         }
         //function fetchButton() {
@@ -685,6 +696,68 @@
                             break;
                         case 0:
                             bt_on6.classList.add('light');
+                            break;
+                    }
+                })
+            })
+        fetch('/api/getButton2')
+            .then(response => response.json())
+            .then(data => {
+                data.forEach((item) => {
+                    let bit8 = item.bit8;
+                    let bit7 = item.bit7;
+                    let bit6 = item.bit6;
+                    let bit5 = item.bit5;
+                    let bit4 = item.bit4;
+                    let bit3 = item.bit3;
+                    switch (bit8) {
+                        case 1:
+                            bt_on21.classList.remove('light');
+                            break;
+                        case 0:
+
+                            bt_on21.classList.add('light');
+                            break;
+                    }
+                    switch (bit7) {
+                        case 1:
+
+                            bt_on22.classList.remove('light');
+                            break;
+                        case 0:
+                            bt_on22.classList.add('light');
+                            break;
+                    }
+                    switch (bit6) {
+                        case 1:
+                            bt_on23.classList.remove('light');
+                            break;
+                        case 0:
+                            bt_on23.classList.add('light');
+                            break;
+                    }
+                    switch (bit5) {
+                        case 1:
+                            bt_on24.classList.remove('light');
+                            break;
+                        case 0:
+                            bt_on24.classList.add('light');
+                            break;
+                    }
+                    switch (bit4) {
+                        case 1:
+                            bt_on25.classList.remove('light');
+                            break;
+                        case 0:
+                            bt_on25.classList.add('light');
+                            break;
+                    }
+                    switch (bit3) {
+                        case 1:
+                            bt_on26.classList.remove('light');
+                            break;
+                        case 0:
+                            bt_on26.classList.add('light');
                             break;
                     }
                 })
@@ -753,67 +826,63 @@
         })
         socket.on('display2', (data) => {
             let jsonData = JSON.parse(data)
-            console.log(jsonData)
-            let value = parseInt(jsonData.data, 16).toString(2)
+            //console.log(jsonData)
+            //let value = parseInt(jsonData.data, 16).toString(2)
             console.log(value)
-            let bitsArray = value.split("");
-            let bit1 = bitsArray[0];
-            let bit2 = bitsArray[1];
-            let bit3 = bitsArray[2];
-            let bit4 = bitsArray[3];
-            let bit5 = bitsArray[4];
-            let bit6 = bitsArray[5];
-            let bit7 = bitsArray[6];
-            let bit8 = bitsArray[7];
+            let bit8 = jsonData.bit8
+            let bit7 = jsonData.bit7
+            let bit6 = jsonData.bit6
+            let bit5 = jsonData.bit5
+            let bit4 = jsonData.bit4
+            let bit3 = jsonData.bit3
             //console.log(bit8 + " " + bit7 + " " + bit6 + " " + bit5 + " " + bit4 + " " + bit3)
-            switch (bit8.toString()) {
-                case "1":
+            switch (bit8) {
+                case 1:
                     bt_on21.classList.remove('light');
                     break;
-                case "0":
+                case 0:
 
                     bt_on21.classList.add('light');
                     break;
             }
-            switch (bit7.toString()) {
-                case "1":
+            switch (bit7) {
+                case 1:
 
                     bt_on22.classList.remove('light');
                     break;
-                case "0":
-
+                case 0:
                     bt_on22.classList.add('light');
                     break;
             }
-            switch (bit6.toString()) {
-                case "1":
+            switch (bit6) {
+                case 1:
                     bt_on23.classList.remove('light');
                     break;
-                case "0":
+                case 0:
                     bt_on23.classList.add('light');
                     break;
             }
-            switch (bit5.toString()) {
-                case "1":
+            switch (bit5) {
+                case 1:
                     bt_on24.classList.remove('light');
                     break;
-                case "0":
+                case 0:
                     bt_on24.classList.add('light');
                     break;
             }
-            switch (bit4.toString()) {
-                case "1":
+            switch (bit4) {
+                case 1:
                     bt_on25.classList.remove('light');
                     break;
-                case "0":
+                case 0:
                     bt_on25.classList.add('light');
                     break;
             }
-            switch (bit3.toString()) {
-                case "1":
+            switch (bit3) {
+                case 1:
                     bt_on26.classList.remove('light');
                     break;
-                case "0":
+                case 0:
                     bt_on26.classList.add('light');
                     break;
             }

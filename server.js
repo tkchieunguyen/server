@@ -37,13 +37,12 @@ app.use(express.static(path.join(__dirname, 'public')))
 const limiter = rateLimit({
     // 15 minutes
     windowMs: 15 * 60 * 1000,
-    // limit each IP to 5000 requests per Window each 15 Minute 
-    max: 5000
+    // limit each IP to 10000 requests per Window each 15 Minute 
+    max: 10000
 });
 app.use(limiter)
 
-io.on('connection', (socket) => {
-    console.log('a user connected')
+io.on('connection', async (socket) => {
     //NHẬN TỪ ESP// READ DIGITAL
     let houseId_ReadDigital = null
     let jsonData__ReadDigital = null
@@ -67,7 +66,6 @@ io.on('connection', (socket) => {
                 io.emit('display2', jsonLed)
                 break;
         }
-
     })
     //DOC GIA TRI ADC
     var value
@@ -78,40 +76,63 @@ io.on('connection', (socket) => {
         let hexString = msb + lsb
         let decNumber = parseInt(hexString, 16);
         value = (decNumber - 1450) * 100 / (650 - 1450)
-        if (value >= 100) {
-            value = 100
-        }
-        if (value <= 0) {
-            value = 8
-        }
+        // if (value >= 100) {
+        //     value = 100
+        // }
+        // if (value <= 0) {
+        //     value = 8
+        // }
         let time = moment().format('YYYY-MM-DD HH:mm:ss')
         connection.execute('INSERT INTO adc_1(value,time) VALUES (?,?)', [value, time])
         io.emit('S-ReadADC', data)
     })
-
     //DOC GIA TRI RS485
     socket.on('C-ReadRS485', (data) => {
         let jsonData = JSON.parse(data)
-        //console.log(jsonData)
         let houseID = jsonData.HouseID
-        let N = parseInt(jsonData.data_1 + jsonData.data_2, 16)
-        let P = parseInt(jsonData.data_3 + jsonData.data_4, 16)
-        let K = parseInt(jsonData.data_5 + jsonData.data_6, 16)
-        let Hum = parseInt(jsonData.data_7 + jsonData.data_8, 16) / 10
-        let pH = parseInt(jsonData.data_9 + jsonData.data_10, 16) / 10
+        //console.log(jsonData)
+        //a = { "Client": { "houseID": 1, "response": "RS485", "RS485a": "aRS485 Address", "rs485d1": Data 1, "rs485d2": Data 2, ...} }
         let time = moment().format('YYYY-MM-DD HH:mm:ss')
-        //console.log(N + "  " + P + "  " + K + "  " + Hum + "  " + pH)
-        switch (houseID) {
-            case '1':
+        switch (jsonData.RS485a) {
+            case 1:
+                let N = jsonData.data_1
+                let P = jsonData.data_2
+                let K = jsonData.data_3
+                switch (houseID) {
+                    case '1':
+                        break
+                    case '2':
+                        connection.execute('INSERT INTO rs485_npk1(time,N,P,K) VALUES (?,?,?,?)', [time, N, P, K])
+                        io.emit('RS485_NPKvalue', '{"N":' + N + ',"P":' + P + ',"K":' + K + '}')
+                        break
+                }
                 break
-            case '2':
-                connection.execute('INSERT INTO rs485_2(time,N,P,K,humdity,pH) VALUES (?,?,?,?,?,?)', [time, N, P, K, Hum, pH])
-                io.emit('RS485_value', '{"N":' + N + ',"P":' + P + ',"K":' + K + ',"Hum":' + Hum + ',"pH":' + pH + '}')
+            case 2:
+                let Hum = jsonData.data_1 / 10
+                switch (houseID) {
+                    case '1':
+                        break
+                    case '2':
+                        connection.execute('INSERT INTO rs485_hum1(time,hum) VALUES (?,?)', [time, Hum])
+                        io.emit('RS485_humvalue', '{""Hum":' + Hum + '}')
+                        break
+                }
+                break
+            case 3:
+                let pH = jsonData.data_1 / 10
+                switch (houseID) {
+                    case '1':
+                        break
+                    case '2':
+                        connection.execute('INSERT INTO rs485_ph1(time,) VALUES (?,?)', [time, pH])
+                        io.emit('RS485_phvalue', '{"pH":' + pH + '}')
+                        break
+                }
                 break
         }
 
-    })
 
+    })
     socket.on('C-ReadI2C', (data) => {
         console.log(JSON.parse(data))
         let jsonData = JSON.parse(data)
@@ -130,7 +151,6 @@ io.on('connection', (socket) => {
                         connection.execute('INSERT INTO lighti2c2(light,time) VALUES (?,?)', [lightI2C, time])
                         break
                 }
-
                 break
             case '5':
                 temI2C = (parseInt(jsonData.data_1 + jsonData.data_2, 16) * 175 / 65535) - 45

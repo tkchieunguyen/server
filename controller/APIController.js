@@ -25,7 +25,6 @@ let getADCActive = async (req, res) => {
         res.status(500).json({ message: err.message })
     }
 }
-
 let getRS485Start = async (req, res) => {
     try {
         let [data] = await connection.execute('SELECT N,P,K,humdity,pH,time FROM rs485_2 ORDER BY id DESC LIMIT 6;')
@@ -45,6 +44,15 @@ let getRS485Active = async (req, res) => {
 let getButton = async (req, res) => {
     try {
         let [data] = await connection.execute('SELECT bit8,bit7,bit6,bit5,bit4,bit3 FROM button1 ORDER BY id DESC LIMIT 1;')
+        res.status(200).json(data)
+    }
+    catch (err) {
+        res.status(500).json({ message: err.message })
+    }
+}
+let getButton2 = async (req, res) => {
+    try {
+        let [data] = await connection.execute('SELECT bit8,bit7,bit6,bit5,bit4,bit3 FROM button2 ORDER BY id DESC LIMIT 1;')
         res.status(200).json(data)
     }
     catch (err) {
@@ -119,6 +127,60 @@ let getI2CLight2Active = async (req, res) => {
         res.status(500).json({ message: err.message })
     }
 }
+let getNPK_rs485Start = async (req, res) => {
+    try {
+        let [data] = await connection.execute('SELECT N,P,K,time FROM rs485_npk1 ORDER BY id DESC LIMIT 6;')
+        res.status(200).json(data)
+    }
+    catch (err) {
+        res.status(500).json({ message: err.message })
+    }
+}
+let getNPK_rs485Active = async (req, res) => {
+    try {
+        let [data] = await connection.execute('SELECT N,P,K,time FROM rs485_npk1 ORDER BY id DESC LIMIT 1;')
+        res.status(200).json(data)
+    }
+    catch (err) {
+        res.status(500).json({ message: err.message })
+    }
+}
+let getHum_rs485Start = async (req, res) => {
+    try {
+        let [data] = await connection.execute('SELECT hum,time FROM rs485_hum1 ORDER BY id DESC LIMIT 6;')
+        res.status(200).json(data)
+    }
+    catch (err) {
+        res.status(500).json({ message: err.message })
+    }
+}
+let getHum_rs485Active = async (req, res) => {
+    try {
+        let [data] = await connection.execute('SELECT hum,time FROM rs485_hum1 ORDER BY id DESC LIMIT 1;')
+        res.status(200).json(data)
+    }
+    catch (err) {
+        res.status(500).json({ message: err.message })
+    }
+}
+let getpH_rs485Start = async (req, res) => {
+    try {
+        let [data] = await connection.execute('SELECT ph,time FROM rs485_ph1 ORDER BY id DESC LIMIT 6;')
+        res.status(200).json(data)
+    }
+    catch (err) {
+        res.status(500).json({ message: err.message })
+    }
+}
+let getpH_rs485Active = async (req, res) => {
+    try {
+        let [data] = await connection.execute('SELECT ph,time FROM rs485_ph1 ORDER BY id DESC LIMIT 1;')
+        res.status(200).json(data)
+    }
+    catch (err) {
+        res.status(500).json({ message: err.message })
+    }
+}
 module.exports = {
     getUser,
     getADCStart,
@@ -126,6 +188,7 @@ module.exports = {
     getRS485Start,
     getRS485Active,
     getButton,
+    getButton2,
     getI2CHum_Tem1Active,
     getI2CHum_Tem1Start,
     getI2CLight1Active,
@@ -134,4 +197,10 @@ module.exports = {
     getI2CHum_Tem2Start,
     getI2CLight2Active,
     getI2CLight2Start,
+    getNPK_rs485Start,
+    getNPK_rs485Active,
+    getHum_rs485Start,
+    getHum_rs485Active,
+    getpH_rs485Start,
+    getpH_rs485Active,
 }
