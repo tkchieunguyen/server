@@ -259,7 +259,7 @@ setInterval(fetchLightI2C2, 5000)
 var HumI2C1 = []
 var TemI2C1 = []
 var timesI2C1 = []
-fetch('/api/temHumI2C2Start')
+fetch('/api/temHumI2C1Start')
   .then(response => response.json())
   .then(data => {
     data.forEach((item) => {
@@ -279,7 +279,7 @@ function fetchtemHumI2C1() {
     .then(data => {
       let data1 = data;
       data.map(function (data1) {
-        let localTime = moment.utc(data1.time).utcOffset("+07:00").format("HH:mm:ss");
+        let localTime = moment.utc(data1.time).format("HH:mm:ss");
         //console.log(data1.value);
         //console.log(localTime);
         HumI2C1.shift();
@@ -319,7 +319,7 @@ function fetchtemHumI2C2() {
     .then(data => {
       let data1 = data;
       data.map(function (data1) {
-        let localTime = moment.utc(data1.time).utcOffset("+07:00").format("HH:mm:ss");
+        let localTime = moment.utc(data1.time).format("HH:mm:ss");
         //console.log(data1.value);
         //console.log(localTime);
         HumI2C2.shift();
@@ -367,7 +367,7 @@ function fetchRS485() {
     .then(data => {
       let data1 = data;
       data.map(function (data1) {
-        let localTime = moment.utc(data1.time).utcOffset("+07:00").format("HH:mm:ss");
+        let localTime = moment.utc(data1.time).format("HH:mm:ss");
         //console.log(data1.value);
         //console.log(localTime);
         valuesN.shift();
