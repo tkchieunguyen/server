@@ -153,7 +153,8 @@ fetch('/api/adc1Start')
   .then(response => response.json())
   .then(data => {
     data.forEach((item) => {
-      let localTime = moment.utc(item.time).utcOffset("+07:00").format("HH:mm:ss");
+      let localTime = moment.utc(item.time).format("HH:mm:ss");
+      //let localTime = moment.utc(item.time).format("HH:mm:ss");
       values.unshift(item.value);
       times.unshift(localTime);
       myChart1.update();
@@ -189,7 +190,7 @@ fetch('/api/lightI2C1Start')
   .then(response => response.json())
   .then(data => {
     data.forEach((item) => {
-      let localTime = moment.utc(item.time).utcOffset("+07:00").format("HH:mm:ss");
+      let localTime = moment.utc(item.time).format("HH:mm:ss");
       lights1.unshift(item.light);
       timesLight.unshift(localTime);
       myChart1.update();
@@ -225,7 +226,7 @@ fetch('/api/lightI2C2Start')
   .then(response => response.json())
   .then(data => {
     data.forEach((item) => {
-      let localTime = moment.utc(item.time).utcOffset("+07:00").format("HH:mm:ss");
+      let localTime = moment.utc(item.time).format("HH:mm:ss");
       lights2.unshift(item.light);
       timesLight2.unshift(localTime);
       myChart2.update();
@@ -262,7 +263,7 @@ fetch('/api/temHumI2C2Start')
   .then(response => response.json())
   .then(data => {
     data.forEach((item) => {
-      let localTime = moment.utc(item.time).utcOffset("+07:00").format("HH:mm:ss");
+      let localTime = moment.utc(item.time).format("HH:mm:ss");
       TemI2C1.unshift(item.tem);
       HumI2C1.unshift(item.hum);
       timesI2C1.unshift(localTime);
@@ -302,7 +303,7 @@ fetch('/api/temHumI2C2Start')
   .then(response => response.json())
   .then(data => {
     data.forEach((item) => {
-      let localTime = moment.utc(item.time).utcOffset("+07:00").format("HH:mm:ss");
+      let localTime = moment.utc(item.time).format("HH:mm:ss");
       TemI2C2.unshift(item.tem);
       HumI2C2.unshift(item.hum);
       timesI2C2.unshift(localTime);
@@ -345,7 +346,7 @@ fetch('/api/Rs485Start')
   .then(response => response.json())
   .then(data => {
     data.forEach((item) => {
-      let localTime = moment.utc(item.time).utcOffset("+07:00").format("HH:mm:ss");
+      let localTime = moment.utc(item.time).format("HH:mm:ss");
       //console.log(localTime);
       //console.log(item.value);
       valuesN.unshift(item.N);
