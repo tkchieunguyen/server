@@ -58,7 +58,7 @@
                     <h5 class="border text-center">YEU TO MOI TRUONG</h5>
                     <div class="row">
                         <div class="col-third boder ">
-                            <div class="border hei71 background_color text-center Temperature1 ">
+                            <div class="border hei71 background_color text-center TemI2C1 ">
                                 <h4 class="border "> Nhiet Do</h4>
                                 <div class="mg_mid9"><span class="nd1">
                                         <div class="temI2C1"></div>
@@ -403,14 +403,15 @@
             }
         })
         socket.emit()
+        var temI2C1 = 0;
+        var humI2C1 = 0;
+        var lightI2C1 = 0;
+        var temI2C2 = 0;
+        var humI2C2 = 0;
+        var lightI2C2 = 0;
         socket.on('S-ReadI2C', (value) => {
             let jsonData = JSON.parse(value)
-            var temI2C1
-            var humI2C1
-            var lightI2C1
-            var temI2C2
-            var humI2C2
-            var lightI2C2
+
             switch (jsonData.HouseID) {
                 case '1':
                     switch (jsonData.lenght) {
@@ -435,37 +436,27 @@
                     }
                     break
             }
-            const temI2C1_display = querySelector('.temI2C1');
-            const temI2C2_display = querySelector('.temI2C2');
+            var temI2C1_display = document.querySelector('.temI2C1');
+            var temI2C2_display = document.querySelector('.temI2C2');
 
-            const humI2C1_display = querySelector('.humI2C1');
-            const humI2C2_display = querySelector('.humI2C2');
+            var humI2C1_display = document.querySelector('.humI2C1');
+            var humI2C2_display = document.querySelector('.humI2C2');
 
-            const lightI2C1_display = querySelector('.lightI2C1');
-            const lightI2C2_display = querySelector('.lightI2C2');
-
-            temI2C1 = 1;
-            temI2C2 = 2;
-            humI2C1 = 3;
-            humI2C2 = 4;
-            lightI2C1 = 5;
-            lightI2C2 = 6;
+            var lightI2C1_display = document.querySelector('.lightI2C1');
+            var lightI2C2_display = document.querySelector('.lightI2C2');
             if (temI2C1_display || temI2C2_display || humI2C1_display || humI2C2_display || lightI2C1_display || lightI2C2_display) {
-                temI2C1_display.textContent = temI2C1 + " °C";
-                temI2C1_display.textContent = temI2C2 + " °C";
+                temI2C1_display.textContent = temI2C1.toFixed(0) + " °C";
+                temI2C2_display.textContent = temI2C2.toFixed(0) + " °C";
 
-                humI2C1_display.textContent = humI2C1 + " %";
-                humI2C2_display.textContent = humI2C2 + " %";
+                humI2C1_display.textContent = humI2C1.toFixed(2) + " %";
+                humI2C2_display.textContent = humI2C2.toFixed(2) + " %";
 
-                lightI2C1_display.textContent = lightI2C1 + " lux";
-                lightI2C2_display.textContent = lightI2C2 + " lux";
+                lightI2C1_display.textContent = lightI2C1.toFixed(1) + " lux";
+                lightI2C2_display.textContent = lightI2C2.toFixed(1) + " lux";
             }
-            console.log(temI2C1);
-            console.log(temI2C2);
-            console.log(humI2C1);
-            console.log(humI2C2);
-            console.log(lightI2C1);
-            console.log(lightI2C2);
+            console.log("tem " + temI2C1);
+            console.log("hum " + humI2C1);
+            console.log("light " + lightI2C1);
 
         })
 

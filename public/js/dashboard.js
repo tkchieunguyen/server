@@ -84,11 +84,11 @@ function chartPH1() {
   myChart1.update();
 }
 // Temperrature1
-document.querySelector('.Temperature1').addEventListener('click', chartTemperature1);
-function chartTemperature1() {
-  myChart1.data.datasets[0].label = '#Temperature';
-  myChart1.update();
-}
+// document.querySelector('.Temperature1').addEventListener('click', chartTemperature1);
+// function chartTemperature1() {
+//   myChart1.data.datasets[0].label = '#Temperature';
+//   myChart1.update();
+// }
 
 const ctx1 = document.getElementById('myChart1')
 var valdata = [];
@@ -258,7 +258,7 @@ setInterval(fetchLightI2C2, 5000)
 var HumI2C1 = []
 var TemI2C1 = []
 var timesI2C1 = []
-fetch('/api/temHumI2C1Start')
+fetch('/api/temHumI2C2Start')
   .then(response => response.json())
   .then(data => {
     data.forEach((item) => {
@@ -273,7 +273,7 @@ fetch('/api/temHumI2C1Start')
     console.error(error)
   })
 function fetchtemHumI2C1() {
-  fetch('/api/lightI2C1Active')
+  fetch('/api/temHumI2C1Active')
     .then(response => response.json())
     .then(data => {
       let data1 = data;
@@ -291,7 +291,7 @@ function fetchtemHumI2C1() {
       })
     });
 }
-setInterval(fetchtemHumI2C2, 5000)
+setInterval(fetchtemHumI2C1, 5000)
 // 
 // 
 // temHumI2C 2
@@ -403,29 +403,29 @@ function chartLight1() {
   myChart1.update();
 }
 // NHIET DO 1
-// document.querySelector('.TemI2C1').addEventListener('click', chartTemI2C1);
-// function chartTemI2C1() {
-  //   myChart1.data.datasets[0].label = '#Temperature';
-  //   myChart1.data.datasets[0].data = TemI2C1;
-  //   myChart1.data.labels = timesI2C1
-  //   myChart1.update();
-  // }
-  // DO AM KHONG KHI 1
-  document.querySelector('.HumI2C1').addEventListener('click', chartHumI2C1);
-  function chartHumI2C1() {
-    myChart1.data.datasets[0].label = '#Humidity';
-    myChart1.data.datasets[0].data = HumI2C1;
-    myChart1.data.labels = timesI2C1
-    myChart1.update();
-  }
-  // DO AM KHONG KHI 2
-  document.querySelector('.HumI2C2').addEventListener('click', chartHumI2C2);
-  function chartHumI2C2() {
-    myChart2.data.datasets[0].label = '#Humidity';
-    myChart2.data.datasets[0].data = HumI2C2;
-    myChart2.data.labels = timesI2C2
-    myChart2.update();
-  }
+document.querySelector('.TemI2C1').addEventListener('click', chartTemI2C1);
+function chartTemI2C1() {
+  myChart1.data.datasets[0].label = '#Temperature';
+  myChart1.data.datasets[0].data = TemI2C1;
+  myChart1.data.labels = timesI2C1
+  myChart1.update();
+}
+// DO AM KHONG KHI 1
+document.querySelector('.HumI2C1').addEventListener('click', chartHumI2C1);
+function chartHumI2C1() {
+  myChart1.data.datasets[0].label = '#Humidity';
+  myChart1.data.datasets[0].data = HumI2C1;
+  myChart1.data.labels = timesI2C1
+  myChart1.update();
+}
+// DO AM KHONG KHI 2
+document.querySelector('.HumI2C2').addEventListener('click', chartHumI2C2);
+function chartHumI2C2() {
+  myChart2.data.datasets[0].label = '#Humidity';
+  myChart2.data.datasets[0].data = HumI2C2;
+  myChart2.data.labels = timesI2C2
+  myChart2.update();
+}
 // LIGHT 2
 document.querySelector('.LightChart2').addEventListener('click', chartLight2);
 function chartLight2() {
