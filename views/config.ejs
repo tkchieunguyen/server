@@ -46,41 +46,41 @@
     <div style="margin-top: 70px; text-align: center;">
         <h1>đây là config</h1>
         <div class="row">
-            <div class="col-half border" style="position: relative;">
+            <div class="col-half border box">
                 <button class="scani2c1">SCAN I2C HOUSE 1</button><br>
                 <div class="pad10">
                     <form onsubmit="set_time_ADC_1(event)">
                         <label for="adcInput">Nhập giá trị cài đặt thời gian ADC (Ms):</label>
                         <div class="right0">
                         <input type="number" id="adcInput" name="adcInput" required>
-                        <button style='margin-left: 5px;' type="submit">Gửi</button>
+                        <button style='margin-left: 5px; margin-right: 10px;' type="submit">Gửi</button>
                         </div>
                     </form>
-                    <div id="formContainer"></div>
+                    <div id="formContainer" style="position: relative;"></div>
                 </div>
             </div>
-            <div class="col-half border">
+            <div class="col-half border box" >
                 <button class="scani2c2">SCAN I2C HOUSE 2</button><br>
                 <div id="formContainer2"></div>
-                <form onsubmit="set_time_RS485_1_NPK(event)" class="pad10 mar5" style="position: relative;">
+                <form onsubmit="set_time_RS485_1_NPK(event)" class="pad10 mar5" >
                     <label for="npkInput1">Nhập giá trị cài đặt thời gian NPK (Ms):</label>
                     <div class="right0">
                     <input type="number" id="npkInput1" name="npkInput1" required>
                     <button type="submit" style='margin-left: 5px; margin-right: 10px;'>Gửi</button>
                     </div>
                 </form>
-                <form onsubmit="set_time_RS485_1_pH(event)" class="pad10 mar5" style="position: relative;">
+                <form onsubmit="set_time_RS485_1_pH(event)" class="pad10 mar5" >
                     <label for="phInput1">Nhập giá trị cài đặt thời gian pH (Ms):</label>
                     <div class="right0">
                     <input type="number" step="0.1" id="phInput1" name="phInput1" required>
-                    <button type="submit">Gửi</button>
+                    <button type="submit" style='margin-left: 5px; margin-right: 10px;'>Gửi</button>
                 </div>
                 </form>
-                <form onsubmit="set_time_RS485_1_Moisture(event)" class="pad10 mar5" style="position: relative;">
+                <form onsubmit="set_time_RS485_1_Moisture(event)" class="pad10 mar5" >
                     <label for="moistureInput">Nhập giá trị cài đặt thời gian Độ ẩm (Ms):</label>
                     <div class="right0">
                     <input type="number" id="moistureInput" name="moistureInput" required>
-                    <button type="submit">Gửi</button>
+                    <button type="submit" style='margin-left: 5px; margin-right: 10px;'>Gửi</button>
                 </div>
                 </form>
             </div>
@@ -107,18 +107,23 @@
                     label.setAttribute("for", `i2cInput${addressValue}`);
                     label.textContent = `Nhập giá trị Read I2C cho địa chỉ ${addressValue}:`;
 
+                    const div =document.createElement('div')
+                    div.setAttribute('class','right0')
+
                     const input = document.createElement("input");
                     input.setAttribute("type", "number");
                     input.setAttribute("id", `i2cInput${addressValue}`);
                     input.setAttribute("name", "i2cInput");
-
+                    
                     const button = document.createElement("button");
                     button.setAttribute("type", "submit");
+                    button.setAttribute("style", "margin-left: 5px; margin-right: 10px;");
                     button.textContent = "Gửi";
 
+                    div.appendChild(input);
+                    div.appendChild(button);
                     form.appendChild(label);
-                    form.appendChild(input);
-                    form.appendChild(button);
+                    form.appendChild(div);
 
                     // Thêm form vào HTML
                     const container = document.getElementById("formContainer");

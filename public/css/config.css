@@ -31,3 +31,9 @@
     right:0;
     position: absolute;
 }
+
+.box{
+    min-width: 530px; 
+    position: relative; 
+    height: 250px;
+}
