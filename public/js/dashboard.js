@@ -52,11 +52,16 @@ function addactive() {
   document.querySelector('.element5').classList.toggle('display-none');
   bt_on6.classList.toggle('display-none');
   document.querySelector('.element6').classList.toggle('display-none');
-
+  if (dis_auto.classList.value != 'mg_tba border dis_auto light'){
+    console.log('1')
+  }
+  else{
+    console.log('0')
+  }
+  
 }
 box_on.addEventListener('click', addactive)
 
-var a;
 
 function addactive1() {
   box_on1.classList.toggle('boxactive');
@@ -75,9 +80,13 @@ function addactive1() {
   document.querySelector('.btn_on25').classList.toggle('display-none');
   document.querySelector('.element26').classList.toggle('display-none');
   document.querySelector('.btn_on26').classList.toggle('display-none');
-
+  if (dis_auto2.classList.value != 'mg_tba border dis_auto2 light'){
+    console.log('1')
+  }
+  else{
+    console.log('0')
+  }
 }
-
 box_on1.addEventListener('click', addactive1)
 
 
