@@ -715,7 +715,6 @@
                             bt_on21.classList.remove('light');
                             break;
                         case 0:
-
                             bt_on21.classList.add('light');
                             break;
                     }
@@ -783,7 +782,6 @@
             }
             switch (bit7) {
                 case 1:
-
                     bt_on2.classList.remove('light');
                     break;
                 case 0:
@@ -887,6 +885,20 @@
                     break;
             }
         })
+    </script>
+    <script>
+        const manual1 = document.querySelector('.mg_tba border dis_auto light')
+        const auto1 = document.querySelector('.mg_tba border dis_manual light')
+        let a;
+        if (manual1) {
+            a = 0;
+            console.log(a);
+        }
+        if (auto1) {
+            a = 1;
+            console.log(a);
+        }
+
     </script>
 </body>
 
