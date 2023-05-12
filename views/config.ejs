@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="/css/dashboard/header.css">
     <link rel="stylesheet" href="/css/config.css">
     <link rel="stylesheet" href="/css/themify-icons/themify-icons.css">
+    <link rel="icon" type="image/x-icon" href="/img/symbol.JPG">
     <title>Document</title>
     <style>
         form {
@@ -85,7 +86,13 @@
                 </form>
             </div>
         </div>
-
+        <form onsubmit="set_debug(event)">
+            <label for="topic">nhập chủ đề :</label>
+            <input type="text" name="topic" id="topic" value="debug1">
+            <label for=" main">nhập nội dung</label>
+            <input type="text" name="main" id="main" style="width:1000px">
+            <button type="submit">gửi</button>
+        </form>
 
 
     </div>
@@ -167,15 +174,23 @@
             let adcInput = parseInt(document.getElementById("adcInput").value);
             //let hexString = adcInput.toString(16).padStart(4, '0');
             //let hexBytes = [hexString.substr(0, 2), hexString.substr(2, 2)];
-            socket.emit("config", '{"Client":{"houseID":1,"request":"WriteCMD","cmdAuto":"ReadAdc","cmdID":20,"time":' + adcInput + '}}');
+            socket.emit("config", '{"Client":{"houseID":1,"request":"WriteCMD","cmdAuto":"ReadAdc","adc":"1","cmdID":20,"time":' + adcInput + '}}');
             document.getElementById("adcInput").value = "";
+        }
+        function set_debug(event) {
+            event.preventDefault();
+            //var topicInput = document.getElementById('topic').value;
+            var mainInput = document.getElementById('main').value;
+            //console.log(topicInput);
+            console.log(mainInput);
+            socket.emit('debug1', mainInput.toString());
         }
         function set_time_ADC_2(event) {
             event.preventDefault();
             let adcInput = parseInt(document.getElementById("adcInput2").value);
             //let hexString = adcInput.toString(16).padStart(4, '0');
             //let hexBytes = [hexString.substr(0, 2), hexString.substr(2, 2)];
-            socket.emit("config", '{"Client":{"houseID":2,"request":"WriteCMD","cmdAuto":"ReadAdc","cmdID":30,"time":' + adcInput + '}}');
+            socket.emit("config", '{"Client":{"houseID":2,"request":"WriteCMD","cmdAuto":"ReadAdc","adc":"1","cmdID":30,"time":' + adcInput + '}}');
             document.getElementById("adcInput2").value = "";
         }
         function set_time_RS485_1_NPK(event) {
@@ -183,7 +198,7 @@
             let npk = parseInt(document.getElementById("npkInput1").value);
             //let hexString = npk.toString(16).padStart(4, '0');
             //let hexBytes = [hexString.substr(0, 2), hexString.substr(2, 2)];
-            socket.emit("configRS485", '{"Client":{"houseID":1,"request":"WriteCMD","cmdAuto":"RS485","RS485a":1,"RS485Funtion code":3,"regiser start address":"0,30","NoB":"0,3","cmdID":31,"time":' + npk + '}}');
+            socket.emit("configRS485", '{"Client":{"houseID":1,"request":"WriteCMD","cmdAuto":"RS485","RS485a":1,"RS485Funtion code":3,"register start address":"0,30","register lenght":"0,3","NoB":11,"cmdID":31,"time":' + npk + '}}');
             document.getElementById("npkInput1").value = "";
         }
         function set_time_RS485_1_pH(event) {
@@ -191,7 +206,7 @@
             let ph = parseInt(document.getElementById("phInput1").value);
             //let hexString = ph.toString(16).padStart(4, '0');
             //let hexBytes = [hexString.substr(0, 2), hexString.substr(2, 2)];
-            socket.emit("configRS485", '{"Client":{"houseID":1,"request":"WriteCMD","cmdAuto":"RS485","RS485a":1,"RS485Funtion code":3,"regiser start address":"0,6","NoB":"0,1","cmdID":32,"time":' + ph + '}}');
+            socket.emit("configRS485", '{"Client":{"houseID":1,"request":"WriteCMD","cmdAuto":"RS485","RS485a":1,"RS485Funtion code":3,"register start address":"0,6","register lenght":"0,1","NoB":7,"cmdID":32,"time":' + ph + '}}');
             document.getElementById("phInput1").value = "";
         }
         function set_time_RS485_1_Moisture(event) {
@@ -199,7 +214,7 @@
             let moisture = parseInt(document.getElementById("moistureInput").value);
             //let hexString = moisture.toString(16).padStart(4, '0');
             //let hexBytes = [hexString.substr(0, 2), hexString.substr(2, 2)];
-            socket.emit("configRS485", '{"Client":{"houseID":1,"request":"WriteCMD","cmdAuto":"RS485","RS485a":1,"RS485Funtion code":3,"regiser start address":"0,12","NoB":"0,2","cmdID":33,"time":' + moisture + '}}');
+            socket.emit("configRS485", '{"Client":{"houseID":1,"request":"WriteCMD","cmdAuto":"RS485","RS485a":1,"RS485Funtion code":3,"register start address":"0,12","register lenght":"0,2","NoB":7,"cmdID":33,"time":' + moisture + '}}');
             document.getElementById("moistureInput").value = "";
         }
         function set_time_RS485_2(event) {
@@ -248,6 +263,7 @@
         scani2c2.addEventListener('click', () => {
             socket.emit('scan_i2c', '{"Client":{"houseID":2,"request":"ScanI2C"}}')
         })
+
     </script>
 
 </body>
