@@ -23,6 +23,8 @@ const API_initWebRoute = (app) => {
     apiRouter.get('/lightI2C2Start', controller.getI2CLight2Start)
     apiRouter.get('/getButton', controller.getButton)
     apiRouter.get('/getButton2', controller.getButton2)
+    apiRouter.get('/getMode1', controller.getMode1)
+    apiRouter.get('/getMode2', controller.getMode2)
     return app.use('/api/', apiRouter)
 }
 module.exports = API_initWebRoute

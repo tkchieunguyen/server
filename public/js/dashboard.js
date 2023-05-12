@@ -32,7 +32,67 @@ setInterval(() => {
     date.getSeconds()
 }, 1000)
 
+fetch('/api/getMode1')
+  .then(response => response.json())
+  .then(data => {
+    data.forEach((item) => {
+      console.log(item);
+      if (item.mode == 1) {
+        dis_auto.classList.add('light');
+        box_on.classList.add('boxactive');
+        btn_on.classList.add('btnactive');
+        document.querySelector('.element1').classList.remove('display-none');
+        document.querySelector('.element2').classList.remove('display-none');
+        document.querySelector('.element3').classList.remove('display-none');
+        document.querySelector('.element4').classList.remove('display-none');
+        document.querySelector('.element5').classList.remove('display-none');
+        document.querySelector('.element6').classList.remove('display-none');
+      }
+      else if (item.mode == 0) {
+        box_on.classList.remove('boxactive');
+        btn_on.classList.remove('btnactive');
+        dis_manual.classList.add('light');
+        bt_on1.classList.remove('display-none');
+        bt_on2.classList.remove('display-none');
+        bt_on3.classList.remove('display-none');
+        bt_on4.classList.remove('display-none');
+        bt_on5.classList.remove('display-none');
+        bt_on6.classList.remove('display-none');
+      }
+    })
+  })
 
+
+
+fetch('/api/getMode2')
+  .then(response => response.json())
+  .then(data => {
+    data.forEach((item) => {
+      console.log(item);
+      if (item.mode == 1) {
+        dis_auto2.classList.add('light');
+        box_on1.classList.add('boxactive');
+        btn_on1.classList.add('btnactive');
+        document.querySelector('.element21').classList.remove('display-none');
+        document.querySelector('.element22').classList.remove('display-none');
+        document.querySelector('.element23').classList.remove('display-none');
+        document.querySelector('.element24').classList.remove('display-none');
+        document.querySelector('.element25').classList.remove('display-none');
+        document.querySelector('.element26').classList.remove('display-none');
+      }
+      else if (item.mode == 0) {
+        box_on1.classList.remove('boxactive');
+        btn_on1.classList.remove('btnactive');
+        dis_manual2.classList.add('light');
+        document.querySelector('.btn_on21').classList.remove('display-none');
+        document.querySelector('.btn_on22').classList.remove('display-none');
+        document.querySelector('.btn_on23').classList.remove('display-none');
+        document.querySelector('.btn_on24').classList.remove('display-none');
+        document.querySelector('.btn_on25').classList.remove('display-none');
+        document.querySelector('.btn_on26').classList.remove('display-none');
+      }
+    })
+  })
 
 // btn active
 function addactive() {
@@ -52,13 +112,15 @@ function addactive() {
   document.querySelector('.element5').classList.toggle('display-none');
   bt_on6.classList.toggle('display-none');
   document.querySelector('.element6').classList.toggle('display-none');
-  if (dis_auto.classList.value != 'mg_tba border dis_auto light'){
-    console.log('1')
+  var a
+  if (dis_auto.classList.value != 'mg_tba border dis_auto light') {
+    a = 1;
+    socket.emit('mode1', "manual");
   }
-  else{
-    console.log('0')
+  else {
+    a = 0;
+    socket.emit('mode1', "auto");
   }
-  
 }
 box_on.addEventListener('click', addactive)
 
@@ -80,11 +142,14 @@ function addactive1() {
   document.querySelector('.btn_on25').classList.toggle('display-none');
   document.querySelector('.element26').classList.toggle('display-none');
   document.querySelector('.btn_on26').classList.toggle('display-none');
-  if (dis_auto2.classList.value != 'mg_tba border dis_auto2 light'){
-    console.log('1')
+  var b;
+  if (dis_auto2.classList.value != 'mg_tba border dis_auto2 light') {
+    b = 1;
+    socket.emit('mode2', "manual");
   }
-  else{
-    console.log('0')
+  else {
+    b = 0;
+    socket.emit('mode2', "auto");
   }
 }
 box_on1.addEventListener('click', addactive1)
