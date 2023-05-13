@@ -65,6 +65,10 @@ let getDashboard = (req, res) => {
 let getConfig = (req, res) => {
     res.render('config')
 }
+
+let getContact= (req,res)=>{
+    res.render('contact')
+}
 module.exports = {
     getHomePage,
     checkLogin,
@@ -73,4 +77,6 @@ module.exports = {
     postLogin,
     postRegister,
     getConfig,
+    getContact,
+    
 }

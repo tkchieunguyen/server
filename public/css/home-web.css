@@ -416,3 +416,24 @@ html {
     color: rgba(0, 0, 0, 0.6);
 
 }
+
+.text-homeweb{
+    font-size: 17px;
+    overflow: hidden;
+    text-align: justify;
+    word-break: keep-all;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 6;
+}
+
+.text-open-view:hover{
+    color: red;
+    cursor: pointer;
+}
+
+.show_all{
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 16;
+}

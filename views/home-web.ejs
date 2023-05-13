@@ -50,15 +50,15 @@
         <div id="silder">
             <div class="text-header background-img">
                 <div class="mg_auto width930">
-                    <h1 class="text-conten">Danh mục các bài báo khoa học năm học 2021-2022</h1>
-                    <h4 class="text-des">Các công trình, bài báo công bố của giảng viên Viện đào tạo Sau
-                        đại học Trường Đại học Đại Nam trong năm 2021</h4>
+                    <h1 class="text-conten">THIẾT KẾ HỆ THỐNG ĐIỀU KHIỂN GIÁM SÁT THÔNG SỐ CÂY TRỒNG DỰA TRÊN NỀN TẢNG IOT</h1>
+                    <h4 class="text-des">Khoa Công Nghệ Điện, trường Đại học Công nghiệp Tp. Hồ Chí Minh
+                        </h4>
                 </div>
-                <div class="mg_auto width820">
+                <div class="mg_auto width820" style="text-overflow: ellipsis; ">
                     <!-- <h6 class="text18">1. Bàn về giải pháp phát triển kinh tế số trong bối cảnh hiện nay 
                         - Tác giả: Phan Trọng Phức 
                         – Đăng trên: Tạp chí Kinh tế và dự báo [Số 7, tháng 3/2021 (761)]</h6> -->
-                    <ol class="text18 strong">
+                    <!-- <ol class="text18 strong">
                         <li>Bàn về giải pháp phát triển kinh tế số trong bối cảnh hiện nay
                             - <u>Tác giả:</u> Phan Trọng Phức
                             – <u>Đăng trên:</u> Tạp chí Kinh tế và dự báo [Số 7, tháng 3/2021 (761)]
@@ -94,7 +94,29 @@
                                 href="https://dainamedu-my.sharepoint.com/personal/sdh_dainam_edu_vn/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fsdh%5Fdainam%5Fedu%5Fvn%2FDocuments%2FB%C3%A0i%20b%C3%A1o%20NCKH%202021%2FPh%C3%A1t%20tri%E1%BB%83n%20th%E1%BB%8B%20tr%C6%B0%E1%BB%9Dng%20ch%E1%BB%A9ng%20kho%C3%A1n%20trong%20b%E1%BB%91i%20c%E1%BA%A3nh%20m%E1%BB%9Bi%20%2D%20Tr%E1%BA%A7n%20%C4%90%E1%BB%A9c%20Vui%2Epdf&parent=%2Fpersonal%2Fsdh%5Fdainam%5Fedu%5Fvn%2FDocuments%2FB%C3%A0i%20b%C3%A1o%20NCKH%202021&ga=1">
                                 (Xem chi tiết)</a>
                         </li>
-                    </ol>
+                    </ol> -->
+                    <p class="text-homeweb">Nông nghiệp thông minh (Nông nghiệp 4.0) là một lĩnh vực đang phát 
+                        triển nhanh trong ngành nông nghiệp, được kết hợp từ các công nghệ 
+                        như trí tuệ nhân tạo, internet vạn vật (IoT), cảm biến và tự động hóa 
+                        trong quá trình sản xuất nông nghiệp. Các giải pháp nông nghiệp thông 
+                        minh có thể giúp tăng năng suất, cải thiện quản lý cây trồng và đảm 
+                        bảo an toàn thực phẩm, đồng thời giảm thiểu sự phát thải khí thải và
+                         rác thải, giúp bảo vệ môi trường. Với mong muốn áp dụng được công 
+                         nghệ hiện đại, tạo ra những sản phẩm phù hợp, giá rẻ dễ sử dụng với 
+                         nhà nông, giúp nông dân có thể tiếp cận và áp dụng các công nghệ mới, 
+                         từ đó nâng cao hiệu quả sản xuất và tăng thu nhập. Từ những ưu điểm 
+                         và mong muốn trên, nhóm tác giả đề xuất và phát triển hệ thống điều 
+                         khiển, giám sát các thông số cây trồng thông qua sử dụng công nghệ IoT. 
+                         Hệ thống này tự động điều khiển và giám sát các thông số nhiệt độ, độ ẩm, 
+                         ánh sáng của môi trường nhà kính, nồng độ pH và NPK trong đất của cây trồng. 
+                         Hệ thống có thể kết nối với nhau theo mạng truyền không dây Lora, kết 
+                         nối internet thông qua wifi, gửi dữ liệu tới máy chủ để phân tích, xử lý 
+                         và điều khiển hệ thống. Người dùng có thể truy cập thông tin cây trồng và 
+                         quản lý chúng thông qua ứng dụng trên điện thoại di động hoặc trên web của 
+                         máy tính. Hiệu quả của hệ thống được Viện công nghệ sinh học, trường Đại học 
+                         Công nghiệp Tp. Hồ Chí Minh kiểm nghiệm và đánh giá.
+                        </p>
+                        <div class="text-open-view">( Xem Thêm )</div>
                 </div>
 
             </div>
@@ -151,7 +173,7 @@
 
         <div id="content2">
             <div class="text-header">
-                <h2 class="text-conten">Ưu nhược điểm</h2>
+                <h2 class="text-conten">TÍNH NĂNG</h2>
                 <div class="text-des">GHI NOI DUNG</div>
             </div>
         </div>
@@ -171,6 +193,17 @@
 
 
     </div>
+
+    <script>
+        const pointer=document.querySelector('.text-open-view')
+        pointer.addEventListener('click',openall)
+        function openall(){
+            document.querySelector('.text-homeweb').classList.add('show_all')
+        }
+    </script>
+
+
+
 </body>
 
 </html>

@@ -35,7 +35,9 @@ const initWebRoute = (app) => {
     //router.get('/dashboard', checkLogin, controller.getDashboard)
     router.get('/dashboard', controller.getDashboard)
     router.get('/config', controller.getConfig)
+    router.get('/contact', controller.getContact)
     router.post('/register', upload_image.single('file'), controller.postRegister)
+
     return app.use('/', router)
 }
 module.exports = initWebRoute
