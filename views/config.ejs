@@ -92,7 +92,7 @@
     <script src="/socket.io/socket.io.js"></script>
     <script>
         const socket = io();
-        //socket.emit('C-ScanI2C', '{"HouseID":2,"cmd":"SCAN I2C","lenght":2,"address1":46,"address2":47}')
+        socket.emit('C-ScanI2C', '{"HouseID":1,"cmd":"SCAN I2C","lenght":2,"address1":46,"address2":47}')
         socket.on("GET_I2C_DEVICE", (data1) => {
             let data = JSON.parse(data1)
             if (data.HouseID == 1) {
