@@ -144,7 +144,7 @@ io.on('connection', (socket) => {
                 let mode = rows[0].mode;
                 // Tiếp tục sử dụng biến mode ở đây
                 //console.log(global.a.toString());
-                console.log(global.a)
+                //console.log(global.a)
                 if (value >= 50 && mode == 1) {
                     io.emit('den3onsv', '{"Client":{"houseID":1,"request":"WriteDigital","DO2":"0"}}');
                     io.emit('den4onsv', '{"Client":{"houseID":1,"request":"WriteDigital","DO3":"0"}}');
