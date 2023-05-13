@@ -41,17 +41,19 @@ fetch('/api/getMode1')
         dis_auto.classList.add('light');
         box_on.classList.add('boxactive');
         btn_on.classList.add('btnactive');
+        dis_manual.classList.remove('light');
         document.querySelector('.element1').classList.remove('display-none');
         document.querySelector('.element2').classList.remove('display-none');
         document.querySelector('.element3').classList.remove('display-none');
         document.querySelector('.element4').classList.remove('display-none');
-        document.querySelector('.element5').classList.remove('display-none');
+        document.querySelector('.element5').classList.remove('display-nfghjone');
         document.querySelector('.element6').classList.remove('display-none');
       }
       else if (item.mode == 0) {
         box_on.classList.remove('boxactive');
         btn_on.classList.remove('btnactive');
         dis_manual.classList.add('light');
+        dis_auto.classList.remove('light');
         bt_on1.classList.remove('display-none');
         bt_on2.classList.remove('display-none');
         bt_on3.classList.remove('display-none');
@@ -71,6 +73,7 @@ fetch('/api/getMode2')
       console.log(item);
       if (item.mode == 1) {
         dis_auto2.classList.add('light');
+        dis_manual2.classList.remove('light');
         box_on1.classList.add('boxactive');
         btn_on1.classList.add('btnactive');
         document.querySelector('.element21').classList.remove('display-none');
@@ -84,6 +87,7 @@ fetch('/api/getMode2')
         box_on1.classList.remove('boxactive');
         btn_on1.classList.remove('btnactive');
         dis_manual2.classList.add('light');
+        dis_auto2.classList.remove('light');
         document.querySelector('.btn_on21').classList.remove('display-none');
         document.querySelector('.btn_on22').classList.remove('display-none');
         document.querySelector('.btn_on23').classList.remove('display-none');
