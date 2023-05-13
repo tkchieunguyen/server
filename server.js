@@ -18,7 +18,7 @@ const server = http.createServer(app)
 const io = require('socket.io')(server);
 const { connection } = require('./MySQL')
 const moment = require('moment')
-
+global.a = 0;
 
 
 app.set('view engine', 'ejs')
@@ -42,7 +42,39 @@ const limiter = rateLimit({
 });
 app.use(limiter)
 
-io.on('connection', async (socket) => {
+io.on('connection', (socket) => {
+    console.log('a user connected')
+
+    //SET MODE
+    socket.on('mode1', (data) => {
+        //console.log(data)
+        switch (data) {
+            case "auto":
+                connection.execute('DELETE FROM mode1 LIMIT 1')
+                connection.execute('INSERT INTO mode1(mode) VALUES (1)')
+                global.a = 1
+                break
+            case "manual":
+                connection.execute('DELETE FROM mode1 LIMIT 1')
+                connection.execute('INSERT INTO mode1(mode) VALUES (0)')
+                global.a = 0
+                break
+        }
+    })
+    socket.on('mode2', (data) => {
+        //console.log(data)
+        switch (data) {
+            case "auto":
+                connection.execute('DELETE FROM mode2 LIMIT 1')
+                connection.execute('INSERT INTO mode2(mode) VALUES (1)')
+                break
+            case "manual":
+                connection.execute('DELETE FROM mode2 LIMIT 1')
+                connection.execute('INSERT INTO mode2(mode) VALUES (0)')
+                break
+        }
+    })
+
     //NHẬN TỪ ESP// READ DIGITAL
     let houseId_ReadDigital = null
     let jsonData__ReadDigital = null
@@ -50,40 +82,90 @@ io.on('connection', async (socket) => {
     socket.on('C-ReadDigital', (data) => {
         jsonData__ReadDigital = JSON.parse(data)
         console.log(data);
-        //console.log(JSON.parse(jsonData__ReadDigital))
-        let led = parseInt(jsonData__ReadDigital.data, 16).toString(2)
+        console.log(JSON.parse(jsonData__ReadDigital))
+
+        // let led = parseInt(jsonData__ReadDigital.port, 16).toString(2)
+        let led = parseInt(jsonData__ReadDigital, 2)
         console.log(led)
         houseId_ReadDigital = parseInt(jsonData__ReadDigital.HouseID, 10)
         let bitArray = led.split("")
         jsonLed = '{"bit8":' + bitArray[7] + ',"bit7":' + bitArray[6] + ',"bit6":' + bitArray[5] + ',"bit5":' + bitArray[4] + ',"bit4":' + bitArray[3] + ',"bit3":' + bitArray[2] + '}'
         switch (houseId_ReadDigital) {
             case 1:
+                connection.execute('DELETE FROM button1 LIMIT 1')
                 connection.execute('INSERT INTO button1(bit8,bit7,bit6,bit5,bit4,bit3) VALUES (?,?,?,?,?,?)', [bitArray[7], bitArray[6], bitArray[5], bitArray[4], bitArray[3], bitArray[2]])
                 io.emit('display1', jsonLed)
                 break;
             case 2:
+                connection.execute('DELETE FROM button2 LIMIT 1')
                 connection.execute('INSERT INTO button2(bit8,bit7,bit6,bit5,bit4,bit3) VALUES (?,?,?,?,?,?)', [bitArray[7], bitArray[6], bitArray[5], bitArray[4], bitArray[3], bitArray[2]])
                 io.emit('display2', jsonLed)
                 break;
         }
     })
+    socket.on('C-WriteDigital', (data) => {
+        jsonData__ReadDigital = JSON.parse(data)
+        console.log(data);
+        //console.log(JSON.parse(jsonData__ReadDigital))
+
+
+        // let led = parseInt(jsonData__ReadDigital.port, 16).toString(2)
+        let led = parseInt(jsonData__ReadDigital, 2)
+        console.log(led)
+        houseId_ReadDigital = parseInt(jsonData__ReadDigital.HouseID, 10)
+        let bitArray = led.split("")
+        jsonLed = '{"bit8":' + bitArray[7] + ',"bit7":' + bitArray[6] + ',"bit6":' + bitArray[5] + ',"bit5":' + bitArray[4] + ',"bit4":' + bitArray[3] + ',"bit3":' + bitArray[2] + '}'
+
+        switch (houseId_ReadDigital) {
+            case 1:
+                connection.execute('DELETE FROM button1 LIMIT 1')
+                connection.execute('INSERT INTO button1(bit8,bit7,bit6,bit5,bit4,bit3) VALUES (?,?,?,?,?,?)', [bitArray[7], bitArray[6], bitArray[5], bitArray[4], bitArray[3], bitArray[2]])
+                io.emit('display1', jsonLed)
+                break;
+            case 2:
+                connection.execute('DELETE FROM button2 LIMIT 1')
+                connection.execute('INSERT INTO button2(bit8,bit7,bit6,bit5,bit4,bit3) VALUES (?,?,?,?,?,?)', [bitArray[7], bitArray[6], bitArray[5], bitArray[4], bitArray[3], bitArray[2]])
+                io.emit('display2', jsonLed)
+                break;
+        }
+    })
+
     //DOC GIA TRI ADC
     var value
+    //fix
     socket.on('C-ReadADC', (data) => {
         let jsonData = JSON.parse(data)
-        let msb = jsonData.data_1_MSB
-        let lsb = jsonData.data_1_LSB
-        let hexString = msb + lsb
-        let decNumber = parseInt(hexString, 16);
+        let decNumber = jsonData.adc1
         value = (decNumber - 1450) * 100 / (650 - 1450)
-        // if (value >= 100) {
-        //     value = 100
-        // }
-        // if (value <= 0) {
-        //     value = 8
-        // }
+        connection.execute('SELECT mode FROM mode1 ORDER BY id DESC LIMIT 1;')
+            .then(([rows]) => {
+                let mode = rows[0].mode;
+                // Tiếp tục sử dụng biến mode ở đây
+                //console.log(global.a.toString());
+                console.log(global.a)
+                if (value >= 50 && mode == 1) {
+                    io.emit('den3onsv', '{"Client":{"houseID":1,"request":"WriteDigital","DO2":"0"}}');
+                    io.emit('den4onsv', '{"Client":{"houseID":1,"request":"WriteDigital","DO3":"0"}}');
+                    io.emit('den5onsv', '{"Client":{"houseID":1,"request":"WriteDigital","DO4":"0"}}');
+                    io.emit('den6onsv', '{"Client":{"houseID":1,"request":"WriteDigital","DO5":"0"}}');
+                }
+                else if (value < 50 && mode == 1) {
+                    io.emit('den3offsv', '{"Client":{"houseID":1,"request":"WriteDigital","DO2":"1"}}');
+                    io.emit('den4offsv', '{"Client":{"houseID":1,"request":"WriteDigital","DO3":"1"}}');
+                    io.emit('den5offsv', '{"Client":{"houseID":1,"request":"WriteDigital","DO4":"1"}}');
+                    io.emit('den6offsv', '{"Client":{"houseID":1,"request":"WriteDigital","DO5":"1"}}');
+                }
+            })
+            .catch(error => {
+                console.log(error)
+            });
+
+
+
         let time = moment().format('YYYY-MM-DD HH:mm:ss')
+        connection.execute('DELETE FROM adc_1 LIMIT 1')
         connection.execute('INSERT INTO adc_1(value,time) VALUES (?,?)', [value, time])
+
         io.emit('S-ReadADC', data)
     })
     //DOC GIA TRI RS485
@@ -133,15 +215,15 @@ io.on('connection', async (socket) => {
 
 
     })
-    socket.on('C-ReadI2C', (data) => {
+    socket.on('C-RequestI2C', (data) => {
         console.log(JSON.parse(data))
         let jsonData = JSON.parse(data)
         let temI2C
         let humI2C
         let lightI2C
         let time = moment().format('YYYY-MM-DD HH:mm:ss')
-        switch (jsonData.lenght) {
-            case '3':
+        switch (jsonData.address) {
+            case 35:
                 lightI2C = (parseInt(jsonData.data_1 + jsonData.data_2, 16) / 1.2)
                 switch (jsonData.HouseID) {
                     case '1':
@@ -152,9 +234,9 @@ io.on('connection', async (socket) => {
                         break
                 }
                 break
-            case '5':
+            case 68:
                 temI2C = (parseInt(jsonData.data_1 + jsonData.data_2, 16) * 175 / 65535) - 45
-                humI2C = (parseInt(jsonData.data_3 + jsonData.data_4, 16) * 100 / 65535)
+                humI2C = (parseInt(jsonData.data_4 + jsonData.data_5, 16) * 100 / 65535)
                 switch (jsonData.HouseID) {
                     case '1':
                         connection.execute('INSERT INTO tem_humi2c1(tem,hum,time) VALUES (?,?,?)', [temI2C, humI2C, time])
@@ -167,16 +249,17 @@ io.on('connection', async (socket) => {
         }
         io.emit('S-ReadI2C', data)
     })
-    socket.on('C-RequestI2C', (data) => {
+    socket.on('C-ReadI2C', (data) => {
         console.log(JSON.parse(data))
     })
     socket.on('C-ScanI2C', (data) => {
-        //console.log(JSON.parse(data))
+        console.log(JSON.parse(data))
         io.emit('GET_I2C_DEVICE', data)
     })
     // ONLINE STATUS
     socket.on('C-CheckStatus', (data) => {
         console.log(JSON.parse(data))
+        //io.emit('eventsv', data)
     })
     socket.on('C-ResponseError', (data) => {
         console.log(JSON.parse(data))
@@ -202,24 +285,24 @@ io.on('connection', async (socket) => {
     events.forEach(event => {
         socket.on(event, (data) => {
             console.log(data);
-            io.emit(`${event}sv`, data);
+            io.emit(`eventsv`, data);
         });
     });
     socket.on('config', (data) => {
-        //console.log(data)
-        io.emit('timerADC', data)
+        console.log(JSON.parse(data))
+        io.emit('eventsv', data)
     })
     socket.on('configRS485', (data) => {
         console.log(JSON.parse(data))
-        io.emit('timerRS485', data)
+        io.emit('eventsv', data)
     })
     socket.on('configI2C', (data) => {
         console.log(JSON.parse(data))
-        io.emit('timerI2C', data)
+        io.emit('eventsv', data)
     })
     socket.on('scan_i2c', (data) => {
-        //console.log(data);
-        io.emit('scan_i2csv', (data))
+        console.log(data);
+        io.emit('eventsv', (data))
     })
     socket.on('RS485_value', (data) => {
         //let jsonData = JSON.parse(data)
@@ -228,6 +311,9 @@ io.on('connection', async (socket) => {
     socket.on('disconnect', () => {
         console.log("disconnection");
     });
+    socket.on('debug1', (data) => {
+        io.emit('eventsv', data)
+    })
 });
 server.listen(port, () =>
     console.log(`App listening at http://localhost:${port}`)
