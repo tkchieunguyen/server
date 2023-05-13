@@ -46,8 +46,14 @@ fetch('/api/getMode1')
         document.querySelector('.element2').classList.remove('display-none');
         document.querySelector('.element3').classList.remove('display-none');
         document.querySelector('.element4').classList.remove('display-none');
-        document.querySelector('.element5').classList.remove('display-nfghjone');
+        document.querySelector('.element5').classList.remove('display-none');
         document.querySelector('.element6').classList.remove('display-none');
+        bt_on1.classList.add('display-none');
+        bt_on2.classList.add('display-none');
+        bt_on3.classList.add('display-none');
+        bt_on4.classList.add('display-none');
+        bt_on5.classList.add('display-none');
+        bt_on6.classList.add('display-none');
       }
       else if (item.mode == 0) {
         box_on.classList.remove('boxactive');
@@ -60,6 +66,12 @@ fetch('/api/getMode1')
         bt_on4.classList.remove('display-none');
         bt_on5.classList.remove('display-none');
         bt_on6.classList.remove('display-none');
+        document.querySelector('.element1').classList.add('display-none');
+        document.querySelector('.element2').classList.add('display-none');
+        document.querySelector('.element3').classList.add('display-none');
+        document.querySelector('.element4').classList.add('display-none');
+        document.querySelector('.element5').classList.add('display-none');
+        document.querySelector('.element6').classList.add('display-none');
       }
     })
   })
@@ -82,6 +94,12 @@ fetch('/api/getMode2')
         document.querySelector('.element24').classList.remove('display-none');
         document.querySelector('.element25').classList.remove('display-none');
         document.querySelector('.element26').classList.remove('display-none');
+        document.querySelector('.btn_on21').classList.add('display-none');
+        document.querySelector('.btn_on22').classList.add('display-none');
+        document.querySelector('.btn_on23').classList.add('display-none');
+        document.querySelector('.btn_on24').classList.add('display-none');
+        document.querySelector('.btn_on25').classList.add('display-none');
+        document.querySelector('.btn_on26').classList.add('display-none');
       }
       else if (item.mode == 0) {
         box_on1.classList.remove('boxactive');
@@ -94,6 +112,12 @@ fetch('/api/getMode2')
         document.querySelector('.btn_on24').classList.remove('display-none');
         document.querySelector('.btn_on25').classList.remove('display-none');
         document.querySelector('.btn_on26').classList.remove('display-none');
+        document.querySelector('.element21').classList.add('display-none');
+        document.querySelector('.element22').classList.add('display-none');
+        document.querySelector('.element23').classList.add('display-none');
+        document.querySelector('.element24').classList.add('display-none');
+        document.querySelector('.element25').classList.add('display-none');
+        document.querySelector('.element26').classList.add('display-none');
       }
     })
   })
