@@ -198,7 +198,7 @@
             let npk = parseInt(document.getElementById("npkInput1").value);
             //let hexString = npk.toString(16).padStart(4, '0');
             //let hexBytes = [hexString.substr(0, 2), hexString.substr(2, 2)];
-            socket.emit("configRS485", '{"Client":{"houseID":1,"request":"WriteCMD","cmdAuto":"RS485","RS485a":1,"RS485Funtion code":3,"register start address":"0,30","register lenght":"0,3","NoB":11,"cmdID":31,"time":' + npk + '}}');
+            socket.emit("configRS485", '{"Client":{"houseID":1,"request":"WriteCMD","cmdAuto":"RS485","RS485a":1,"RS485 Funtion code":3,"register start address":"0,30","register lenght":"0,3","NoB":11,"cmdID":31,"time":' + npk + '}}');
             document.getElementById("npkInput1").value = "";
         }
         function set_time_RS485_1_pH(event) {
@@ -206,7 +206,7 @@
             let ph = parseInt(document.getElementById("phInput1").value);
             //let hexString = ph.toString(16).padStart(4, '0');
             //let hexBytes = [hexString.substr(0, 2), hexString.substr(2, 2)];
-            socket.emit("configRS485", '{"Client":{"houseID":1,"request":"WriteCMD","cmdAuto":"RS485","RS485a":1,"RS485Funtion code":3,"register start address":"0,6","register lenght":"0,1","NoB":7,"cmdID":32,"time":' + ph + '}}');
+            socket.emit("configRS485", '{"Client":{"houseID":1,"request":"WriteCMD","cmdAuto":"RS485","RS485a":1,"RS485 Funtion code":3,"register start address":"0,6","register lenght":"0,1","NoB":7,"cmdID":32,"time":' + ph + '}}');
             document.getElementById("phInput1").value = "";
         }
         function set_time_RS485_1_Moisture(event) {
@@ -214,7 +214,7 @@
             let moisture = parseInt(document.getElementById("moistureInput").value);
             //let hexString = moisture.toString(16).padStart(4, '0');
             //let hexBytes = [hexString.substr(0, 2), hexString.substr(2, 2)];
-            socket.emit("configRS485", '{"Client":{"houseID":1,"request":"WriteCMD","cmdAuto":"RS485","RS485a":1,"RS485Funtion code":3,"register start address":"0,12","register lenght":"0,2","NoB":7,"cmdID":33,"time":' + moisture + '}}');
+            socket.emit("configRS485", '{"Client":{"houseID":1,"request":"WriteCMD","cmdAuto":"RS485","RS485a":1,"RS485 Funtion code":3,"register start address":"0,12","register lenght":"0,2","NoB":7,"cmdID":33,"time":' + moisture + '}}');
             document.getElementById("moistureInput").value = "";
         }
         function set_time_RS485_2(event) {

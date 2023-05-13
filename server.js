@@ -19,6 +19,7 @@ const io = require('socket.io')(server);
 const { connection } = require('./MySQL')
 const moment = require('moment')
 global.a = 0;
+global.b = 0;
 
 
 app.set('view engine', 'ejs')
@@ -67,14 +68,15 @@ io.on('connection', (socket) => {
             case "auto":
                 connection.execute('DELETE FROM mode2 LIMIT 1')
                 connection.execute('INSERT INTO mode2(mode) VALUES (1)')
+                global.b = 1
                 break
             case "manual":
                 connection.execute('DELETE FROM mode2 LIMIT 1')
                 connection.execute('INSERT INTO mode2(mode) VALUES (0)')
+                global.b = 0
                 break
         }
     })
-
     //NHẬN TỪ ESP// READ DIGITAL
     let houseId_ReadDigital = null
     let jsonData__ReadDigital = null

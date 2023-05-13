@@ -361,7 +361,7 @@
     <script src="/socket.io/socket.io.js"></script>
     <script>
         const socket = io();
-        //socket.emit('C-ReadADC', '{"adc1":1200}');
+        socket.emit('C-ReadADC', '{"adc1":1200}');
         socket.on('C-ReadDigital', (data) => {
             console.log(data);
         })
@@ -587,7 +587,7 @@
         bt_on21.addEventListener('click', addlight21);
         function addlight21() {
             //bt_on21.classList.toggle('light');
-            if (bt_on21.classList.value != 'btn2 btn_on21 light') {
+            if (bt_on21.classList.value != 'btn1 btn_on21 light') {
                 //console.log(1)
                 socket.emit('den7on', '{"Client":{"houseID":2,"request":"WriteDigital","DO0":"0"}}');
             }
@@ -600,7 +600,7 @@
         bt_on22.addEventListener('click', addlight22);
         function addlight22() {
             //bt_on22.classList.toggle('light');
-            if (bt_on22.classList.value != 'btn2 btn_on22 light') {
+            if (bt_on22.classList.value != 'btn1 btn_on22 light') {
                 //console.log(1)
                 socket.emit('den8on', '{"Client":{"houseID":2,"request":"WriteDigital","DO1":"0"}}');
             }
