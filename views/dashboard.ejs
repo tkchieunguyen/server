@@ -361,17 +361,14 @@
     <script src="/socket.io/socket.io.js"></script>
     <script>
         const socket = io();
-        socket.emit('C-ReadADC', '{"adc1":1200}');
+        //socket.emit('C-ReadADC', '{"adc1":1200}');
         socket.on('C-ReadDigital', (data) => {
             console.log(data);
         })
         socket.on('S-ReadADC', (value) => {
             //console.log(value);
             let jsonData = JSON.parse(value)
-            let msb = jsonData.data_1_MSB
-            let lsb = jsonData.data_1_LSB
-            let hexString = msb + lsb
-            let decNumber = parseInt(hexString, 16);
+            let decNumber = jsonData.adc1
             value1 = (decNumber - 1450) * 100 / (600 - 1450)
             //if (value1 >= 100) {
             //   value1 = 100
