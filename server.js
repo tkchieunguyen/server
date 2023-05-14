@@ -135,6 +135,7 @@ io.on('connection', (socket) => {
     //fix
     socket.on('C-ReadADC', (data) => {
         let jsonData = JSON.parse(data)
+        console.log(jsonData)
         let decNumber = jsonData.adc1
         value = (decNumber - 1450) * 100 / (650 - 1450)
         connection.execute('SELECT mode FROM mode1 ORDER BY id DESC LIMIT 1;')

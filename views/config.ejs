@@ -101,17 +101,7 @@
     <script src="/socket.io/socket.io.js"></script>
     <script>
         const socket = io();
-        var getValue
-        var getValue1
 
-        document.querySelector('.textnut').addEventListener('click', nhannut)
-        function nhannut() {
-            socket.emit('C-ScanI2C', '{"houseID":1,"cmd":"SCAN I2C","lenght":2,"i2ca1":42,"i2ca2":47}')
-        }
-        document.querySelector('.textnut1').addEventListener('click', nhannut1)
-        function nhannut1() {
-            socket.emit('C-ScanI2C', '{"houseID":1,"cmd":"SCAN I2C","lenght":2,"i2ca1":4,"i2ca2":47}')
-        }
         socket.on("GET_I2C_DEVICE", (data1) => {
             var getdata = []
             let data = JSON.parse(data1)
@@ -329,11 +319,7 @@
 
             })
         })
-
-
-
     </script>
-
 </body>
 
 </html>
