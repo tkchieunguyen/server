@@ -110,7 +110,7 @@
         }
         document.querySelector('.textnut1').addEventListener('click', nhannut1)
         function nhannut1() {
-            socket.emit('C-ScanI2C', '{"houseID":1,"cmd":"SCAN I2C","lenght":2,"i2ca1":4,"i2ca2":47}')
+            socket.emit('C-ScanI2C', '{"houseID":2,"cmd":"SCAN I2C","lenght":2,"i2ca1":4,"i2ca2":47}')
         }
         socket.on("GET_I2C_DEVICE", (data1) => {
             var getdata = []
@@ -125,11 +125,11 @@
                 getValue = getdata
             }
             else if (data.houseID == 2) {
-                var getdata = []
+                var getdata1 = []
                 for (let i = 1; i <= data.lenght; i++) {
-                    const addressKey = `I2C_address_${i}`;
+                    const addressKey = `i2ca${i}`;
                     const addressValue = parseInt(data[addressKey]);
-                    getdata.push(addressValue)
+                    getdata1.push(addressValue)
                     //         console.log(`${addressKey}: ${addressValue}`);
                     //         const form = document.createElement("form");
                     //         form.addEventListener("submit", (event) => sendData3(event, addressValue));
@@ -155,7 +155,7 @@
                     //         const container = document.getElementById("formContainer2");
                     //         container.appendChild(form);
                 }
-                getValue = getdata
+                getValue1 = getdata1
             }
         })
         function set_time_ADC_1(event) {
@@ -292,15 +292,11 @@
             getValue1.map((item, index) => {
                 const form = document.createElement("form");
                 form.id = `form${index}`;
-                const existingForm = document.getElementById(`form${item}`)
-                form.addEventListener("submit", (event) => sendData2(event, item));
+                form.addEventListener("submit", (event) => sendData3(event, item));
 
                 const label = document.createElement("label");
                 label.setAttribute("for", `i2cInput${item}`);
                 label.textContent = `Nhập giá trị Read I2C cho địa chỉ ${item}:`;
-
-                const div = document.createElement('div')
-                div.setAttribute('class', 'right0')
 
                 const input = document.createElement("input");
                 input.setAttribute("type", "number");
@@ -309,24 +305,21 @@
 
                 const button = document.createElement("button");
                 button.setAttribute("type", "submit");
-                button.setAttribute("style", "margin-left: 5px; margin-right: 10px;");
                 button.textContent = "Gửi";
 
-                div.appendChild(input);
-                div.appendChild(button);
                 form.appendChild(label);
-                form.appendChild(div);
+                form.appendChild(input);
+                form.appendChild(button);
 
                 // Thêm form vào HTML
                 const container2 = document.getElementById("formContainer2");
-                container.appendChild(form);
-                const existingFormContainer2 = document.getElementById(`form${index}`);
-                if (existingFormContainer2) {
-                    container2.replaceChild(form, existingFormContainer2);
+                container2.appendChild(form);
+                const existingFormContainer = document.getElementById(`form${index}`);
+                if (existingFormContainer) {
+                    container2.replaceChild(form, existingFormContainer);
                 } else {
                     container2.appendChild(form);
                 }
-
             })
         })
 
