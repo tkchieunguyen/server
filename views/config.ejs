@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="/css/config.css">
     <link rel="stylesheet" href="/css/themify-icons/themify-icons.css">
     <link rel="icon" type="image/x-icon" href="/img/symbol.JPG">
-    <title>Document</title>
+    <title>Cấu Hình</title>
     <style>
         form {
             display: flex;
@@ -45,7 +45,7 @@
 
     <!-- config -->
     <div style="margin-top: 70px; text-align: center; z-index: 1; background-color: white;">
-        <h1>đây là config</h1>
+        <h1>CẤU HÌNH THỜI GIAN CẢM BIẾN</h1>
         <div class="row">
             <div class="col-half border box">
                 <button class="scani2c1">SCAN I2C HOUSE 1</button><br>
@@ -86,13 +86,15 @@
                 </form>
             </div>
         </div>
-        <form onsubmit="set_debug(event)">
-            <label for="topic">nhập chủ đề :</label>
-            <input type="text" name="topic" id="topic" value="debug1">
-            <label for=" main">nhập nội dung</label>
-            <input type="text" name="main" id="main" style="width:1000px">
-            <button type="submit">gửi</button>
-        </form>
+        <div class="devmode" style="display: none;">
+            <form onsubmit="set_debug(event)">
+                <label for="topic">nhập chủ đề :</label>
+                <input type="text" name="topic" id="topic" value="debug1">
+                <label for=" main">nhập nội dung</label>
+                <input type="text" name="main" id="main" style="width:1000px">
+                <button type="submit">gửi</button>
+            </form>
+        </div>
 
 
     </div>
