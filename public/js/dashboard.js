@@ -449,18 +449,16 @@ var valuesK = []
 var valuespH = []
 var valuesHumdity = []
 var times1 = []
-fetch('/api/Rs485Start')
+var times2 = []
+var times3 = []
+fetch('/api/npk_rs485Start')
   .then(response => response.json())
   .then(data => {
     data.forEach((item) => {
       let localTime = moment.utc(item.time).utcOffset("+07:00").format("HH:mm:ss");
-      //console.log(localTime);
-      //console.log(item.value);
       valuesN.unshift(item.N);
       valuesP.unshift(item.P);
       valuesK.unshift(item.K);
-      valuespH.unshift(item.pH);
-      valuesHumdity.unshift(item.humdity);
       times1.unshift(localTime);
       myChart2.update();
     });
@@ -469,7 +467,7 @@ fetch('/api/Rs485Start')
     console.error(error)
   })
 function fetchRS485() {
-  fetch('/api/Rs485Active')
+  fetch('/api/npk_rs485Active')
     .then(response => response.json())
     .then(data => {
       let data1 = data;
@@ -483,16 +481,76 @@ function fetchRS485() {
         valuesP.push(data1.P);
         valuesK.shift();
         valuesK.push(data1.K);
-        valuespH.shift();
-        valuespH.push(data1.pH);
-        valuesHumdity.shift();
-        valuesHumdity.push(data1.humdity);
         times1.shift();
         times1.push(localTime);
         myChart2.update();
       })
     });
 }
+
+fetch('/api/ph_rs485Start')
+  .then(response => response.json())
+  .then(data => {
+    data.forEach((item) => {
+      let localTime = moment.utc(item.time).utcOffset("+07:00").format("HH:mm:ss");
+      valuespH.unshift(item.ph);
+      times2.unshift(localTime);
+      myChart2.update();
+    });
+  })
+  .catch(error => {
+    console.error(error)
+  })
+function fetchRS485() {
+  fetch('/api/ph_rs485Active')
+    .then(response => response.json())
+    .then(data => {
+      let data1 = data;
+      data.map(function (data1) {
+        let localTime = moment.utc(data1.time).utcOffset("+07:00").format("HH:mm:ss");
+        //console.log(data1.value);
+        //console.log(localTime);
+        valuespH.shift();
+        valuespH.push(data1.ph);
+        times2.shift();
+        times2.push(localTime);
+        myChart2.update();
+      })
+    });
+}
+
+fetch('/api/hum_rs485Start')
+  .then(response => response.json())
+  .then(data => {
+    data.forEach((item) => {
+      let localTime = moment.utc(item.time).utcOffset("+07:00").format("HH:mm:ss");
+      valuesHumdity.unshift(item.hum);
+      times3.unshift(localTime);
+      myChart2.update();
+    });
+  })
+  .catch(error => {
+    console.error(error)
+  })
+function fetchRS485() {
+  fetch('/api/hum_rs485Active')
+    .then(response => response.json())
+    .then(data => {
+      let data1 = data;
+      data.map(function (data1) {
+        let localTime = moment.utc(data1.time).utcOffset("+07:00").format("HH:mm:ss");
+        //console.log(data1.value);
+        //console.log(localTime);
+        valuesHumdity.shift();
+        valuesHumdity.push(data1.hum);
+        times3.shift();
+        times3.push(localTime);
+        myChart2.update();
+      })
+    });
+}
+
+
 setInterval(fetchRS485, 5000)
 // DO AM DAT 1
 document.querySelector('.Do-am2').addEventListener('click', chartDoAm1);
