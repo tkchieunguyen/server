@@ -174,7 +174,7 @@
             let adcInput = parseInt(document.getElementById("adcInput").value);
             //let hexString = adcInput.toString(16).padStart(4, '0');
             //let hexBytes = [hexString.substr(0, 2), hexString.substr(2, 2)];
-            socket.emit("config", '{"Client":{"houseID":1,"request":"WriteCMD","cmdAuto":"ReadAdc","adc":"1","cmdID":20,"time":' + adcInput + '}}');
+            socket.emit("config", '{"Client":{"houseID":1,"request":"WriteCMD","cmdAuto":"ReadAdc","adc":"2,3,0,1","cmdID":20,"time":' + adcInput + '}}');
             document.getElementById("adcInput").value = "";
         }
         function set_debug(event) {
