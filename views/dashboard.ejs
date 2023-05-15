@@ -349,98 +349,101 @@
                 </div>
             </div>
         </div>
+        <form onsubmit="getValueAuto(event)">
+            <div class="modal js-modal">
+                <div class="bodercontainer js-modal-contaiter">
+                    <i class="ti-close close js-modal-close"></i>
+                    <h2 class="texth2">SETTING</h2>
 
-    </div>
-    <div class="modal js-modal">
-        <div class="bodercontainer js-modal-contaiter">
-            <i class="ti-close close js-modal-close"></i>
-            <h2 class="texth2">SETTING</h2>
-            
-            <div class="row" style="width: 100%">
-            <!--  -->
-            <!--  -->
-            <!-- Nha Kinh 1 -->
-                <div class="col-half">
-                    <div class="tieude">Nhà Kính 1</div>
-                    <div class="input_btn">
-                        <div class="text17">Độ Ẩm Đất</div>
-                        <div class="row" style="align-items: center;">
-                            <div style="font-size: 15px;">Ngưỡng Thấp</div>
-                            <input type="number" style="width: 70px;padding: 5px;" required>
-                            <div>%</div>
-                            <div style="font-size: 15px; margin-left: 10px;">Ngưỡng Cao</div>
-                            <input type="number" style="width: 70px;padding: 5px;" required>
-                            <div>%</div>
+                    <div class="row" style="width: 100%">
+                        <!--  -->
+                        <!--  -->
+                        <!-- Nha Kinh 1 -->
+                        <div class="col-half">
+                            <div class="tieude">Nhà Kính 1</div>
+                            <div class="input_btn">
+                                <div class="text17">Độ Ẩm Đất</div>
+                                <div class="row" style="align-items: center;">
+                                    <div style="font-size: 15px;">Ngưỡng Thấp</div>
+                                    <input type="number" id="lowHum1" style="width: 70px;padding: 5px;" required>
+                                    <div>%</div>
+                                    <div style="font-size: 15px; margin-left: 10px;">Ngưỡng Cao</div>
+                                    <input type="number" id="highHum1" style="width: 70px;padding: 5px;" required>
+                                    <div>%</div>
+                                </div>
+                            </div>
+                            <div class="input_btn">
+                                <div class="text17">Nhiệt Độ</div>
+                                <div class="row" style="align-items: center;">
+                                    <div style="font-size: 15px;">Ngưỡng Thấp</div>
+                                    <input type="number" id="lowTem1" style="width: 70px;padding: 5px;" required>
+                                    <div>°C</div>
+                                    <div style="font-size: 15px;margin-left: 10px;">Ngưỡng Cao</div>
+                                    <input type="number" id="highTem1" style="width: 70px;padding: 5px;" required>
+                                    <div>°C</div>
+                                </div>
+                            </div>
+                            <div class="input_btn">
+                                <div class="text17">Ánh Sáng</div>
+                                <div class="row" style="align-items: center;">
+                                    <div style="font-size: 15px;">Ngưỡng Thấp</div>
+                                    <input type="number" id="lowLight1" style="width: 70px;padding: 5px;" required>
+                                    <div>lux</div>
+                                    <div style="font-size: 15px;margin-left: 10px;">Ngưỡng Cao</div>
+                                    <input type="number" id="highLight1" style="width: 70px;padding: 5px;" required>
+                                    <div>lux</div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <!--  -->
+                        <!--  -->
+                        <!-- Nha Kinh 2 -->
+                        <div class="col-half">
+                            <div class="tieude">Nhà Kính 2</div>
+                            <div class="input_btn">
+                                <div class="text17">Độ Ẩm Đất</div>
+                                <div class="row" style="align-items: center;">
+                                    <div style="font-size: 15px;">Ngưỡng Thấp</div>
+                                    <input type="number" id="lowHum2" style="width: 70px;padding: 5px;" required>
+                                    <div>%</div>
+                                    <div style="font-size: 15px;margin-left: 10px;">Ngưỡng Cao</div>
+                                    <input type="number" id="highHum2" style="width: 70px;padding: 5px;" required>
+                                    <div>%</div>
+                                </div>
+                            </div>
+                            <div class="input_btn">
+                                <div class="text17">Nhiệt Độ</div>
+                                <div class="row" style="align-items: center;">
+                                    <div style="font-size: 15px;">Ngưỡng Thấp</div>
+                                    <input type="number" id="lowTem2" style="width: 70px;padding: 5px;" required>
+                                    <div>°C</div>
+                                    <div style="font-size: 15px;margin-left: 10px;">Ngưỡng Cao</div>
+                                    <input type="number" id="hightTem2" style="width: 70px;padding: 5px;" required>
+                                    <div>°C</div>
+                                </div>
+                            </div>
+                            <div class="input_btn">
+                                <div class="text17">Ánh Sáng</div>
+                                <div class="row" style="align-items: center;">
+                                    <div style="font-size: 15px;">Ngưỡng Thấp</div>
+                                    <input type="number" id="lowLight2" style="width: 70px;padding: 5px;" required>
+                                    <div>lux</div>
+                                    <div style="font-size: 15px;margin-left: 10px;">Ngưỡng Cao</div>
+                                    <input type="number" id="highLight2" style="width: 70px;padding: 5px;" required>
+                                    <div>lux</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="input_btn">
-                        <div class="text17">Nhiệt Độ</div>
-                        <div class="row" style="align-items: center;">
-                            <div style="font-size: 15px;">Ngưỡng Thấp</div>
-                            <input type="number" style="width: 70px;padding: 5px;" required>
-                            <div>°C</div>
-                            <div style="font-size: 15px;margin-left: 10px;">Ngưỡng Cao</div>
-                            <input type="number" style="width: 70px;padding: 5px;" required>
-                            <div>°C</div>
-                        </div>
-                    </div>
-                    <div class="input_btn">
-                        <div class="text17">Ánh Sáng</div>
-                        <div class="row" style="align-items: center;">
-                            <div style="font-size: 15px;">Ngưỡng Thấp</div>
-                            <input type="number" style="width: 70px;padding: 5px;" required>
-                            <div>lux</div>
-                            <div style="font-size: 15px;margin-left: 10px;">Ngưỡng Cao</div>
-                            <input type="number" style="width: 70px;padding: 5px;" required>
-                            <div>lux</div>
-                        </div>
-                    </div>
-                
-                </div>
-            <!--  -->
-            <!--  -->
-            <!-- Nha Kinh 2 -->
-                <div class="col-half">
-                    <div class="tieude">Nhà Kính 2</div>
-                    <div class="input_btn">
-                        <div class="text17">Độ Ẩm Đất</div>
-                        <div class="row" style="align-items: center;">
-                            <div style="font-size: 15px;">Ngưỡng Thấp</div>
-                            <input type="number" style="width: 70px;padding: 5px;" required>
-                            <div>%</div>
-                            <div style="font-size: 15px;margin-left: 10px;">Ngưỡng Cao</div>
-                            <input type="number" style="width: 70px;padding: 5px;" required>
-                            <div>%</div>
-                        </div>
-                    </div>
-                    <div class="input_btn">
-                        <div class="text17">Nhiệt Độ</div>
-                        <div class="row" style="align-items: center;">
-                            <div style="font-size: 15px;">Ngưỡng Thấp</div>
-                            <input type="number" style="width: 70px;padding: 5px;" required>
-                            <div>°C</div>
-                            <div style="font-size: 15px;margin-left: 10px;">Ngưỡng Cao</div>
-                            <input type="number" style="width: 70px;padding: 5px;" required>
-                            <div>°C</div>
-                        </div>
-                    </div>
-                    <div class="input_btn">
-                        <div class="text17">Ánh Sáng</div>
-                        <div class="row" style="align-items: center;">
-                            <div style="font-size: 15px;">Ngưỡng Thấp</div>
-                            <input type="number" style="width: 70px;padding: 5px;" required>
-                            <div>lux</div>
-                            <div style="font-size: 15px;margin-left: 10px;">Ngưỡng Cao</div>
-                            <input type="number" style="width: 70px;padding: 5px;" required>
-                            <div>lux</div>
-                        </div>
+                    <div class="btnsub">
+                        <input type="submit" value="Lưu Thay Đổi"
+                            style="font-size: 20px;border-radius: 20px;cursor: pointer; padding: 10px;margin-right: 20px;">
                     </div>
                 </div>
             </div>
-            <div class="btnsub">
-                <input type="submit" value="Lưu Thay Đổi" style="font-size: 20px;border-radius: 20px;cursor: pointer; padding: 10px;margin-right: 20px;">
-            </div>
-        </div>
+        </form>
+
     </div>
     </div>
     <input type="number" class="giatri1" placeholder="Nhiet do bieu do 1">
@@ -452,17 +455,13 @@
     <script src="/socket.io/socket.io.js"></script>
     <script>
         const socket = io();
-        socket.emit('C-ReadADC', '{"adc1":1200}');
         socket.on('C-ReadDigital', (data) => {
             console.log(data);
         })
         socket.on('S-ReadADC', (value) => {
             //console.log(value);
             let jsonData = JSON.parse(value)
-            let msb = jsonData.data_1_MSB
-            let lsb = jsonData.data_1_LSB
-            let hexString = msb + lsb
-            let decNumber = parseInt(hexString, 16);
+            let decNumber = jsonData.adc1
             value1 = (decNumber - 1450) * 100 / (600 - 1450)
             //if (value1 >= 100) {
             //   value1 = 100
@@ -506,7 +505,6 @@
                 pH2.textContent = pH_value + "pH";
             }
         })
-        socket.emit()
         var temI2C1 = 0;
         var humI2C1 = 0;
         var lightI2C1 = 0;
@@ -514,32 +512,36 @@
         var humI2C2 = 0;
         var lightI2C2 = 0;
         socket.on('S-RequestI2C', (value) => {
-            let jsonData = JSON.parse(value)
-
-            switch (jsonData.HouseID) {
-                case '1':
-                    switch (jsonData.lenght) {
-                        case '3':
-                            lightI2C1 = (parseInt(jsonData.data_1 + jsonData.data_2, 16) / 1.2)
+            let jsonData = JSON.parse(value);
+            console.log(jsonData);
+            switch (jsonData.i2ca) {
+                case 23:
+                    lightI2C = (parseInt(jsonData.i2cd1.toString(16) + jsonData.i2cd2.toString(16), 16) / 1.2)
+                    switch (jsonData.houseID) {
+                        case 1:
+                            lightI2C1 = (parseInt(jsonData.i2cd1.toString(16) + jsonData.i2cd2.toString(16), 16) / 1.2);
                             break
-                        case '5':
-                            temI2C1 = (parseInt(jsonData.data_1 + jsonData.data_2, 16) * 175 / 65535) - 45
-                            humI2C1 = (parseInt(jsonData.data_3 + jsonData.data_4, 16) * 100 / 65535)
+                        case 2:
+                            lightI2C2 = (parseInt(jsonData.i2cd1.toString(16) + jsonData.i2cd2.toString(16), 16) / 1.2);
                             break
                     }
                     break
-                case '2':
-                    switch (jsonData.lenght) {
-                        case '3':
-                            lightI2C2 = (parseInt(jsonData.data_1 + jsonData.data_2, 16) / 1.2)
+                case 68:
+                    temI2C = (parseInt(jsonData.i2cd1.toString(16) + jsonData.i2cd2.toString(16), 16) * 175 / 65535) - 45
+                    humI2C = (parseInt(jsonData.i2cd4.toString(16) + jsonData.i2cd5.toString(16), 16) * 100 / 65535)
+                    switch (jsonData.houseID) {
+                        case 1:
+                            temI2C1 = (parseInt(jsonData.i2cd1.toString(16) + jsonData.i2cd2.toString(16), 16) * 175 / 65535) - 45;
+                            humI2C1 = (parseInt(jsonData.i2cd4.toString(16) + jsonData.i2cd5.toString(16), 16) * 100 / 65535);
                             break
-                        case '5':
-                            temI2C2 = (parseInt(jsonData.data_1 + jsonData.data_2, 16) * 175 / 65535) - 45
-                            humI2C2 = (parseInt(jsonData.data_3 + jsonData.data_4, 16) * 100 / 65535)
+                        case 2:
+                            temI2C2 = (parseInt(jsonData.i2cd1.toString(16) + jsonData.i2cd2.toString(16), 16) * 175 / 65535) - 45;
+                            humI2C2 = (parseInt(jsonData.i2cd4.toString(16) + jsonData.i2cd5.toString(16), 16) * 100 / 65535);
                             break
                     }
                     break
             }
+
             var temI2C1_display = document.querySelector('.temI2C1');
             var temI2C2_display = document.querySelector('.temI2C2');
 
@@ -558,10 +560,6 @@
                 lightI2C1_display.textContent = lightI2C1.toFixed(1) + " lux";
                 lightI2C2_display.textContent = lightI2C2.toFixed(1) + " lux";
             }
-            console.log("tem " + temI2C1);
-            console.log("hum " + humI2C1);
-            console.log("light " + lightI2C1);
-
         })
 
     </script>
@@ -752,7 +750,6 @@
                 socket.emit('den12off', '{"Client":{"houseID":2,"request":"WriteDigital","DO5":"1"}}');
             }
         }
-        //function fetchButton() {
         fetch('/api/getButton')
             .then(response => response.json())
             .then(data => {
@@ -912,56 +909,68 @@
             switch (bit8) {
                 case 1:
                     bt_on1.classList.remove('light');
+                    bt_onauto1.classList.remove('light');
                     break;
                 case 0:
                     bt_on1.classList.add('light');
+                    bt_onauto1.classList.add('light');
                     break;
             }
             switch (bit7) {
                 case 1:
                     bt_on2.classList.remove('light');
+                    bt_onauto2.classList.remove('light');
                     break;
                 case 0:
 
                     bt_on2.classList.add('light');
+                    bt_onauto2.classList.add('light');
                     break;
             }
             switch (bit6) {
                 case 1:
                     bt_on3.classList.remove('light');
+                    bt_onauto3.classList.remove('light');
                     break;
                 case 0:
                     bt_on3.classList.add('light');
+                    bt_onauto3.classList.add('light');
                     break;
             }
             switch (bit5) {
                 case 1:
                     bt_on4.classList.remove('light');
+                    bt_onauto4.classList.remove('light');
                     break;
                 case 0:
                     bt_on4.classList.add('light');
+                    bt_onauto4.classList.add('light');
                     break;
             }
             switch (bit4) {
                 case 1:
                     bt_on5.classList.remove('light');
+                    bt_onauto5.classList.remove('light');
                     break;
                 case 0:
                     bt_on5.classList.add('light');
+                    bt_onauto5.classList.add('light');
                     break;
             }
             switch (bit3) {
                 case 1:
                     bt_on6.classList.remove('light');
+                    bt_onauto6.classList.remove('light');
                     break;
                 case 0:
                     bt_on6.classList.add('light');
+                    bt_onauto6.classList.add('light');
                     break;
             }
         })
         socket.on('display2', (data) => {
             let jsonData = JSON.parse(data)
-            console.log(jsonData)
+            //console.log(jsonData)
             //let value = parseInt(jsonData.data, 16).toString(2)
             //console.log(value)
             let bit8 = jsonData.bit8
@@ -974,57 +983,148 @@
             switch (bit8) {
                 case 1:
                     bt_on21.classList.remove('light');
+                    bt_onauto21.classList.remove('light');
                     break;
                 case 0:
 
                     bt_on21.classList.add('light');
+                    bt_onauto21.classList.add('light');
                     break;
             }
             switch (bit7) {
                 case 1:
 
                     bt_on22.classList.remove('light');
+                    bt_onauto22.classList.remove('light');
                     break;
                 case 0:
                     bt_on22.classList.add('light');
+                    bt_onauto22.classList.add('light');
                     break;
             }
             switch (bit6) {
                 case 1:
                     bt_on23.classList.remove('light');
+                    bt_onauto23.classList.remove('light');
                     break;
                 case 0:
                     bt_on23.classList.add('light');
+                    bt_onauto23.classList.add('light');
                     break;
             }
             switch (bit5) {
                 case 1:
                     bt_on24.classList.remove('light');
+                    bt_onauto24.classList.remove('light');
                     break;
                 case 0:
                     bt_on24.classList.add('light');
+                    bt_onauto24.classList.add('light');
                     break;
             }
             switch (bit4) {
                 case 1:
                     bt_on25.classList.remove('light');
+                    bt_onauto25.classList.remove('light');
                     break;
                 case 0:
                     bt_on25.classList.add('light');
+                    bt_onauto25.classList.add('light');
                     break;
             }
             switch (bit3) {
                 case 1:
                     bt_on26.classList.remove('light');
+                    bt_onauto26.classList.remove('light');
                     break;
                 case 0:
                     bt_on26.classList.add('light');
+                    bt_onauto26.classList.add('light');
                     break;
             }
         })
-    </script>
-    <script>
-
+        socket.on('displaymode1', (data) => {
+            console.log(data);
+            switch (data) {
+                case "auto":
+                    dis_auto.classList.add('light');
+                    dis_manual.classList.remove('light');
+                    box_on.classList.add('boxactive');
+                    btn_on.classList.add('btnactive');
+                    document.querySelector('.element1').classList.remove('display-none');
+                    document.querySelector('.element2').classList.remove('display-none');
+                    document.querySelector('.element3').classList.remove('display-none');
+                    document.querySelector('.element4').classList.remove('display-none');
+                    document.querySelector('.element5').classList.remove('display-none');
+                    document.querySelector('.element6').classList.remove('display-none');
+                    document.querySelector('.btn_on1').classList.add('display-none');
+                    document.querySelector('.btn_on2').classList.add('display-none');
+                    document.querySelector('.btn_on3').classList.add('display-none');
+                    document.querySelector('.btn_on4').classList.add('display-none');
+                    document.querySelector('.btn_on5').classList.add('display-none');
+                    document.querySelector('.btn_on6').classList.add('display-none');
+                    break
+                case "manual":
+                    box_on.classList.remove('boxactive');
+                    btn_on.classList.remove('btnactive');
+                    dis_manual.classList.add('light');
+                    dis_auto.classList.remove('light');
+                    document.querySelector('.btn_on1').classList.remove('display-none');
+                    document.querySelector('.btn_on2').classList.remove('display-none');
+                    document.querySelector('.btn_on3').classList.remove('display-none');
+                    document.querySelector('.btn_on4').classList.remove('display-none');
+                    document.querySelector('.btn_on5').classList.remove('display-none');
+                    document.querySelector('.btn_on6').classList.remove('display-none');
+                    document.querySelector('.element1').classList.add('display-none');
+                    document.querySelector('.element2').classList.add('display-none');
+                    document.querySelector('.element3').classList.add('display-none');
+                    document.querySelector('.element4').classList.add('display-none');
+                    document.querySelector('.element5').classList.add('display-none');
+                    document.querySelector('.element6').classList.add('display-none');
+                    break
+            }
+        })
+        socket.on('displaymode2', (data) => {
+            console.log(data);
+            switch (data) {
+                case "auto":
+                    dis_auto2.classList.add('light');
+                    dis_manual2.classList.remove('light');
+                    box_on1.classList.add('boxactive');
+                    btn_on1.classList.add('btnactive');
+                    document.querySelector('.element21').classList.remove('display-none');
+                    document.querySelector('.element22').classList.remove('display-none');
+                    document.querySelector('.element23').classList.remove('display-none');
+                    document.querySelector('.element24').classList.remove('display-none');
+                    document.querySelector('.element25').classList.remove('display-none');
+                    document.querySelector('.element26').classList.remove('display-none');
+                    document.querySelector('.btn_on21').classList.add('display-none');
+                    document.querySelector('.btn_on22').classList.add('display-none');
+                    document.querySelector('.btn_on23').classList.add('display-none');
+                    document.querySelector('.btn_on24').classList.add('display-none');
+                    document.querySelector('.btn_on25').classList.add('display-none');
+                    document.querySelector('.btn_on26').classList.add('display-none');
+                    break
+                case "manual":
+                    box_on1.classList.remove('boxactive');
+                    btn_on1.classList.remove('btnactive');
+                    dis_manual2.classList.add('light');
+                    dis_auto2.classList.remove('light');
+                    document.querySelector('.btn_on21').classList.remove('display-none');
+                    document.querySelector('.btn_on22').classList.remove('display-none');
+                    document.querySelector('.btn_on23').classList.remove('display-none');
+                    document.querySelector('.btn_on24').classList.remove('display-none');
+                    document.querySelector('.btn_on25').classList.remove('display-none');
+                    document.querySelector('.btn_on26').classList.remove('display-none');
+                    document.querySelector('.element21').classList.add('display-none');
+                    document.querySelector('.element22').classList.add('display-none');
+                    document.querySelector('.element23').classList.add('display-none');
+                    document.querySelector('.element24').classList.add('display-none');
+                    document.querySelector('.element25').classList.add('display-none');
+                    document.querySelector('.element26').classList.add('display-none');
+                    break
+            }
+        })
     </script>
     <script>
         const buyBtns = document.querySelectorAll('.js-buy-ticket')
@@ -1035,15 +1135,15 @@
             modal.classList.add('open')
         }
         for (const buyBtn of buyBtns) {
-            buyBtn.addEventListener('click',showBuyTickets)
+            buyBtn.addEventListener('click', showBuyTickets)
         }
         function closeModal() {
             modal.classList.remove('open')
         }
-        modalClose.addEventListener('click',closeModal)
-        modal.addEventListener('click',closeModal)
-        modalContaiter.addEventListener('click', function(event) {
-            event.stopPropagation()
+        modalClose.addEventListener('click', closeModal)
+        modal.addEventListener('click', closeModal)
+        modalContaiter.addEventListener('click', function (event) {
+            event.stopPropagation();
         })
     </script>
 </body>

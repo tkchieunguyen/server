@@ -90,7 +90,7 @@
             <form onsubmit="set_debug(event)">
                 <label for="topic">nhập chủ đề :</label>
                 <input type="text" name="topic" id="topic" value="debug1">
-                <label for=" main">nhập nội dung</label>
+                <label for="main">nhập nội dung</label>
                 <input type="text" name="main" id="main" style="width:1000px">
                 <button type="submit">gửi</button>
             </form>
@@ -101,7 +101,9 @@
     <script src="/socket.io/socket.io.js"></script>
     <script>
         const socket = io();
-        //socket.emit('C-ScanI2C', '{"houseID":2,"cmd":"SCAN I2C","lenght":2,"address1":46,"address2":47}')
+        //socket.emit('C-ScanI2C', '{"houseID":2,"cmd":"SCAN I2C","lenght":2,"i2ca1":46,"i2ca2":47}')
+        var getValue;
+        var getValue1;
         socket.on("GET_I2C_DEVICE", (data1) => {
             var getdata = []
             let data = JSON.parse(data1)
@@ -113,6 +115,46 @@
                     getdata.push(addressValue)
                 }
                 getValue = getdata
+                getValue.map((item) => {
+                    const form = document.createElement("form");
+                    form.id = `form${item}`;
+                    const existingForm = document.getElementById(`form${item}`)
+                    form.addEventListener("submit", (event) => sendData2(event, item));
+
+                    const label = document.createElement("label");
+                    label.setAttribute("for", `i2cInput${item}`);
+                    label.textContent = `Nhập giá trị Read I2C cho địa chỉ ${item}:`;
+
+                    const div = document.createElement('div')
+                    div.setAttribute('class', 'right0')
+
+                    const input = document.createElement("input");
+                    input.setAttribute("type", "number");
+                    input.setAttribute("id", `i2cInput${item}`);
+                    input.setAttribute("name", "i2cInput");
+                    input.setAttribute("required", "required");
+
+                    const button = document.createElement("button");
+                    button.setAttribute("type", "submit");
+                    button.setAttribute("style", "margin-left: 5px; margin-right: 10px;");
+                    button.textContent = "Gửi";
+
+                    div.appendChild(input);
+                    div.appendChild(button);
+                    form.appendChild(label);
+                    form.appendChild(div);
+
+                    // Thêm form vào HTML
+                    const container = document.getElementById("formContainer");
+                    container.appendChild(form);
+                    const existingFormContainer = document.getElementById(`form${item}`);
+                    if (existingFormContainer) {
+                        container.replaceChild(form, existingFormContainer);
+                    } else {
+                        container.appendChild(form);
+                    }
+
+                })
             }
             else if (data.houseID == 2) {
                 var getdata1 = []
@@ -122,10 +164,42 @@
                     getdata1.push(addressValue)
                 }
                 getValue1 = getdata1
+                getValue1.map((item, index) => {
+                    const form = document.createElement("form");
+                    form.id = `form${index}`;
+                    form.addEventListener("submit", (event) => sendData3(event, item));
+
+                    const label = document.createElement("label");
+                    label.setAttribute("for", `i2cInput${item}`);
+                    label.textContent = `Nhập giá trị Read I2C cho địa chỉ ${item}:`;
+
+                    const input = document.createElement("input");
+                    input.setAttribute("type", "number");
+                    input.setAttribute("id", `i2cInput${item}`);
+                    input.setAttribute("name", "i2cInput");
+                    input.setAttribute("required", "required");
+
+                    const button = document.createElement("button");
+                    button.setAttribute("type", "submit");
+                    button.textContent = "Gửi";
+
+                    form.appendChild(label);
+                    form.appendChild(input);
+                    form.appendChild(button);
+
+                    // Thêm form vào HTML
+                    const container2 = document.getElementById("formContainer2");
+                    container2.appendChild(form);
+                    const existingFormContainer = document.getElementById(`form${index}`);
+                    if (existingFormContainer) {
+                        container2.replaceChild(form, existingFormContainer);
+                    } else {
+                        container2.appendChild(form);
+                    }
+                })
+
             }
         })
-
-
         function set_time_ADC_1(event) {
             event.preventDefault();
             let adcInput = parseInt(document.getElementById("adcInput").value);
@@ -221,86 +295,12 @@
         var scani2c1 = document.querySelector('.scani2c1');
         scani2c1.addEventListener('click', () => {
             socket.emit('scan_i2c', '{"Client":{"houseID":1,"request":"ScanI2C"}}')
-            getValue.map((item) => {
-                const form = document.createElement("form");
-                form.id = `form${item}`;
-                const existingForm = document.getElementById(`form${item}`)
-                form.addEventListener("submit", (event) => sendData2(event, item));
-
-                const label = document.createElement("label");
-                label.setAttribute("for", `i2cInput${item}`);
-                label.textContent = `Nhập giá trị Read I2C cho địa chỉ ${item}:`;
-
-                const div = document.createElement('div')
-                div.setAttribute('class', 'right0')
-
-                const input = document.createElement("input");
-                input.setAttribute("type", "number");
-                input.setAttribute("id", `i2cInput${item}`);
-                input.setAttribute("name", "i2cInput");
-
-                const button = document.createElement("button");
-                button.setAttribute("type", "submit");
-                button.setAttribute("style", "margin-left: 5px; margin-right: 10px;");
-                button.textContent = "Gửi";
-
-                div.appendChild(input);
-                div.appendChild(button);
-                form.appendChild(label);
-                form.appendChild(div);
-
-                // Thêm form vào HTML
-                const container = document.getElementById("formContainer");
-                container.appendChild(form);
-                const existingFormContainer = document.getElementById(`form${item}`);
-                if (existingFormContainer) {
-                    container.replaceChild(form, existingFormContainer);
-                } else {
-                    container.appendChild(form);
-                }
-
-            })
         })
         var scani2c2 = document.querySelector('.scani2c2');
         scani2c2.addEventListener('click', () => {
             socket.emit('scan_i2c', '{"Client":{"houseID":2,"request":"ScanI2C"}}')
-            getValue1.map((item, index) => {
-                const form = document.createElement("form");
-                form.id = `form${index}`;
-                form.addEventListener("submit", (event) => sendData3(event, item));
-
-                const label = document.createElement("label");
-                label.setAttribute("for", `i2cInput${item}`);
-                label.textContent = `Nhập giá trị Read I2C cho địa chỉ ${item}:`;
-
-                const input = document.createElement("input");
-                input.setAttribute("type", "number");
-                input.setAttribute("id", `i2cInput${item}`);
-                input.setAttribute("name", "i2cInput");
-
-                const button = document.createElement("button");
-                button.setAttribute("type", "submit");
-                button.textContent = "Gửi";
-
-                form.appendChild(label);
-                form.appendChild(input);
-                form.appendChild(button);
-
-                // Thêm form vào HTML
-                const container2 = document.getElementById("formContainer2");
-                container2.appendChild(form);
-                const existingFormContainer = document.getElementById(`form${index}`);
-                if (existingFormContainer) {
-                    container2.replaceChild(form, existingFormContainer);
-                } else {
-                    container2.appendChild(form);
-                }
-            })
-
         })
-
     </script>
-
 </body>
 
 </html>
