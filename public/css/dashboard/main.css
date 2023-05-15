@@ -233,3 +233,118 @@ body {
 .hei71 {
     height: 71px;
 }
+
+.close{
+    float: right;
+    width: 40;
+    height: 40;
+}
+
+html {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.col {
+    float: left;
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+.col-third {
+width: 33.33333%;
+}
+
+.col-half {
+width: 50%;
+}
+
+.col-full {
+width: 100%;
+}
+
+.bodercontainer{
+    border: 1px solid black;
+     width: 750px;
+     height: 430px; 
+    /* background-image: url(https://png.pngtree.com/background/20210710/original/pngtree-simple-cartoon-farm-advertisement-picture-image_1015328.jpg); */
+    /* background-size: cover; */
+    background-color: white;
+}
+
+.modal {
+    position:fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background:rgba(0, 0, 0, 0.4);
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.row{
+    display: flex;
+}
+
+.close:hover {
+    background-color: #ccc;
+    color: #000;
+    cursor: pointer;
+    opacity: 1;
+}
+
+.texth2{
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.open {
+    display: flex !important;
+}
+
+.modal-contaiter {
+    background-color: #fff;
+    min-height: 200px;
+    position: relative;
+    max-width: calc(100% - 32px);
+    animation: modalFadeIn ease .6s;
+}
+
+
+.setting-btn{
+    float: right;
+    line-height: 59.5px;
+    padding: 0 21px;
+    font-size: 20px;
+    color: white;
+}
+
+.setting-btn:hover{
+    cursor: pointer;
+    background-color: red;
+}
+
+.tieude{
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.input_btn{
+    border:2px solid black;
+    padding: 10px;
+    margin: 5px;
+    border-radius: 20px;
+}
+
+.text17{
+    font-size: 17px;
+    font-weight: bold
+}
+
+.btnsub{
+    float: right;
+    cursor: pointer; 
+    margin-top: 20px;
+}

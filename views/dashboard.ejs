@@ -44,7 +44,7 @@
                 Log In
             </div>
             <div class="user-btn">
-                <i class="user-icon ti-user"></i>
+                <i class="ti-settings js-buy-ticket setting-btn" style="line-height: 59.5px;"></i>
             </div>
             <div><span id="curClock"></span></div>
         </div>
@@ -350,6 +350,97 @@
             </div>
         </div>
 
+    </div>
+    <div class="modal js-modal">
+        <div class="bodercontainer js-modal-contaiter">
+            <i class="ti-close close js-modal-close"></i>
+            <h2 class="texth2">SETTING</h2>
+            
+            <div class="row" style="width: 100%">
+            <!--  -->
+            <!--  -->
+            <!-- Nha Kinh 1 -->
+                <div class="col-half">
+                    <div class="tieude">Nhà Kính 1</div>
+                    <div class="input_btn">
+                        <div class="text17">Độ Ẩm Đất</div>
+                        <div class="row" style="align-items: center;">
+                            <div style="font-size: 15px;">Ngưỡng Thấp</div>
+                            <input type="number" style="width: 70px;padding: 5px;" required>
+                            <div>%</div>
+                            <div style="font-size: 15px; margin-left: 10px;">Ngưỡng Cao</div>
+                            <input type="number" style="width: 70px;padding: 5px;" required>
+                            <div>%</div>
+                        </div>
+                    </div>
+                    <div class="input_btn">
+                        <div class="text17">Nhiệt Độ</div>
+                        <div class="row" style="align-items: center;">
+                            <div style="font-size: 15px;">Ngưỡng Thấp</div>
+                            <input type="number" style="width: 70px;padding: 5px;" required>
+                            <div>°C</div>
+                            <div style="font-size: 15px;margin-left: 10px;">Ngưỡng Cao</div>
+                            <input type="number" style="width: 70px;padding: 5px;" required>
+                            <div>°C</div>
+                        </div>
+                    </div>
+                    <div class="input_btn">
+                        <div class="text17">Ánh Sáng</div>
+                        <div class="row" style="align-items: center;">
+                            <div style="font-size: 15px;">Ngưỡng Thấp</div>
+                            <input type="number" style="width: 70px;padding: 5px;" required>
+                            <div>lux</div>
+                            <div style="font-size: 15px;margin-left: 10px;">Ngưỡng Cao</div>
+                            <input type="number" style="width: 70px;padding: 5px;" required>
+                            <div>lux</div>
+                        </div>
+                    </div>
+                
+                </div>
+            <!--  -->
+            <!--  -->
+            <!-- Nha Kinh 2 -->
+                <div class="col-half">
+                    <div class="tieude">Nhà Kính 2</div>
+                    <div class="input_btn">
+                        <div class="text17">Độ Ẩm Đất</div>
+                        <div class="row" style="align-items: center;">
+                            <div style="font-size: 15px;">Ngưỡng Thấp</div>
+                            <input type="number" style="width: 70px;padding: 5px;" required>
+                            <div>%</div>
+                            <div style="font-size: 15px;margin-left: 10px;">Ngưỡng Cao</div>
+                            <input type="number" style="width: 70px;padding: 5px;" required>
+                            <div>%</div>
+                        </div>
+                    </div>
+                    <div class="input_btn">
+                        <div class="text17">Nhiệt Độ</div>
+                        <div class="row" style="align-items: center;">
+                            <div style="font-size: 15px;">Ngưỡng Thấp</div>
+                            <input type="number" style="width: 70px;padding: 5px;" required>
+                            <div>°C</div>
+                            <div style="font-size: 15px;margin-left: 10px;">Ngưỡng Cao</div>
+                            <input type="number" style="width: 70px;padding: 5px;" required>
+                            <div>°C</div>
+                        </div>
+                    </div>
+                    <div class="input_btn">
+                        <div class="text17">Ánh Sáng</div>
+                        <div class="row" style="align-items: center;">
+                            <div style="font-size: 15px;">Ngưỡng Thấp</div>
+                            <input type="number" style="width: 70px;padding: 5px;" required>
+                            <div>lux</div>
+                            <div style="font-size: 15px;margin-left: 10px;">Ngưỡng Cao</div>
+                            <input type="number" style="width: 70px;padding: 5px;" required>
+                            <div>lux</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="btnsub">
+                <input type="submit" value="Lưu Thay Đổi" style="font-size: 20px;border-radius: 20px;cursor: pointer; padding: 10px;margin-right: 20px;">
+            </div>
+        </div>
     </div>
     </div>
     <input type="number" class="giatri1" placeholder="Nhiet do bieu do 1">
@@ -934,6 +1025,26 @@
     </script>
     <script>
 
+    </script>
+    <script>
+        const buyBtns = document.querySelectorAll('.js-buy-ticket')
+        const modal = document.querySelector('.js-modal')
+        const modalClose = document.querySelector('.js-modal-close')
+        const modalContaiter = document.querySelector('.js-modal-contaiter')
+        function showBuyTickets() {
+            modal.classList.add('open')
+        }
+        for (const buyBtn of buyBtns) {
+            buyBtn.addEventListener('click',showBuyTickets)
+        }
+        function closeModal() {
+            modal.classList.remove('open')
+        }
+        modalClose.addEventListener('click',closeModal)
+        modal.addEventListener('click',closeModal)
+        modalContaiter.addEventListener('click', function(event) {
+            event.stopPropagation()
+        })
     </script>
 </body>
 
