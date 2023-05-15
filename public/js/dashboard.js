@@ -32,40 +32,42 @@ setInterval(() => {
     date.getSeconds()
 }, 1000)
 
+
+
 fetch('/api/getMode1')
   .then(response => response.json())
   .then(data => {
     data.forEach((item) => {
-      console.log(item);
+      //console.log(item);
       if (item.mode == 1) {
         dis_auto.classList.add('light');
+        dis_manual.classList.remove('light');
         box_on.classList.add('boxactive');
         btn_on.classList.add('btnactive');
-        dis_manual.classList.remove('light');
         document.querySelector('.element1').classList.remove('display-none');
         document.querySelector('.element2').classList.remove('display-none');
         document.querySelector('.element3').classList.remove('display-none');
         document.querySelector('.element4').classList.remove('display-none');
         document.querySelector('.element5').classList.remove('display-none');
         document.querySelector('.element6').classList.remove('display-none');
-        bt_on1.classList.add('display-none');
-        bt_on2.classList.add('display-none');
-        bt_on3.classList.add('display-none');
-        bt_on4.classList.add('display-none');
-        bt_on5.classList.add('display-none');
-        bt_on6.classList.add('display-none');
+        document.querySelector('.btn_on1').classList.add('display-none');
+        document.querySelector('.btn_on2').classList.add('display-none');
+        document.querySelector('.btn_on3').classList.add('display-none');
+        document.querySelector('.btn_on4').classList.add('display-none');
+        document.querySelector('.btn_on5').classList.add('display-none');
+        document.querySelector('.btn_on6').classList.add('display-none');
       }
       else if (item.mode == 0) {
         box_on.classList.remove('boxactive');
         btn_on.classList.remove('btnactive');
         dis_manual.classList.add('light');
         dis_auto.classList.remove('light');
-        bt_on1.classList.remove('display-none');
-        bt_on2.classList.remove('display-none');
-        bt_on3.classList.remove('display-none');
-        bt_on4.classList.remove('display-none');
-        bt_on5.classList.remove('display-none');
-        bt_on6.classList.remove('display-none');
+        document.querySelector('.btn_on1').classList.remove('display-none');
+        document.querySelector('.btn_on2').classList.remove('display-none');
+        document.querySelector('.btn_on3').classList.remove('display-none');
+        document.querySelector('.btn_on4').classList.remove('display-none');
+        document.querySelector('.btn_on5').classList.remove('display-none');
+        document.querySelector('.btn_on6').classList.remove('display-none');
         document.querySelector('.element1').classList.add('display-none');
         document.querySelector('.element2').classList.add('display-none');
         document.querySelector('.element3').classList.add('display-none');
@@ -82,7 +84,7 @@ fetch('/api/getMode2')
   .then(response => response.json())
   .then(data => {
     data.forEach((item) => {
-      console.log(item);
+      //console.log(item);
       if (item.mode == 1) {
         dis_auto2.classList.add('light');
         dis_manual2.classList.remove('light');

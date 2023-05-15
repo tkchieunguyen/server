@@ -54,10 +54,12 @@ io.on('connection', (socket) => {
                 connection.execute('DELETE FROM mode1 LIMIT 1')
                 connection.execute('INSERT INTO mode1(mode) VALUES (1)')
                 global.a = 1
+                io.emit('displaymode1', data)
                 break
             case "manual":
                 connection.execute('DELETE FROM mode1 LIMIT 1')
                 connection.execute('INSERT INTO mode1(mode) VALUES (0)')
+                io.emit('displaymode1', data)
                 global.a = 0
                 break
         }
@@ -69,11 +71,13 @@ io.on('connection', (socket) => {
                 connection.execute('DELETE FROM mode2 LIMIT 1')
                 connection.execute('INSERT INTO mode2(mode) VALUES (1)')
                 global.b = 1
+                io.emit('displaymode2', data)
                 break
             case "manual":
                 connection.execute('DELETE FROM mode2 LIMIT 1')
                 connection.execute('INSERT INTO mode2(mode) VALUES (0)')
                 global.b = 0
+                io.emit('displaymode2', data)
                 break
         }
     })
@@ -83,12 +87,12 @@ io.on('connection', (socket) => {
     var jsonLed
     socket.on('C-ReadDigital', (data) => {
         jsonData__ReadDigital = JSON.parse(data)
-        console.log(data);
+        //console.log(data);
         //console.log(JSON.parse(jsonData__ReadDigital))
 
         let led = (jsonData__ReadDigital.port).toString(2)
         //let led = parseInt(jsonData__ReadDigital.port, 2)
-        console.log(led)
+        //console.log(led)
         houseId_ReadDigital = parseInt(jsonData__ReadDigital.houseID, 10)
         let bitArray = led.split("")
         jsonLed = '{"bit8":' + bitArray[7] + ',"bit7":' + bitArray[6] + ',"bit6":' + bitArray[5] + ',"bit5":' + bitArray[4] + ',"bit4":' + bitArray[3] + ',"bit3":' + bitArray[2] + '}'
@@ -107,8 +111,8 @@ io.on('connection', (socket) => {
     })
     socket.on('C-WriteDigital', (data) => {
         jsonData__ReadDigital = JSON.parse(data)
-        console.log(data);
-        console.log(jsonData__ReadDigital.response);
+        //console.log(data);
+        //console.log(jsonData__ReadDigital.response);
         let led = (jsonData__ReadDigital.port).toString(2)
         //let led = parseInt(jsonData__ReadDigital.port, 2)
         console.log(led)
@@ -135,6 +139,7 @@ io.on('connection', (socket) => {
     //fix
     socket.on('C-ReadADC', (data) => {
         let jsonData = JSON.parse(data)
+        //console.log(jsonData)
         let decNumber = jsonData.adc1
         value = (decNumber - 1450) * 100 / (650 - 1450)
         connection.execute('SELECT mode FROM mode1 ORDER BY id DESC LIMIT 1;')
@@ -143,17 +148,18 @@ io.on('connection', (socket) => {
                 // Tiếp tục sử dụng biến mode ở đây
                 //console.log(global.a.toString());
                 //console.log(global.a)
-                if (value >= 50 && mode == 1) {
-                    io.emit('den3onsv', '{"Client":{"houseID":1,"request":"WriteDigital","DO2":"0"}}');
-                    io.emit('den4onsv', '{"Client":{"houseID":1,"request":"WriteDigital","DO3":"0"}}');
-                    io.emit('den5onsv', '{"Client":{"houseID":1,"request":"WriteDigital","DO4":"0"}}');
-                    io.emit('den6onsv', '{"Client":{"houseID":1,"request":"WriteDigital","DO5":"0"}}');
+                //console.log(value)
+                if (value >= 30 && mode == 1) {
+                    io.emit('eventsv', '{"Client":{"houseID":1,"request":"WriteDigital","DO2":"0","DO3":"0","DO4":"0","DO5":"0"}}');
+                    //io.emit('eventsv', '{"Client":{"houseID":1,"request":"WriteDigital","DO3":"0"}}');
+                    //io.emit('eventsv', '{"Client":{"houseID":1,"request":"WriteDigital","DO4":"0"}}');
+                    //io.emit('eventsv', '{"Client":{"houseID":1,"request":"WriteDigital","DO5":"0"}}');
                 }
                 else if (value < 50 && mode == 1) {
-                    io.emit('den3offsv', '{"Client":{"houseID":1,"request":"WriteDigital","DO2":"1"}}');
-                    io.emit('den4offsv', '{"Client":{"houseID":1,"request":"WriteDigital","DO3":"1"}}');
-                    io.emit('den5offsv', '{"Client":{"houseID":1,"request":"WriteDigital","DO4":"1"}}');
-                    io.emit('den6offsv', '{"Client":{"houseID":1,"request":"WriteDigital","DO5":"1"}}');
+                    io.emit('eventsv', '{"Client":{"houseID":1,"request":"WriteDigital","DO2":"1","DO3":"1","DO4":"1","DO5":"1"}}');
+                    // io.emit('eventsv', '{"Client":{"houseID":1,"request":"WriteDigital","DO3":"1"}}');
+                    // io.emit('eventsv', '{"Client":{"houseID":1,"request":"WriteDigital","DO4":"1"}}');
+                    // io.emit('eventsv', '{"Client":{"houseID":1,"request":"WriteDigital","DO5":"1"}}');
                 }
             })
             .catch(error => {
@@ -175,38 +181,39 @@ io.on('connection', (socket) => {
         //console.log(jsonData)
         //a = { "Client": { "houseID": 1, "response": "RS485", "RS485a": "aRS485 Address", "rs485d1": Data 1, "rs485d2": Data 2, ...} }
         let time = moment().format('YYYY-MM-DD HH:mm:ss')
-        switch (jsonData.RS485a) {
-            case 1:
-                let N = jsonData.data_1
-                let P = jsonData.data_2
-                let K = jsonData.data_3
+        switch (jsonData.cmdID) {
+            case 31:
+                let N = jsonData.rs485d1
+                let P = jsonData.rs485d2
+                let K = jsonData.rs485d3
                 switch (houseID) {
-                    case '1':
+                    case 1:
                         break
-                    case '2':
+                    case 2:
                         connection.execute('INSERT INTO rs485_npk1(time,N,P,K) VALUES (?,?,?,?)', [time, N, P, K])
                         io.emit('RS485_NPKvalue', '{"N":' + N + ',"P":' + P + ',"K":' + K + '}')
                         break
                 }
                 break
-            case 2:
-                let Hum = jsonData.data_1 / 10
+            case 33:
+                let Hum = jsonData.rs485d1 / 10
+                //console.log(Hum)
                 switch (houseID) {
-                    case '1':
+                    case 1:
                         break
-                    case '2':
+                    case 2:
                         connection.execute('INSERT INTO rs485_hum1(time,hum) VALUES (?,?)', [time, Hum])
-                        io.emit('RS485_humvalue', '{""Hum":' + Hum + '}')
+                        io.emit('RS485_humvalue', '{"Hum":' + Hum + '}')
                         break
                 }
                 break
-            case 3:
-                let pH = jsonData.data_1 / 10
+            case 32:
+                let pH = jsonData.rs485d1 / 100
                 switch (houseID) {
-                    case '1':
+                    case 1:
                         break
-                    case '2':
-                        connection.execute('INSERT INTO rs485_ph1(time,) VALUES (?,?)', [time, pH])
+                    case 2:
+                        connection.execute('INSERT INTO rs485_ph1(time,ph) VALUES (?,?)', [time, pH])
                         io.emit('RS485_phvalue', '{"pH":' + pH + '}')
                         break
                 }
@@ -222,37 +229,42 @@ io.on('connection', (socket) => {
         let humI2C
         let lightI2C
         let time = moment().format('YYYY-MM-DD HH:mm:ss')
-        switch (jsonData.address) {
-            case 35:
-                lightI2C = (parseInt(jsonData.data_1 + jsonData.data_2, 16) / 1.2)
+        switch (jsonData.i2ca) {
+            case 23:
+                lightI2C = (parseInt(jsonData.i2cd1.toString(16) + jsonData.i2cd2.toString(16), 16) / 1.2)
                 switch (jsonData.houseID) {
-                    case '1':
+                    case 1:
                         connection.execute('INSERT INTO lighti2c1(light,time) VALUES (?,?)', [lightI2C, time])
+                        io.emit('lighti2c1', '{"pH1":' + lightI2C + '}')
                         break
-                    case '2':
+                    case 2:
                         connection.execute('INSERT INTO lighti2c2(light,time) VALUES (?,?)', [lightI2C, time])
+                        io.emit('lighti2c2', '{"pH2":' + lightI2C + '}')
                         break
                 }
                 break
             case 68:
-                temI2C = (parseInt(jsonData.data_1 + jsonData.data_2, 16) * 175 / 65535) - 45
-                humI2C = (parseInt(jsonData.data_4 + jsonData.data_5, 16) * 100 / 65535)
+                temI2C = (parseInt(jsonData.i2cd1.toString(16) + jsonData.i2cd2.toString(16), 16) * 175 / 65535) - 45
+                humI2C = (parseInt(jsonData.i2cd4.toString(16) + jsonData.i2cd5.toString(16), 16) * 100 / 65535)
                 switch (jsonData.houseID) {
-                    case '1':
+                    case 1:
                         connection.execute('INSERT INTO tem_humi2c1(tem,hum,time) VALUES (?,?,?)', [temI2C, humI2C, time])
+                        io.emit('temhumi2c1', '{"tem":' + temI2C + ',"hum":' + humI2C + '}')
                         break
-                    case '2':
+                    case 2:
                         connection.execute('INSERT INTO tem_humi2c2(tem,hum,time) VALUES (?,?,?)', [temI2C, humI2C, time])
+                        io.emit('temhumi2c2', '{"tem":' + temI2C + ',"hum":' + humI2C + '}')
                         break
                 }
                 break
         }
-        io.emit('S-ReadI2C', data)
+        io.emit('S-RequestI2C', data)
     })
     socket.on('C-ReadI2C', (data) => {
         console.log(JSON.parse(data))
     })
     socket.on('C-ScanI2C', (data) => {
+        0
         console.log(JSON.parse(data))
         io.emit('GET_I2C_DEVICE', data)
     })
