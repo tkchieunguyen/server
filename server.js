@@ -21,6 +21,21 @@ const moment = require('moment')
 global.a = 0;
 global.b = 0;
 
+global.lowHum1 = 0;
+global.lowHum2 = 0;
+global.highHum1 = 0;
+global.highHum2 = 0;
+
+global.lowTem1 = 0;
+global.lowTem2 = 0;
+global.highTem1 = 0;
+global.highTem2 = 0;
+
+global.lowLight1 = 0;
+global.lowLight2 = 0;
+global.highLight1 = 0;
+global.highLight2 = 0;
+
 
 app.set('view engine', 'ejs')
 app.use(bodyParser.json())
@@ -145,18 +160,14 @@ io.on('connection', (socket) => {
         connection.execute('SELECT mode FROM mode1 ORDER BY id DESC LIMIT 1;')
             .then(([rows]) => {
                 let mode = rows[0].mode;
-                // Tiếp tục sử dụng biến mode ở đây
-                //console.log(global.a.toString());
-                //console.log(global.a)
-                //console.log(value)
-                if (value >= 30 && mode == 1) {
-                    io.emit('eventsv', '{"Client":{"houseID":1,"request":"WriteDigital","DO2":"0","DO3":"0","DO4":"0","DO5":"0"}}');
+                if (value >= global.highHum1 && mode == 1) {
+                    io.emit('eventsv', '{"Client":{"houseID":1,"request":"WriteDigital","DO2":"1","DO3":"1","DO4":"1","DO5":"1"}}');
                     //io.emit('eventsv', '{"Client":{"houseID":1,"request":"WriteDigital","DO3":"0"}}');
                     //io.emit('eventsv', '{"Client":{"houseID":1,"request":"WriteDigital","DO4":"0"}}');
                     //io.emit('eventsv', '{"Client":{"houseID":1,"request":"WriteDigital","DO5":"0"}}');
                 }
-                else if (value < 50 && mode == 1) {
-                    io.emit('eventsv', '{"Client":{"houseID":1,"request":"WriteDigital","DO2":"1","DO3":"1","DO4":"1","DO5":"1"}}');
+                else if (value < global.lowHum1 && mode == 1) {
+                    io.emit('eventsv', '{"Client":{"houseID":1,"request":"WriteDigital","DO2":"0","DO3":"0","DO4":"0","DO5":"0"}}');
                     // io.emit('eventsv', '{"Client":{"houseID":1,"request":"WriteDigital","DO3":"1"}}');
                     // io.emit('eventsv', '{"Client":{"houseID":1,"request":"WriteDigital","DO4":"1"}}');
                     // io.emit('eventsv', '{"Client":{"houseID":1,"request":"WriteDigital","DO5":"1"}}');
@@ -165,9 +176,6 @@ io.on('connection', (socket) => {
             .catch(error => {
                 console.log(error)
             });
-
-
-
         let time = moment().format('YYYY-MM-DD HH:mm:ss')
         connection.execute('DELETE FROM adc_1 LIMIT 1')
         connection.execute('INSERT INTO adc_1(value,time) VALUES (?,?)', [value, time])
@@ -206,6 +214,25 @@ io.on('connection', (socket) => {
                         io.emit('RS485_humvalue', '{"Hum":' + Hum + '}')
                         break
                 }
+                connection.execute('SELECT mode FROM mode2 ORDER BY id DESC LIMIT 1;')
+                    .then(([rows]) => {
+                        let mode = rows[0].mode;
+                        if (Hum >= global.highHum2 && mode == 1) {
+                            io.emit('eventsv', '{"Client":{"houseID":2,"request":"WriteDigital","DO2":"1","DO3":"1","DO4":"1","DO5":"1"}}');
+                            //io.emit('eventsv', '{"Client":{"houseID":1,"request":"WriteDigital","DO3":"0"}}');
+                            //io.emit('eventsv', '{"Client":{"houseID":1,"request":"WriteDigital","DO4":"0"}}');
+                            //io.emit('eventsv', '{"Client":{"houseID":1,"request":"WriteDigital","DO5":"0"}}');
+                        }
+                        else if (Hum < global.lowHum2 && mode == 1) {
+                            io.emit('eventsv', '{"Client":{"houseID":2,"request":"WriteDigital","DO2":"0","DO3":"0","DO4":"0","DO5":"0"}}');
+                            // io.emit('eventsv', '{"Client":{"houseID":1,"request":"WriteDigital","DO3":"1"}}');
+                            // io.emit('eventsv', '{"Client":{"houseID":1,"request":"WriteDigital","DO4":"1"}}');
+                            // io.emit('eventsv', '{"Client":{"houseID":1,"request":"WriteDigital","DO5":"1"}}');
+                        }
+                    })
+                    .catch(error => {
+                        console.log(error)
+                    });
                 break
             case 32:
                 let pH = jsonData.rs485d1 / 100
@@ -234,10 +261,38 @@ io.on('connection', (socket) => {
                 lightI2C = (parseInt(jsonData.i2cd1.toString(16) + jsonData.i2cd2.toString(16), 16) / 1.2)
                 switch (jsonData.houseID) {
                     case 1:
+                        let lightI2C1 = lightI2C;
+                        connection.execute('SELECT mode FROM mode1 ORDER BY id DESC LIMIT 1;')
+                            .then(([rows]) => {
+                                let mode = rows[0].mode;
+                                if (lightI2C1 >= global.highLight1 && mode == 1) {
+                                    io.emit('eventsv', '{"Client":{"houseID":1,"request":"WriteDigital","DO0":"0"}}');
+                                }
+                                else if (lightI2C1 < global.lowLight1 && mode == 1) {
+                                    io.emit('eventsv', '{"Client":{"houseID":1,"request":"WriteDigital","DO0":"1"}}');
+                                }
+                            })
+                            .catch(error => {
+                                console.log(error)
+                            });
                         connection.execute('INSERT INTO lighti2c1(light,time) VALUES (?,?)', [lightI2C, time])
                         io.emit('lighti2c1', '{"pH1":' + lightI2C + '}')
                         break
                     case 2:
+                        let lightI2C2 = lightI2C;
+                        connection.execute('SELECT mode FROM mode2 ORDER BY id DESC LIMIT 1;')
+                            .then(([rows]) => {
+                                let mode = rows[0].mode;
+                                if (lightI2C2 >= global.highLight2 && mode == 1) {
+                                    io.emit('eventsv', '{"Client":{"houseID":2,"request":"WriteDigital","DO0":"0"}}');
+                                }
+                                else if (lightI2C2 < global.lowLight2 && mode == 1) {
+                                    io.emit('eventsv', '{"Client":{"houseID":2,"request":"WriteDigital","DO0":"1"}}');
+                                }
+                            })
+                            .catch(error => {
+                                console.log(error)
+                            });
                         connection.execute('INSERT INTO lighti2c2(light,time) VALUES (?,?)', [lightI2C, time])
                         io.emit('lighti2c2', '{"pH2":' + lightI2C + '}')
                         break
@@ -248,10 +303,38 @@ io.on('connection', (socket) => {
                 humI2C = (parseInt(jsonData.i2cd4.toString(16) + jsonData.i2cd5.toString(16), 16) * 100 / 65535)
                 switch (jsonData.houseID) {
                     case 1:
+                        let temI2C1 = temI2C
+                        connection.execute('SELECT mode FROM mode1 ORDER BY id DESC LIMIT 1;')
+                            .then(([rows]) => {
+                                let mode = rows[0].mode;
+                                if (temI2C1 >= global.highTem1 && mode == 1) {
+                                    io.emit('eventsv', '{"Client":{"houseID":1,"request":"WriteDigital","DO1":"0"}}');
+                                }
+                                else if (temI2C1 < global.lowTem1 && mode == 1) {
+                                    io.emit('eventsv', '{"Client":{"houseID":1,"request":"WriteDigital","DO1":"1"}}');
+                                }
+                            })
+                            .catch(error => {
+                                console.log(error)
+                            });
                         connection.execute('INSERT INTO tem_humi2c1(tem,hum,time) VALUES (?,?,?)', [temI2C, humI2C, time])
                         io.emit('temhumi2c1', '{"tem":' + temI2C + ',"hum":' + humI2C + '}')
                         break
                     case 2:
+                        let temI2C2 = temI2C
+                        connection.execute('SELECT mode FROM mode2 ORDER BY id DESC LIMIT 1;')
+                            .then(([rows]) => {
+                                let mode = rows[0].mode;
+                                if (temI2C2 >= global.highTem2 && mode == 1) {
+                                    io.emit('eventsv', '{"Client":{"houseID":2,"request":"WriteDigital","DO1":"0"}}');
+                                }
+                                else if (temI2C2 < global.lowTem2 && mode == 1) {
+                                    io.emit('eventsv', '{"Client":{"houseID":2,"request":"WriteDigital","DO1":"1"}}');
+                                }
+                            })
+                            .catch(error => {
+                                console.log(error)
+                            });
                         connection.execute('INSERT INTO tem_humi2c2(tem,hum,time) VALUES (?,?,?)', [temI2C, humI2C, time])
                         io.emit('temhumi2c2', '{"tem":' + temI2C + ',"hum":' + humI2C + '}')
                         break
@@ -325,6 +408,25 @@ io.on('connection', (socket) => {
     });
     socket.on('debug1', (data) => {
         io.emit('eventsv', data)
+    })
+    socket.on('getAutoValue', (data) => {
+        let jsonData = JSON.parse(data)
+
+        global.lowHum1 = jsonData.lowHum1
+        global.lowHum2 = jsonData.lowHum2
+        global.highHum1 = jsonData.highHum1
+        global.highHum2 = jsonData.highHum2
+
+        global.lowTem1 = jsonData.lowTem1
+        global.lowTem2 = jsonData.lowTem2
+        global.highTem1 = jsonData.highTem1
+        global.highTem2 = jsonData.highTem2
+
+        global.lowLight1 = jsonData.lowLight1
+        global.lowLight2 = jsonData.lowLight2
+        global.highLight1 = jsonData.highLight1
+        global.highLight2 = jsonData.highLight2
+
     })
 });
 server.listen(port, () =>

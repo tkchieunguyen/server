@@ -49,7 +49,7 @@
             <div><span id="curClock"></span></div>
         </div>
     </div>
-    <!-- DASHH BORD -->
+    <!-- DASHH BOARD -->
     <div style="margin-top: 70px;">
         <div class="size border box-borderbox">
             <h1 class="border box-borderbox text-center">QUẢN LÝ NHÀ KÍNH</h1>
@@ -349,8 +349,9 @@
                 </div>
             </div>
         </div>
-        <form onsubmit="getValueAuto(event)">
-            <div class="modal js-modal">
+
+        <div class="modal js-modal">
+            <form onsubmit="getValueAuto(event)">
                 <div class="bodercontainer js-modal-contaiter">
                     <i class="ti-close close js-modal-close"></i>
                     <h2 class="texth2">SETTING</h2>
@@ -419,7 +420,7 @@
                                     <input type="number" id="lowTem2" style="width: 70px;padding: 5px;" required>
                                     <div>°C</div>
                                     <div style="font-size: 15px;margin-left: 10px;">Ngưỡng Cao</div>
-                                    <input type="number" id="hightTem2" style="width: 70px;padding: 5px;" required>
+                                    <input type="number" id="highTem2" style="width: 70px;padding: 5px;" required>
                                     <div>°C</div>
                                 </div>
                             </div>
@@ -441,8 +442,9 @@
                             style="font-size: 20px;border-radius: 20px;cursor: pointer; padding: 10px;margin-right: 20px;">
                     </div>
                 </div>
-            </div>
-        </form>
+            </form>
+        </div>
+
 
     </div>
     </div>
@@ -1127,24 +1129,46 @@
         })
     </script>
     <script>
-        const buyBtns = document.querySelectorAll('.js-buy-ticket')
-        const modal = document.querySelector('.js-modal')
-        const modalClose = document.querySelector('.js-modal-close')
-        const modalContaiter = document.querySelector('.js-modal-contaiter')
+        const buyBtn = document.querySelector('.js-buy-ticket');
+        const modal = document.querySelector('.js-modal');
+        const closeButton = document.querySelector('.js-modal-close');
+        const submitButton = document.querySelector('.btnsub');
+
         function showBuyTickets() {
-            modal.classList.add('open')
+            modal.classList.add('open');
         }
-        for (const buyBtn of buyBtns) {
-            buyBtn.addEventListener('click', showBuyTickets)
-        }
+
         function closeModal() {
-            modal.classList.remove('open')
+            modal.classList.remove('open');
         }
-        modalClose.addEventListener('click', closeModal)
-        modal.addEventListener('click', closeModal)
-        modalContaiter.addEventListener('click', function (event) {
-            event.stopPropagation();
-        })
+
+        function getValueAuto(even) {
+            event.preventDefault();
+            var lowHum1 = document.getElementById('lowHum1').value
+            var lowHum2 = document.getElementById('lowHum2').value
+
+            var lowLight1 = document.getElementById('lowLight1').value
+            var lowLight2 = document.getElementById('lowLight2').value
+
+            var lowTem1 = document.getElementById('lowTem1').value
+            var lowTem2 = document.getElementById('lowTem2').value
+
+            var highHum1 = document.getElementById('highHum1').value
+            var highHum2 = document.getElementById('highHum2').value
+
+            var highLight1 = document.getElementById('highLight1').value
+            var highLight2 = document.getElementById('highLight2').value
+
+            var highTem1 = document.getElementById('highTem1').value
+            var hightTem2 = document.getElementById('highTem2').value
+            socket.emit('getAutoValue', '{"lowHum1":' + lowHum1 + ',"highHum1":' + highHum1 + ',"lowHum2":' + lowHum2 + ',"highHum2":' + highHum2 + ',"lowLight1":' + lowLight1 + ',"highLight1":' + highLight1 + ',"lowLight2":' + lowLight2 + ',"highLight2":' + highLight2 + ',"lowTem1":' + lowTem1 + ',"highTem1":' + highTem1 + ',"lowTem2":' + lowTem2 + ',"highTem2":' + hightTem2 + '}')
+            closeModal();
+        }
+
+        buyBtn.addEventListener('click', showBuyTickets);
+        closeButton.addEventListener('click', closeModal);
+        submitButton.addEventListener('click', getValueAuto);
+
     </script>
 </body>
 
