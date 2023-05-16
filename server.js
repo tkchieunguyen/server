@@ -137,13 +137,15 @@ io.on('connection', (socket) => {
 
         switch (houseId_ReadDigital) {
             case 1:
-                connection.execute('DELETE FROM button1 LIMIT 1')
+                //connection.execute('DELETE FROM button1 LIMIT 1')
                 connection.execute('INSERT INTO button1(bit8,bit7,bit6,bit5,bit4,bit3) VALUES (?,?,?,?,?,?)', [bitArray[7], bitArray[6], bitArray[5], bitArray[4], bitArray[3], bitArray[2]])
+                connection.execute('DELETE FROM button1 LIMIT 1')
                 io.emit('display1', jsonLed)
                 break;
             case 2:
-                connection.execute('DELETE FROM button2 LIMIT 1')
+                //connection.execute('DELETE FROM button2 LIMIT 1')
                 connection.execute('INSERT INTO button2(bit8,bit7,bit6,bit5,bit4,bit3) VALUES (?,?,?,?,?,?)', [bitArray[7], bitArray[6], bitArray[5], bitArray[4], bitArray[3], bitArray[2]])
+                connection.execute('DELETE FROM button2 LIMIT 1')
                 io.emit('display2', jsonLed)
                 break;
         }
@@ -353,8 +355,32 @@ io.on('connection', (socket) => {
     })
     // ONLINE STATUS
     socket.on('C-CheckStatus', (data) => {
+        let jsonData = JSON.parse(data)
         console.log(JSON.parse(data))
-        //io.emit('eventsv', data)
+        switch (jsonData.houseID) {
+            case 1:
+                switch (jsonData.msg) {
+                    case 'Lora_Offline':
+                        connection.execute('INSERT INTO status1(status) VALUES (0)')
+                        break
+                    case 'Lora_Online':
+                        connection.execute('INSERT INTO status1(status) VALUES (1)')
+                        break
+                }
+                break
+            case 2:
+                switch (jsonData.msg) {
+                    case 'Lora_Offline':
+                        connection.execute('INSERT INTO status2(status) VALUES (0)')
+                        break
+                    case 'Lora_Online':
+                        connection.execute('INSERT INTO status2(status) VALUES (1)')
+                        break
+                }
+                break
+        }
+        io.emit('S-status', data)
+
     })
     socket.on('C-ResponseError', (data) => {
         console.log(JSON.parse(data))

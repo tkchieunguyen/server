@@ -29,8 +29,12 @@ const API_initWebRoute = (app) => {
 
     apiRouter.get('/getButton', controller.getButton)
     apiRouter.get('/getButton2', controller.getButton2)
+
     apiRouter.get('/getMode1', controller.getMode1)
     apiRouter.get('/getMode2', controller.getMode2)
+
+    apiRouter.get('/getStatus1', controller.getStatus1)
+    apiRouter.get('/getStatus2', controller.getStatus2)
     return app.use('/api/', apiRouter)
 }
 module.exports = API_initWebRoute

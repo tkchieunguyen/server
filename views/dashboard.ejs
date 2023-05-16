@@ -54,8 +54,13 @@
         <div class="size border box-borderbox">
             <h1 class="border box-borderbox text-center">QUẢN LÝ NHÀ KÍNH</h1>
             <div class="row">
-                <div class="col-half border ">
-                    <h5 class="border text-center">Nhà kính 1</h5>
+                <div class="col-half border">
+                    <div style="display: flex; align-items:center;" class="border">
+                        <h5 class=" text-center text-center" style="margin-left: auto;margin-right:auto">Nhà kính 1</h5>
+                        <h4 style=" position: absolute;">
+                            <div class="status1">Mất kết nối</div>
+                        </h4>
+                    </div>
                     <h5 class="border text-center">YẾU TỐ MÔI TRƯỜNG</h5>
                     <div class="row">
                         <div class="col-third boder ">
@@ -201,8 +206,13 @@
                 </div>
 
                 <!-- NHA KINH 2 -->
-                <div class="col-half border">
-                    <h5 class="border text-center text-center">Nhà kính 2</h5>
+                <div class="col-half border" style="position:relative">
+                    <div style="display: flex; align-items:center;" class="border">
+                        <h5 class=" text-center text-center" style="margin-left: auto;margin-right:auto">Nhà kính 2</h5>
+                        <h4 style=" position: absolute;">
+                            <div class="status2">Mất kết nối</div>
+                        </h4>
+                    </div>
                     <h5 class="border text-center text-center">YẾU TỐ MÔI TRƯỜNG</h5>
                     <div class="row text-center">
                         <div class="col-third boder ">
@@ -448,8 +458,7 @@
 
     </div>
     </div>
-    <input type="number" class="giatri1" placeholder="Nhiet do bieu do 1">
-    <input type="number" class="giatri2" placeholder="Nhiet do bieu do 2">
+
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
     <script src="/js/dashboard.js"></script>
@@ -1169,6 +1178,61 @@
         closeButton.addEventListener('click', closeModal);
         submitButton.addEventListener('click', getValueAuto);
 
+        const status1 = document.querySelector('.status1')
+        const status2 = document.querySelector('.status2')
+        socket.on('S-status', (data) => {
+            let jsonData = JSON.parse(data);
+            switch (jsonData.houseID) {
+                case 1:
+                    switch (jsonData.msg) {
+                        case 'Lora_Offline':
+                            status1.classList.remove('display-none')
+                            break
+                        case 'Lora_Online':
+                            status1.classList.add('display-none')
+                            break
+                    }
+                    break
+                case 2:
+                    switch (jsonData.msg) {
+                        case 'Lora_Offline':
+                            status2.classList.remove('display-none')
+                            break
+                        case 'Lora_Online':
+                            status2.classList.add('display-none')
+                            break
+                    }
+                    break
+            }
+        })
+        fetch('/api/getStatus1')
+            .then(
+                response => response.json())
+            .then(data => {
+                data.forEach((item) => {
+                    if (item.status == 0) {
+                        status1.classList.remove('display-none')
+                    }
+                    else {
+                        status1.classList.add('display-none')
+                    }
+                })
+            }
+            )
+        fetch('/api/getStatus2')
+            .then(
+                response => response.json())
+            .then(data => {
+                data.forEach((item) => {
+                    if (item.status == 0) {
+                        status2.classList.remove('display-none')
+                    }
+                    else {
+                        status2.classList.add('display-none')
+                    }
+                })
+            }
+            )
     </script>
 </body>
 

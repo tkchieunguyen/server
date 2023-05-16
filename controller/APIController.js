@@ -199,6 +199,22 @@ let getMode2 = async (req, res) => {
         res.status(500).json({ message: err.message })
     }
 }
+let getStatus1 = async (req, res) => {
+    try {
+        let [data] = await connection.execute('SELECT status FROM status1 ORDER BY id DESC LIMIT 1;')
+        res.status(200).json(data)
+    } catch (err) {
+        res.status(500).json({ message: err.message })
+    }
+}
+let getStatus2 = async (req, res) => {
+    try {
+        let [data] = await connection.execute('SELECT status FROM status2 ORDER BY id DESC LIMIT 1;')
+        res.status(200).json(data)
+    } catch (err) {
+        res.status(500).json({ message: err.message })
+    }
+}
 module.exports = {
     getUser,
     getADCStart,
@@ -223,4 +239,6 @@ module.exports = {
     getpH_rs485Active,
     getMode1,
     getMode2,
+    getStatus1,
+    getStatus2,
 }
