@@ -467,19 +467,13 @@
     <script>
         const socket = io();
         socket.on('C-ReadDigital', (data) => {
-            console.log(data);
+            //console.log(data);
         })
         socket.on('S-ReadADC', (value) => {
             //console.log(value);
             let jsonData = JSON.parse(value)
             let decNumber = jsonData.adc1
             value1 = (decNumber - 1450) * 100 / (600 - 1450)
-            //if (value1 >= 100) {
-            //   value1 = 100
-            //}
-            //if (value <= 0) {
-            //    value = 8
-            //}
             const divElement = document.querySelector('.do_am_dat1');
             if (divElement) {
                 divElement.textContent = value1.toFixed(0) + "%";
@@ -524,9 +518,9 @@
         var lightI2C2 = 0;
         socket.on('S-RequestI2C', (value) => {
             let jsonData = JSON.parse(value);
-            console.log(jsonData);
+            //console.log(jsonData);
             switch (jsonData.i2ca) {
-                case 23:
+                case 35:
                     lightI2C = (parseInt(jsonData.i2cd1.toString(16) + jsonData.i2cd2.toString(16), 16) / 1.2)
                     switch (jsonData.houseID) {
                         case 1:
@@ -561,7 +555,9 @@
 
             var lightI2C1_display = document.querySelector('.lightI2C1');
             var lightI2C2_display = document.querySelector('.lightI2C2');
-            if (temI2C1_display || temI2C2_display || humI2C1_display || humI2C2_display || lightI2C1_display || lightI2C2_display) {
+
+
+            if (temI2C1_display || temI2C2_display || humI2C1_display || humI2C2_display) {
                 temI2C1_display.textContent = temI2C1.toFixed(0) + " °C";
                 temI2C2_display.textContent = temI2C2.toFixed(0) + " °C";
 
@@ -570,7 +566,31 @@
 
                 lightI2C1_display.textContent = lightI2C1.toFixed(1) + " lux";
                 lightI2C2_display.textContent = lightI2C2.toFixed(1) + " lux";
+
             }
+        })
+        socket.on('S-ReadI2C', (data) => {
+            let jsonData = JSON.parse(data);
+            //console.log(jsonData);
+            switch (jsonData.i2ca) {
+                case 35:
+                    lightI2C = (parseInt(jsonData.i2cd1.toString(16) + jsonData.i2cd2.toString(16), 16) / 1.2)
+                    switch (jsonData.houseID) {
+                        case 1:
+                            lightI2C1 = (parseInt(jsonData.i2cd1.toString(16) + jsonData.i2cd2.toString(16), 16) / 1.2);
+                            break
+                        case 2:
+                            lightI2C2 = (parseInt(jsonData.i2cd1.toString(16) + jsonData.i2cd2.toString(16), 16) / 1.2);
+                            break
+                    }
+                    break
+            }
+
+            var lightI2C1_display = document.querySelector('.lightI2C1');
+            var lightI2C2_display = document.querySelector('.lightI2C2');
+
+            lightI2C1_display.textContent = lightI2C1.toFixed(1) + " lux";
+            lightI2C2_display.textContent = lightI2C2.toFixed(1) + " lux";
         })
 
     </script>
@@ -1055,7 +1075,7 @@
             }
         })
         socket.on('displaymode1', (data) => {
-            console.log(data);
+            //console.log(data);
             switch (data) {
                 case "auto":
                     dis_auto.classList.add('light');
@@ -1096,7 +1116,7 @@
             }
         })
         socket.on('displaymode2', (data) => {
-            console.log(data);
+            //console.log(data);
             switch (data) {
                 case "auto":
                     dis_auto2.classList.add('light');
@@ -1233,6 +1253,15 @@
                 })
             }
             )
+        socket.on('gatewaysv', (data) => {
+            alert('GATEWAY ĐÃ KẾT NỐI');
+        })
+        socket.on('gatewayoff', (data) => {
+            alert('GATEWAY MẤT KẾT NỐI');
+        })
+        socket.on('devMode', (data) => {
+            console.log(JSON.parse(data));
+        })
     </script>
 </body>
 
