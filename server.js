@@ -18,6 +18,7 @@ const server = http.createServer(app)
 const io = require('socket.io')(server);
 const { connection } = require('./MySQL')
 const moment = require('moment')
+const { clearTimeout } = require('timers')
 global.a = 0;
 global.b = 0;
 
@@ -36,6 +37,17 @@ global.lowLight2 = 0;
 global.highLight1 = 0;
 global.highLight2 = 0;
 
+global.setting = 0;
+
+global.cmdID = 0;
+global.cmdID1 = 0;
+global.i1 = 0;
+global.i2 = 0;
+
+global.timeOut;
+global.timeOut2;
+global.timeCount1 = 0;
+global.timeCount2 = 0;
 
 app.set('view engine', 'ejs')
 app.use(bodyParser.json())
@@ -100,7 +112,8 @@ io.on('connection', (socket) => {
     let houseId_ReadDigital = null
     let jsonData__ReadDigital = null
     var jsonLed
-    socket.on('C-ReadDigital', (data) => {
+
+    function digital(data) {
         jsonData__ReadDigital = JSON.parse(data)
         //console.log(data);
         //console.log(JSON.parse(jsonData__ReadDigital))
@@ -123,56 +136,82 @@ io.on('connection', (socket) => {
                 io.emit('display2', jsonLed)
                 break;
         }
+    }
+    socket.on('C-ReadDigital', (data) => {
+        digital(data)
     })
     socket.on('C-WriteDigital', (data) => {
-        jsonData__ReadDigital = JSON.parse(data)
-        //console.log(data);
-        //console.log(jsonData__ReadDigital.response);
-        let led = (jsonData__ReadDigital.port).toString(2)
-        //let led = parseInt(jsonData__ReadDigital.port, 2)
-        console.log(led)
-        houseId_ReadDigital = parseInt(jsonData__ReadDigital.houseID, 10)
-        let bitArray = led.split("")
-        jsonLed = '{"bit8":' + bitArray[7] + ',"bit7":' + bitArray[6] + ',"bit6":' + bitArray[5] + ',"bit5":' + bitArray[4] + ',"bit4":' + bitArray[3] + ',"bit3":' + bitArray[2] + '}'
+        // jsonData__ReadDigital = JSON.parse(data)
+        // //console.log(data);
+        // //console.log(jsonData__ReadDigital.response);
+        // let led = (jsonData__ReadDigital.port).toString(2)
+        // //let led = parseInt(jsonData__ReadDigital.port, 2)
+        // console.log(led)
+        // houseId_ReadDigital = parseInt(jsonData__ReadDigital.houseID, 10)
+        // let bitArray = led.split("")
+        // jsonLed = '{"bit8":' + bitArray[7] + ',"bit7":' + bitArray[6] + ',"bit6":' + bitArray[5] + ',"bit5":' + bitArray[4] + ',"bit4":' + bitArray[3] + ',"bit3":' + bitArray[2] + '}'
 
-        switch (houseId_ReadDigital) {
-            case 1:
-                //connection.execute('DELETE FROM button1 LIMIT 1')
-                connection.execute('INSERT INTO button1(bit8,bit7,bit6,bit5,bit4,bit3) VALUES (?,?,?,?,?,?)', [bitArray[7], bitArray[6], bitArray[5], bitArray[4], bitArray[3], bitArray[2]])
-                connection.execute('DELETE FROM button1 LIMIT 1')
-                io.emit('display1', jsonLed)
-                break;
-            case 2:
-                //connection.execute('DELETE FROM button2 LIMIT 1')
-                connection.execute('INSERT INTO button2(bit8,bit7,bit6,bit5,bit4,bit3) VALUES (?,?,?,?,?,?)', [bitArray[7], bitArray[6], bitArray[5], bitArray[4], bitArray[3], bitArray[2]])
-                connection.execute('DELETE FROM button2 LIMIT 1')
-                io.emit('display2', jsonLed)
-                break;
-        }
+        // switch (houseId_ReadDigital) {
+        //     case 1:
+        //         //connection.execute('DELETE FROM button1 LIMIT 1')
+        //         connection.execute('INSERT INTO button1(bit8,bit7,bit6,bit5,bit4,bit3) VALUES (?,?,?,?,?,?)', [bitArray[7], bitArray[6], bitArray[5], bitArray[4], bitArray[3], bitArray[2]])
+        //         connection.execute('DELETE FROM button1 LIMIT 1')
+        //         io.emit('display1', jsonLed)
+        //         break;
+        //     case 2:
+        //         //connection.execute('DELETE FROM button2 LIMIT 1')
+        //         connection.execute('INSERT INTO button2(bit8,bit7,bit6,bit5,bit4,bit3) VALUES (?,?,?,?,?,?)', [bitArray[7], bitArray[6], bitArray[5], bitArray[4], bitArray[3], bitArray[2]])
+        //         connection.execute('DELETE FROM button2 LIMIT 1')
+        //         io.emit('display2', jsonLed)
+        //         break;
+        // }
+        digital(data)
     })
+    socket.on('C-Toggle', (data) => {
+        // jsonData__ReadDigital = JSON.parse(data)
+        // //console.log(data);
+        // //console.log(jsonData__ReadDigital.response);
+        // let led = (jsonData__ReadDigital.port).toString(2)
+        // //let led = parseInt(jsonData__ReadDigital.port, 2)
+        // console.log(led)
+        // houseId_ReadDigital = parseInt(jsonData__ReadDigital.houseID, 10)
+        // let bitArray = led.split("")
+        // jsonLed = '{"bit8":' + bitArray[7] + ',"bit7":' + bitArray[6] + ',"bit6":' + bitArray[5] + ',"bit5":' + bitArray[4] + ',"bit4":' + bitArray[3] + ',"bit3":' + bitArray[2] + '}'
 
+        // switch (houseId_ReadDigital) {
+        //     case 1:
+        //         //connection.execute('DELETE FROM button1 LIMIT 1')
+        //         connection.execute('INSERT INTO button1(bit8,bit7,bit6,bit5,bit4,bit3) VALUES (?,?,?,?,?,?)', [bitArray[7], bitArray[6], bitArray[5], bitArray[4], bitArray[3], bitArray[2]])
+        //         connection.execute('DELETE FROM button1 LIMIT 1')
+        //         io.emit('display1', jsonLed)
+        //         break;
+        //     case 2:
+        //         //connection.execute('DELETE FROM button2 LIMIT 1')
+        //         connection.execute('INSERT INTO button2(bit8,bit7,bit6,bit5,bit4,bit3) VALUES (?,?,?,?,?,?)', [bitArray[7], bitArray[6], bitArray[5], bitArray[4], bitArray[3], bitArray[2]])
+        //         connection.execute('DELETE FROM button2 LIMIT 1')
+        //         io.emit('display2', jsonLed)
+        //         break;
+        // }
+        digital(data)
+    })
     //DOC GIA TRI ADC
     var value
     //fix
     socket.on('C-ReadADC', (data) => {
         let jsonData = JSON.parse(data)
         //console.log(jsonData)
-        let decNumber = jsonData.adc1
+        let decNumber = (jsonData.adc1 + jsonData.adc2 + jsonData.adc3 + jsonData.adc4) / 4
         value = (decNumber - 1450) * 100 / (650 - 1450)
         connection.execute('SELECT mode FROM mode1 ORDER BY id DESC LIMIT 1;')
             .then(([rows]) => {
                 let mode = rows[0].mode;
                 if (value >= global.highHum1 && mode == 1) {
                     io.emit('eventsv', '{"Client":{"houseID":1,"request":"WriteDigital","DO2":"1","DO3":"1","DO4":"1","DO5":"1"}}');
-                    //io.emit('eventsv', '{"Client":{"houseID":1,"request":"WriteDigital","DO3":"0"}}');
-                    //io.emit('eventsv', '{"Client":{"houseID":1,"request":"WriteDigital","DO4":"0"}}');
-                    //io.emit('eventsv', '{"Client":{"houseID":1,"request":"WriteDigital","DO5":"0"}}');
+
                 }
-                else if (value < global.lowHum1 && mode == 1) {
+                else if (value <= global.lowHum1 && mode == 1) {
                     io.emit('eventsv', '{"Client":{"houseID":1,"request":"WriteDigital","DO2":"0","DO3":"0","DO4":"0","DO5":"0"}}');
-                    // io.emit('eventsv', '{"Client":{"houseID":1,"request":"WriteDigital","DO3":"1"}}');
-                    // io.emit('eventsv', '{"Client":{"houseID":1,"request":"WriteDigital","DO4":"1"}}');
-                    // io.emit('eventsv', '{"Client":{"houseID":1,"request":"WriteDigital","DO5":"1"}}');
+
                 }
             })
             .catch(error => {
@@ -187,12 +226,11 @@ io.on('connection', (socket) => {
     //DOC GIA TRI RS485
     socket.on('C-ReadRS485', (data) => {
         let jsonData = JSON.parse(data)
+        console.log(jsonData)
         let houseID = jsonData.houseID
-        //console.log(jsonData)
-        //a = { "Client": { "houseID": 1, "response": "RS485", "RS485a": "aRS485 Address", "rs485d1": Data 1, "rs485d2": Data 2, ...} }
         let time = moment().format('YYYY-MM-DD HH:mm:ss')
         switch (jsonData.cmdID) {
-            case 31:
+            case 41:
                 let N = jsonData.rs485d1
                 let P = jsonData.rs485d2
                 let K = jsonData.rs485d3
@@ -205,7 +243,7 @@ io.on('connection', (socket) => {
                         break
                 }
                 break
-            case 33:
+            case 43:
                 let Hum = jsonData.rs485d1 / 10
                 //console.log(Hum)
                 switch (houseID) {
@@ -221,22 +259,16 @@ io.on('connection', (socket) => {
                         let mode = rows[0].mode;
                         if (Hum >= global.highHum2 && mode == 1) {
                             io.emit('eventsv', '{"Client":{"houseID":2,"request":"WriteDigital","DO2":"1","DO3":"1","DO4":"1","DO5":"1"}}');
-                            //io.emit('eventsv', '{"Client":{"houseID":1,"request":"WriteDigital","DO3":"0"}}');
-                            //io.emit('eventsv', '{"Client":{"houseID":1,"request":"WriteDigital","DO4":"0"}}');
-                            //io.emit('eventsv', '{"Client":{"houseID":1,"request":"WriteDigital","DO5":"0"}}');
                         }
-                        else if (Hum < global.lowHum2 && mode == 1) {
+                        else if (Hum <= global.lowHum2 && mode == 1) {
                             io.emit('eventsv', '{"Client":{"houseID":2,"request":"WriteDigital","DO2":"0","DO3":"0","DO4":"0","DO5":"0"}}');
-                            // io.emit('eventsv', '{"Client":{"houseID":1,"request":"WriteDigital","DO3":"1"}}');
-                            // io.emit('eventsv', '{"Client":{"houseID":1,"request":"WriteDigital","DO4":"1"}}');
-                            // io.emit('eventsv', '{"Client":{"houseID":1,"request":"WriteDigital","DO5":"1"}}');
                         }
                     })
                     .catch(error => {
                         console.log(error)
                     });
                 break
-            case 32:
+            case 42:
                 let pH = jsonData.rs485d1 / 100
                 switch (houseID) {
                     case 1:
@@ -248,8 +280,6 @@ io.on('connection', (socket) => {
                 }
                 break
         }
-
-
     })
     socket.on('C-RequestI2C', (data) => {
         console.log(JSON.parse(data))
@@ -268,10 +298,10 @@ io.on('connection', (socket) => {
                             .then(([rows]) => {
                                 let mode = rows[0].mode;
                                 if (lightI2C1 >= global.highLight1 && mode == 1) {
-                                    io.emit('eventsv', '{"Client":{"houseID":1,"request":"WriteDigital","DO0":"0"}}');
-                                }
-                                else if (lightI2C1 < global.lowLight1 && mode == 1) {
                                     io.emit('eventsv', '{"Client":{"houseID":1,"request":"WriteDigital","DO0":"1"}}');
+                                }
+                                else if (lightI2C1 <= global.lowLight1 && mode == 1) {
+                                    io.emit('eventsv', '{"Client":{"houseID":1,"request":"WriteDigital","DO0":"0"}}');
                                 }
                             })
                             .catch(error => {
@@ -286,10 +316,10 @@ io.on('connection', (socket) => {
                             .then(([rows]) => {
                                 let mode = rows[0].mode;
                                 if (lightI2C2 >= global.highLight2 && mode == 1) {
-                                    io.emit('eventsv', '{"Client":{"houseID":2,"request":"WriteDigital","DO0":"0"}}');
-                                }
-                                else if (lightI2C2 < global.lowLight2 && mode == 1) {
                                     io.emit('eventsv', '{"Client":{"houseID":2,"request":"WriteDigital","DO0":"1"}}');
+                                }
+                                else if (lightI2C2 <= global.lowLight2 && mode == 1) {
+                                    io.emit('eventsv', '{"Client":{"houseID":2,"request":"WriteDigital","DO0":"0"}}');
                                 }
                             })
                             .catch(error => {
@@ -349,10 +379,145 @@ io.on('connection', (socket) => {
         console.log(JSON.parse(data))
     })
     socket.on('C-ScanI2C', (data) => {
-        0
         console.log(JSON.parse(data))
         io.emit('GET_I2C_DEVICE', data)
     })
+    const commands = [
+        {
+            houseID: 1,
+            request: "WriteCMD",
+            cmdAuto: "OR",
+            ReadOutput: "2,3,4,5",
+            DO: "6",
+            cmdID: 50,
+            time: 100
+        },
+        {
+            houseID: 1,
+            request: "WriteCMD",
+            cmdAuto: "ToggleOutput",
+            DI: "0",
+            DO: "0",
+            cmdID: 51
+        },
+        {
+            houseID: 1,
+            request: "WriteCMD",
+            cmdAuto: "ToggleOutput",
+            DI: "1",
+            DO: "1",
+            cmdID: 52
+        },
+        {
+            houseID: 1,
+            request: "WriteCMD",
+            cmdAuto: "ToggleOutput",
+            DI: "2",
+            DO: "2",
+            cmdID: 53
+        },
+        {
+            houseID: 1,
+            request: "WriteCMD",
+            cmdAuto: "ToggleOutput",
+            DI: "3",
+            DO: "3",
+            cmdID: 54
+        },
+        {
+            houseID: 1,
+            request: "WriteCMD",
+            cmdAuto: "ToggleOutput",
+            DI: "4",
+            DO: "4",
+            cmdID: 55
+        },
+        {
+            houseID: 1,
+            request: "WriteCMD",
+            cmdAuto: "ToggleOutput",
+            DI: "5",
+            DO: "5",
+            cmdID: 56
+        }
+    ];
+    const commands2 = [
+        {
+            houseID: 2,
+            request: "WriteCMD",
+            cmdAuto: "OR",
+            ReadOutput: "2,3,4,5",
+            DO: "6",
+            cmdID: 50,
+            time: 100
+        },
+        {
+            houseID: 2,
+            request: "WriteCMD",
+            cmdAuto: "ToggleOutput",
+            DI: "0",
+            DO: "0",
+            cmdID: 51
+        },
+        {
+            houseID: 2,
+            request: "WriteCMD",
+            cmdAuto: "ToggleOutput",
+            DI: "1",
+            DO: "1",
+            cmdID: 52
+        },
+        {
+            houseID: 2,
+            request: "WriteCMD",
+            cmdAuto: "ToggleOutput",
+            DI: "2",
+            DO: "2",
+            cmdID: 53
+        },
+        {
+            houseID: 2,
+            request: "WriteCMD",
+            cmdAuto: "ToggleOutput",
+            DI: "3",
+            DO: "3",
+            cmdID: 54
+        },
+        {
+            houseID: 2,
+            request: "WriteCMD",
+            cmdAuto: "ToggleOutput",
+            DI: "4",
+            DO: "4",
+            cmdID: 55
+        },
+        {
+            houseID: 2,
+            request: "WriteCMD",
+            cmdAuto: "ToggleOutput",
+            DI: "5",
+            DO: "5",
+            cmdID: 56
+        }
+    ];
+    function timeOut() {
+        console.log('time out 1')
+        global.timeCount1++
+        let command = commands[global.i1]
+        global.cmdID = command.cmdID
+        io.emit('eventsv', JSON.stringify({ Client: command }));
+        global.timeOut = setTimeout(timeOut, 2000)
+    }
+
+    function timeOut2() {
+        console.log('time out 2')
+        global.timeCount2++
+        let command = commands[global.i2]
+        global.cmdID1 = command.cmdID
+        io.emit('eventsv', JSON.stringify({ Client: command }));
+        global.timeOut2 = setTimeout(timeOut2, 2000)
+    }
+
     // ONLINE STATUS
     socket.on('C-CheckStatus', (data) => {
         let jsonData = JSON.parse(data)
@@ -362,31 +527,72 @@ io.on('connection', (socket) => {
                 switch (jsonData.msg) {
                     case 'Lora_Offline':
                         connection.execute('INSERT INTO status1(status) VALUES (0)')
+                        clearTimeout(global.timeOut);
                         break
                     case 'Lora_Online':
+                        clearTimeout(global.timeOut)
+                        global.timeOut = setTimeout(timeOut, 2000)
+                        global.i1 = 0;
                         connection.execute('INSERT INTO status1(status) VALUES (1)')
+                        io.emit('eventsv', JSON.stringify({ Client: commands[0] }))
+                        global.cmdID = commands[0].cmdID
                         break
                 }
                 break
+
             case 2:
                 switch (jsonData.msg) {
                     case 'Lora_Offline':
                         connection.execute('INSERT INTO status2(status) VALUES (0)')
+                        clearTimeout(global.timeOut2)
                         break
                     case 'Lora_Online':
+                        clearTimeout(global.timeOut2)
+                        global.timeOut2 = setTimeout(timeOut2, 2000)
+                        global.i2 = 0;
                         connection.execute('INSERT INTO status2(status) VALUES (1)')
+                        io.emit('eventsv', JSON.stringify({ Client: commands2[0] }))
+                        global.cmdID1 = commands2[0].cmdID
                         break
                 }
                 break
         }
         io.emit('S-status', data)
-
     })
     socket.on('C-ResponseError', (data) => {
         console.log(JSON.parse(data))
     })
     socket.on('C-ResponseTimer', (data) => {
         console.log(JSON.parse(data))
+        let jsonData = JSON.parse(data)
+        switch (jsonData.houseID) {
+            case 1:
+                if (jsonData.cmdID == global.cmdID) {
+                    clearTimeout(global.timeOut)
+                    global.i1++
+                    if (global.i1 < commands.length) {
+                        let command = commands[i1]
+                        global.cmdID = command.cmdID
+                        io.emit('eventsv', JSON.stringify({ Client: command }));
+                        global.timeOut = setTimeout(timeOut, 2000)
+                    }
+                }
+                break
+            case 2:
+                if (jsonData.cmdID == global.cmdID1) {
+                    clearTimeout(global.timeOut2)
+                    global.i2++
+                    if (global.i2 < commands2.length) {
+                        let command = commands2[i2]
+                        global.cmdID1 = command.cmdID
+                        io.emit('eventsv', JSON.stringify({ Client: command }));
+                        global.timeOut2 = setTimeout(timeOut2, 2000)
+                    }
+                }
+                break
+        }
+
+
     })
 
     // NHẬN TỪ USER// WRITE DIGITAL
