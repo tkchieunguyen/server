@@ -201,7 +201,7 @@ html {
 
 #silder {
     margin-top: 46.5px;
-    height: 721px;
+    height: 500px;
     background-color: #2E004B;
     position: relative;
 }
@@ -209,7 +209,7 @@ html {
 #silder .background-img {
     background-image: url(/img/banner.png.webp);
     background-size: cover;
-    height: 721px;
+    height: 500px;
     z-index: 0;
     background-repeat: no-repeat;
 }
@@ -218,7 +218,7 @@ html {
 
 #silder .text-header {
     position: absolute;
-    top: 48px;
+    top: 60px;
     color: #fff;
     /* text-align: center; */
     /* left: 50%;
@@ -278,7 +278,7 @@ html {
 /* conntent */
 
 #content {
-    margin-top: 46.5px;
+    /* margin-top: 46.5px; */
     height: 500px;
     position: relative;
     background-color: #F2F1EB;
@@ -320,12 +320,27 @@ html {
 }
 
 #content .relate-item2 {
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 700;
     line-height: 20px;
+    min-height: 75px;
     overflow-wrap: break-word;
     line-height: 1.6;
     padding-top: 4px;
+    word-break: keep-all;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+}
+
+#content .getitem{
+    overflow-wrap: break-word;
+    word-break: keep-all;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 6;
 }
 
 #content .relate-item3 {
@@ -352,22 +367,23 @@ html {
 #content .height294 {
     height: 294px;
 }
-
-
+.clickelement1 :hover{
+    color: red;
+}
 
 /* content2 */
 #content2 {
     /* margin-top: 46.5px; */
     padding-top: 500px;
     position: relative;
-    background-color: antiquewhite;
+    background-color: #F5F5F5;
 }
 
 #content2 .text-header {
     position: absolute;
     top: 48px;
     color: #fff;
-    text-align: center;
+    
     /* left: 50%;
     transform: translateX(-50%); */
     width: 100%;
@@ -375,14 +391,19 @@ html {
 
 #content2 .text-conten {
     font-weight: 500;
-    font-size: 24px;
+    font-size: 30px;
     margin-bottom: 25px;
     color: #000;
+    text-align: center;
 }
 
 #content2 .text-des {
-    font-size: 12px;
+    font-size: 20px;
     color: #000;
+    text-align:justify;
+    width: 800px;
+    margin-left: auto;
+    margin-right: auto
 }
 
 
@@ -419,9 +440,9 @@ html {
 
 .text-homeweb{
     font-size: 17px;
-    overflow: hidden;
     text-align: justify;
     word-break: keep-all;
+    overflow: hidden;
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 6;
