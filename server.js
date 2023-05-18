@@ -122,32 +122,30 @@ io.on('connection', (socket) => {
     let jsonData__ReadDigital = null
     var jsonLed
 
+
     function digital(data) {
         jsonData__ReadDigital = JSON.parse(data)
         console.log(JSON.parse(data));
         //console.log(JSON.parse(jsonData__ReadDigital))
         let bitArray = [1, 1, 1, 1, 1, 1, 1, 1]
         let led = (jsonData__ReadDigital.port).toString(2)
-        for (let i = 0; i < 8 - led.length; i++) {
-            led = "0" + led;
-        }
-        //let led = parseInt(jsonData__ReadDigital.port, 2)
-        console.log(led)
+        //console.log(led)
+        // for (let i = 0; i < 8; i++) {
+        //     bitArray[i] = (led >> i) & 0x01
+        // }
         houseId_ReadDigital = parseInt(jsonData__ReadDigital.houseID, 10)
         bitArray = led.split("")
-        console.log(bitArray)
+        //console.log(bitArray)
         jsonLed = '{"bit8":' + bitArray[7] + ',"bit7":' + bitArray[6] + ',"bit6":' + bitArray[5] + ',"bit5":' + bitArray[4] + ',"bit4":' + bitArray[3] + ',"bit3":' + bitArray[2] + '}'
         switch (houseId_ReadDigital) {
             case 1:
                 connection.execute('DELETE FROM button1 LIMIT 1')
                 connection.execute('INSERT INTO button1(bit8,bit7,bit6,bit5,bit4,bit3) VALUES (?,?,?,?,?,?)', [bitArray[7], bitArray[6], bitArray[5], bitArray[4], bitArray[3], bitArray[2]])
-                clearTimeout(global.timeOut1)
                 io.emit('display1', jsonLed)
                 break;
             case 2:
                 connection.execute('DELETE FROM button2 LIMIT 1')
                 connection.execute('INSERT INTO button2(bit8,bit7,bit6,bit5,bit4,bit3) VALUES (?,?,?,?,?,?)', [bitArray[7], bitArray[6], bitArray[5], bitArray[4], bitArray[3], bitArray[2]])
-                clearTimeout(global.timeOut2)
                 io.emit('display2', jsonLed)
                 break;
         }
@@ -243,7 +241,7 @@ io.on('connection', (socket) => {
     //DOC GIA TRI RS485
     socket.on('C-ReadRS485', (data) => {
         let jsonData = JSON.parse(data)
-        console.log(jsonData)
+        //console.log(jsonData)
         let houseID = jsonData.houseID
         let time = moment().format('YYYY-MM-DD HH:mm:ss')
         switch (jsonData.cmdID) {
@@ -521,7 +519,7 @@ io.on('connection', (socket) => {
             i2cd: 16,
             NoB: 2,
             Delay: 20,
-            cmdID: 58,
+            cmdID: 35,
             time: 3000
         },
         {
@@ -533,7 +531,7 @@ io.on('connection', (socket) => {
             NoB: 6,
             Delay: 20,
             cmdID: 68,
-            time: 2000
+            time: 4000
         },
 
         {
@@ -542,13 +540,16 @@ io.on('connection', (socket) => {
             cmdAuto: 'ReadAdc',
             adc: '0,1,2,3',
             cmdID: 20,
-            time: 2000
+            time: 5000
         },
-        {
-            houseID: 1,
-            request: "RoD",
-            DO: "0,1,2,3,4,5"
-        }
+        // {
+        //     houseID: 1,
+        //     request: 'WriteCMD',
+        //     cmdAuto: "RoD",
+        //     DO: "0,1,2,3,4,5,6,7",
+        //     cmdID: 21,
+        //     time: 400
+        // }
     ];
     const commands2 = [
         {
@@ -625,7 +626,7 @@ io.on('connection', (socket) => {
             i2cd: 16,
             NoB: 2,
             Delay: 200,
-            cmdID: 58,
+            cmdID: 35,
             time: 2000
         },
         {
@@ -637,7 +638,7 @@ io.on('connection', (socket) => {
             NoB: 6,
             Delay: 20,
             cmdID: 68,
-            time: 2000
+            time: 3000
         },
         {
             houseID: 2,
@@ -649,7 +650,7 @@ io.on('connection', (socket) => {
             'register lenght': '0,3',
             NoB: 11,
             cmdID: 41,
-            time: 2000
+            time: 4000
         },
         {
             houseID: 2,
@@ -661,7 +662,7 @@ io.on('connection', (socket) => {
             'register lenght': '0,1',
             NoB: 7,
             cmdID: 42,
-            time: 2000
+            time: 5000
         },
         {
             houseID: 2,
@@ -673,13 +674,16 @@ io.on('connection', (socket) => {
             'register lenght': '0,1',
             NoB: 7,
             cmdID: 43,
-            time: 2000
+            time: 6000
         },
-        {
-            houseID: 2,
-            request: "RoD",
-            DO: "0,1,2,3,4,5"
-        }
+        // {
+        //     houseID: 2,
+        //     request: 'WriteCMD',
+        //     cmdAuto: "RoD",
+        //     DO: "0,1,2,3,4,5,6,7",
+        //     cmdID: 21,
+        //     time: 400
+        // }
 
     ];
     function timeOut() {
