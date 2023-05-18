@@ -472,7 +472,7 @@
         socket.on('S-ReadADC', (value) => {
             //console.log(value);
             let jsonData = JSON.parse(value)
-            let decNumber = jsonData.adc1
+            let decNumber = (jsonData.adc1 + jsonData.adc2 + jsonData.adc3 + jsonData.adc4) / 4
             value1 = (decNumber - 1450) * 100 / (600 - 1450)
             const divElement = document.querySelector('.do_am_dat1');
             if (divElement) {
