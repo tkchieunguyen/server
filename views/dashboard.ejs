@@ -1295,6 +1295,39 @@
         socket.on('devMode', (data) => {
             console.log(JSON.parse(data));
         })
+        socket.on('defaultValue', (data) => {
+            let jsonData = JSON.parse(data)
+            var lowHum1 = document.getElementById('lowHum1').value
+            var lowHum2 = document.getElementById('lowHum2').value
+
+            var lowLight1 = document.getElementById('lowLight1').value
+            var lowLight2 = document.getElementById('lowLight2').value
+
+            var lowTem1 = document.getElementById('lowTem1').value
+            var lowTem2 = document.getElementById('lowTem2').value
+
+            var highHum1 = document.getElementById('highHum1').value
+            var highHum2 = document.getElementById('highHum2').value
+
+            var highLight1 = document.getElementById('highLight1').value
+            var highLight2 = document.getElementById('highLight2').value
+
+            var highTem1 = document.getElementById('highTem1').value
+            var hightTem2 = document.getElementById('highTem2').value
+
+            lowHum1
+            lowHum2
+            highHum1
+            highHum2
+            lowLight1
+            lowLight2
+            highLight1
+            highLight2
+            lowTem1
+            lowTem2
+            highTem1
+            hightTem2
+        })
     </script>
 </body>
 

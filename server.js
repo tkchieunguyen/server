@@ -23,22 +23,20 @@ const session = require('express-session')
 global.a = 0;
 global.b = 0;
 
-global.lowHum1 = 0;
-global.lowHum2 = 0;
-global.highHum1 = 0;
-global.highHum2 = 0;
+global.lowHum1 = 20;
+global.lowHum2 = 20;
+global.highHum1 = 70;
+global.highHum2 = 70;
 
-global.lowTem1 = 0;
-global.lowTem2 = 0;
-global.highTem1 = 0;
-global.highTem2 = 0;
+global.lowTem1 = 15;
+global.lowTem2 = 15;
+global.highTem1 = 35;
+global.highTem2 = 35;
 
-global.lowLight1 = 0;
-global.lowLight2 = 0;
-global.highLight1 = 0;
-global.highLight2 = 0;
-
-global.setting = 0;
+global.lowLight1 = 1000;
+global.lowLight2 = 1000;
+global.highLight1 = 5000;
+global.highLight2 = 5000;
 
 global.cmdID1 = 0;
 global.cmdID2 = 0;
@@ -47,8 +45,7 @@ global.i2 = 0;
 
 global.timeOut1;
 global.timeOut2;
-global.timeCount1 = 0;
-global.timeCount2 = 0;
+
 
 global.idGateway;
 
@@ -69,7 +66,12 @@ const limiter = rateLimit({
     // 15 minutes
     windowMs: 15 * 60 * 1000,
     // limit each IP to 10000 requests per Window each 15 Minute 
-    max: 10000
+    max: 10000,
+    statusCode: 200,
+    message: {
+        status: 429,
+        error: 'You are doing that too much. Please try again in 10 minutes.'
+    }
 });
 app.use(limiter)
 
@@ -760,7 +762,14 @@ io.on('connection', (socket) => {
             case 1:
                 if (jsonData.cmdID == global.cmdID1) {
                     clearTimeout(global.timeOut1)
-                    global.i1++
+                    //global.i1++
+
+                    ////// DEMO ///////
+                    commands[i1].cmdID++
+                    if (commands[i1].cmdID > 40) {
+                        commands[i1].cmdID = 0;
+                    }
+                    ///// DEMO ///////
                     if (global.i1 < commands.length) {
                         global.cmdID1 = commands[i1].cmdID
                         io.emit('eventsv', JSON.stringify({ Client: commands[i1] }));
@@ -771,7 +780,11 @@ io.on('connection', (socket) => {
             case 2:
                 if (jsonData.cmdID == global.cmdID2) {
                     clearTimeout(global.timeOut2)
-                    global.i2++
+                    //global.i2++
+                    commands2[i2].cmdID++
+                    if (commands2[i2].cmdID > 40) {
+                        commands2[i2].cmdID = 0;
+                    }
                     if (global.i2 < commands2.length) {
                         global.cmdID2 = commands2[i2].cmdID
                         io.emit('eventsv', JSON.stringify({ Client: commands2[i2] }));
@@ -853,6 +866,35 @@ io.on('connection', (socket) => {
         global.highLight2 = jsonData.highLight2
 
     })
+    global.lowHum1 = 20;
+    global.lowHum2 = 20;
+    global.highHum1 = 70;
+    global.highHum2 = 70;
+
+    global.lowTem1 = 15;
+    global.lowTem2 = 15;
+    global.highTem1 = 35;
+    global.highTem2 = 35;
+
+    global.lowLight1 = 1000;
+    global.lowLight2 = 1000;
+    global.highLight1 = 5000;
+    global.highLight2 = 5000;
+    var defaultValue = {
+        lowHum1: global.lowHum1,
+        lowHum2: global.lowHum2,
+        highHum1: global.highHum1,
+        highHum2: global.highHum2,
+        lowLight1: global.lowLight1,
+        lowLight2: global.lowLight2,
+        highLight1: global.highLight1,
+        highLight2: global.highLight2,
+        lowTem1: global.lowTem1,
+        lowTem2: global.lowTem2,
+        highTem1: global.highTem1,
+        highTem2: global.highTem2
+    }
+    socket.emit('defaultValue', JSON.stringify(defaultValue))
 });
 server.listen(port, () =>
     console.log(`App listening at http://localhost:${port}`)
