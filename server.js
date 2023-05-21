@@ -73,7 +73,7 @@ const limiter = rateLimit({
         error: 'You are doing that too much. Please try again in 10 minutes.'
     }
 });
-app.use(limiter)
+//app.use(limiter)
 
 io.on('connection', (socket) => {
     console.log('a user connected')
@@ -130,14 +130,14 @@ io.on('connection', (socket) => {
         console.log(JSON.parse(data));
         //console.log(JSON.parse(jsonData__ReadDigital))
         let bitArray = [1, 1, 1, 1, 1, 1, 1, 1]
-        let led = (jsonData__ReadDigital.port).toString(2)
+        //let led = (jsonData__ReadDigital.port).toString(2)
         //console.log(led)
-        //let led = (jsonData__ReadDigital.port)
-        // for (let i = 0; i < 8; i++) {
-        //     bitArray[i] = (led >> i) & 0x01
-        // }
+        let led = (jsonData__ReadDigital.port)
+        for (let i = 0; i < 8; i++) {
+            bitArray[i] = (led >> i) & 0x01
+        }
         houseId_ReadDigital = parseInt(jsonData__ReadDigital.houseID, 10)
-        bitArray = led.split("")
+        //bitArray = led.split("")
         //console.log(bitArray)
         jsonLed = '{"bit8":' + bitArray[7] + ',"bit7":' + bitArray[6] + ',"bit6":' + bitArray[5] + ',"bit5":' + bitArray[4] + ',"bit4":' + bitArray[3] + ',"bit3":' + bitArray[2] + '}'
         switch (houseId_ReadDigital) {
@@ -727,7 +727,7 @@ io.on('connection', (socket) => {
                         global.timeOut1 = setTimeout(timeOut, 2000)
                         global.i1 = 0;
                         connection.execute('INSERT INTO status1(status) VALUES (1)')
-                        io.emit('eventsv', JSON.stringify({ Client: commands[0] }))
+                        //io.emit('eventsv', JSON.stringify({ Client: commands[0] }))
                         global.cmdID1 = commands[0].cmdID
                         break
                 }
@@ -770,6 +770,7 @@ io.on('connection', (socket) => {
                         commands[i1].cmdID = 0;
                     }
                     ///// DEMO ///////
+
                     if (global.i1 < commands.length) {
                         global.cmdID1 = commands[i1].cmdID
                         io.emit('eventsv', JSON.stringify({ Client: commands[i1] }));
@@ -866,20 +867,6 @@ io.on('connection', (socket) => {
         global.highLight2 = jsonData.highLight2
 
     })
-    global.lowHum1 = 20;
-    global.lowHum2 = 20;
-    global.highHum1 = 70;
-    global.highHum2 = 70;
-
-    global.lowTem1 = 15;
-    global.lowTem2 = 15;
-    global.highTem1 = 35;
-    global.highTem2 = 35;
-
-    global.lowLight1 = 1000;
-    global.lowLight2 = 1000;
-    global.highLight1 = 5000;
-    global.highLight2 = 5000;
     var defaultValue = {
         lowHum1: global.lowHum1,
         lowHum2: global.lowHum2,

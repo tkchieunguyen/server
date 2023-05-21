@@ -356,3 +356,62 @@ html {
 .status2 {
     color: red;
 }
+
+.modalWarning {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    overflow: auto;
+    display: none;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.warning-content {
+    background-color: #fff;
+    width: 45%;
+    max-height: 75%;
+    margin: 2rem;
+    padding: 1.5rem;
+    border-radius: 0.6rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    overflow: auto;
+    position: relative;
+}
+
+.warning-content h1 {
+    margin: 1rem 0;
+    line-height: 2rem;
+    font-size: 35px;
+    margin-bottom: 2rem;
+    /* justify-content: center; */
+}
+
+.warning-content p {
+    margin: 1rem 0;
+    line-height: 1rem;
+    font-size: 25px;
+    /* position: relative; */
+}
+
+.warning-close {
+    position: absolute;
+    /* top: 0;
+    right: 0; */
+    right: 10px;
+    font-size: 1.75rem;
+    font-weight: bold;
+    padding: 0 0.75rem;
+    color: rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+    user-select: none;
+}
+
+.warning-close:hover,
+.warning-close:focus {
+    color: rgba(0, 0, 0, 0.5);
+}

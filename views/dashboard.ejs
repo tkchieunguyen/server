@@ -466,9 +466,14 @@
                 </div>
             </form>
         </div>
-
-
     </div>
+    <div class="modalWarning">
+        <div class="warning-content">
+            <span class="warning-close">&times;</span>
+            <h1>Cảnh báo</h1>
+            <p>Giá trị ngưỡng thấp và ngưỡng cao đang trùng nhau</p>
+            <p>Hệ thống có vấn đề</p>
+        </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -1196,6 +1201,9 @@
         const closeButton = document.querySelector('.js-modal-close');
         const submitButton = document.querySelector('.btnsub');
 
+        const modalWarning = document.querySelector('.modalWarning');
+        const warningContent = document.querySelector('.warning-content');
+        const warningClose = document.querySelector('.warning-close');
         function showBuyTickets() {
             modal.classList.add('open');
         }
@@ -1225,11 +1233,22 @@
             var hightTem2 = document.getElementById('highTem2').value
             socket.emit('getAutoValue', '{"lowHum1":' + lowHum1 + ',"highHum1":' + highHum1 + ',"lowHum2":' + lowHum2 + ',"highHum2":' + highHum2 + ',"lowLight1":' + lowLight1 + ',"highLight1":' + highLight1 + ',"lowLight2":' + lowLight2 + ',"highLight2":' + highLight2 + ',"lowTem1":' + lowTem1 + ',"highTem1":' + highTem1 + ',"lowTem2":' + lowTem2 + ',"highTem2":' + hightTem2 + '}')
             closeModal();
+            if (lowHum1 == highHum1 || lowHum2 == highHum2 || lowLight1 == highLight1 || lowLight2 == highLight2 || lowTem1 == highTem1 || lowTem2 == hightTem2) {
+                modalWarning.style.display = "flex";
+                document.body.style.overflow = "hidden"
+            }
         }
+
+        warningClose.addEventListener("click", () => {
+            modalWarning.style.display = "none";
+            document.body.style.overflow = "inital"
+        })
 
         buyBtn.addEventListener('click', showBuyTickets);
         closeButton.addEventListener('click', closeModal);
         submitButton.addEventListener('click', getValueAuto);
+
+
 
         const status1 = document.querySelector('.status1')
         const status2 = document.querySelector('.status2')
@@ -1297,36 +1316,37 @@
         })
         socket.on('defaultValue', (data) => {
             let jsonData = JSON.parse(data)
-            var lowHum1 = document.getElementById('lowHum1').value
-            var lowHum2 = document.getElementById('lowHum2').value
+            console.log(jsonData)
+            var lowHum1 = document.getElementById('lowHum1')
+            var lowHum2 = document.getElementById('lowHum2')
 
-            var lowLight1 = document.getElementById('lowLight1').value
-            var lowLight2 = document.getElementById('lowLight2').value
+            var lowLight1 = document.getElementById('lowLight1')
+            var lowLight2 = document.getElementById('lowLight2')
 
-            var lowTem1 = document.getElementById('lowTem1').value
-            var lowTem2 = document.getElementById('lowTem2').value
+            var lowTem1 = document.getElementById('lowTem1')
+            var lowTem2 = document.getElementById('lowTem2')
 
-            var highHum1 = document.getElementById('highHum1').value
-            var highHum2 = document.getElementById('highHum2').value
+            var highHum1 = document.getElementById('highHum1')
+            var highHum2 = document.getElementById('highHum2')
 
-            var highLight1 = document.getElementById('highLight1').value
-            var highLight2 = document.getElementById('highLight2').value
+            var highLight1 = document.getElementById('highLight1')
+            var highLight2 = document.getElementById('highLight2')
 
-            var highTem1 = document.getElementById('highTem1').value
-            var hightTem2 = document.getElementById('highTem2').value
+            var highTem1 = document.getElementById('highTem1')
+            var hightTem2 = document.getElementById('highTem2')
 
-            lowHum1
-            lowHum2
-            highHum1
-            highHum2
-            lowLight1
-            lowLight2
-            highLight1
-            highLight2
-            lowTem1
-            lowTem2
-            highTem1
-            hightTem2
+            lowHum1.value = jsonData.lowHum1
+            lowHum2.value = jsonData.lowHum2
+            highHum1.value = jsonData.highHum1
+            highHum2.value = jsonData.highHum2
+            lowLight1.value = jsonData.lowLight1
+            lowLight2.value = jsonData.lowLight2
+            highLight1.value = jsonData.highLight1
+            highLight2.value = jsonData.highLight2
+            lowTem1.value = jsonData.lowTem1
+            lowTem2.value = jsonData.lowTem2
+            highTem1.value = jsonData.highTem1
+            hightTem2.value = jsonData.highTem2
         })
     </script>
 </body>
