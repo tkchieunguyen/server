@@ -1,5 +1,5 @@
 const userModel = require('../models/user')
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcryptjs')
 global.nameacc = null
 global.email = null
 global.dateStart = null
@@ -66,7 +66,7 @@ let getConfig = (req, res) => {
     res.render('config')
 }
 
-let getContact= (req,res)=>{
+let getContact = (req, res) => {
     res.render('contact')
 }
 module.exports = {
@@ -78,5 +78,5 @@ module.exports = {
     postRegister,
     getConfig,
     getContact,
-    
+
 }

@@ -1,7 +1,7 @@
 const Express = require('express')
 const controller = require('../controller/controller')
 const multer = require('multer')
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcryptjs')
 const path = require('path')
 
 const storage = multer.diskStorage({
