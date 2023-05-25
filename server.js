@@ -762,13 +762,13 @@ io.on('connection', (socket) => {
             case 1:
                 if (jsonData.cmdID == global.cmdID1) {
                     clearTimeout(global.timeOut1)
-                    //global.i1++
+                    global.i1++
 
                     ////// DEMO ///////
-                    commands[i1].cmdID++
-                    if (commands[i1].cmdID > 40) {
-                        commands[i1].cmdID = 0;
-                    }
+                    // commands[i1].cmdID++
+                    // if (commands[i1].cmdID > 40) {
+                    //     commands[i1].cmdID = 0;
+                    // }
                     ///// DEMO ///////
 
                     if (global.i1 < commands.length) {
@@ -781,11 +781,13 @@ io.on('connection', (socket) => {
             case 2:
                 if (jsonData.cmdID == global.cmdID2) {
                     clearTimeout(global.timeOut2)
-                    //global.i2++
-                    commands2[i2].cmdID++
-                    if (commands2[i2].cmdID > 40) {
-                        commands2[i2].cmdID = 0;
-                    }
+                    global.i2++
+
+                    // commands2[i2].cmdID++
+                    // if (commands2[i2].cmdID > 40) {
+                    //     commands2[i2].cmdID = 0;
+                    // }
+
                     if (global.i2 < commands2.length) {
                         global.cmdID2 = commands2[i2].cmdID
                         io.emit('eventsv', JSON.stringify({ Client: commands2[i2] }));
