@@ -138,7 +138,7 @@ io.on('connection', (socket) => {
         }
         houseId_ReadDigital = parseInt(jsonData__ReadDigital.houseID, 10)
         //bitArray = led.split("")
-        //console.log(bitArray)
+        bitArray.reverse();
         jsonLed = '{"bit8":' + bitArray[7] + ',"bit7":' + bitArray[6] + ',"bit6":' + bitArray[5] + ',"bit5":' + bitArray[4] + ',"bit4":' + bitArray[3] + ',"bit3":' + bitArray[2] + '}'
         switch (houseId_ReadDigital) {
             case 1:
@@ -219,7 +219,7 @@ io.on('connection', (socket) => {
         let jsonData = JSON.parse(data)
         console.log(jsonData)
         let decNumber = (jsonData.adc1 + jsonData.adc2 + jsonData.adc3 + jsonData.adc4) / 4
-        value = (decNumber - 1450) * 100 / (650 - 1450)
+        value = (decNumber - 1416) * 100 / (702 - 1416)
         connection.execute('SELECT mode FROM mode1 ORDER BY id DESC LIMIT 1;')
             .then(([rows]) => {
                 let mode = rows[0].mode;
@@ -300,8 +300,8 @@ io.on('connection', (socket) => {
         }
     })
     socket.on('C-RequestI2C', (data) => {
-        //console.log(JSON.parse(data))
         let jsonData = JSON.parse(data)
+        //console.log(jsonData)
         let temI2C
         let humI2C
         let lightI2C
@@ -349,8 +349,12 @@ io.on('connection', (socket) => {
                 }
                 break
             case 68:
+                demo = (192 << 8) | 5
+                //console.log(demo)
                 temI2C = (parseInt(jsonData.i2cd1.toString(16) + jsonData.i2cd2.toString(16), 16) * 175 / 65535) - 45
                 humI2C = (parseInt(jsonData.i2cd4.toString(16) + jsonData.i2cd5.toString(16), 16) * 100 / 65535)
+                temI2C = (((jsonData.i2cd1 << 8) | jsonData.i2cd2) * 175 / 65535) - 45
+                humI2C = (((jsonData.i2cd4 << 8) | jsonData.i2cd5) * 100 / 65535)
                 switch (jsonData.houseID) {
                     case 1:
                         let temI2C1 = temI2C
@@ -450,6 +454,11 @@ io.on('connection', (socket) => {
     const commands = [
         {
             houseID: 1,
+            request: "RoD",
+            DO: "0,1,2,3,4,5,6,7"
+        },
+        {
+            houseID: 1,
             request: "WriteCMD",
             cmdAuto: "OR",
             ReadOutput: "2,3,4,5",
@@ -516,22 +525,13 @@ io.on('connection', (socket) => {
         {
             houseID: 1,
             request: "WriteCMD",
-            cmdAuto: "WriteI2C",
-            i2ca: 35,
-            i2cd: 1,
-            cmdID: 57,
-            time: 2000
-        },
-        {
-            houseID: 1,
-            request: "WriteCMD",
             cmdAuto: "RequestI2C",
             i2ca: 35,
             i2cd: 16,
             NoB: 2,
             Delay: 50,
             cmdID: 35,
-            time: 3000
+            time: 2300
         },
         {
             houseID: 1,
@@ -542,20 +542,32 @@ io.on('connection', (socket) => {
             NoB: 6,
             Delay: 50,
             cmdID: 68,
-            time: 4000
+            time: 2200
         },
-
         {
             houseID: 1,
             request: 'WriteCMD',
             cmdAuto: 'ReadAdc',
             adc: '0,1,2,3',
             cmdID: 20,
-            time: 5000
+            time: 3000
         },
-
+        {
+            houseID: 1,
+            request: "WriteCMD",
+            cmdAuto: "WriteI2C",
+            i2ca: 35,
+            i2cd: 1,
+            cmdID: 57,
+            time: 2000
+        },
     ];
     const commands2 = [
+        {
+            houseID: 2,
+            request: "RoD",
+            DO: "0,1,2,3,4,5,6,7"
+        },
         {
             houseID: 2,
             request: "WriteCMD",
@@ -674,7 +686,7 @@ io.on('connection', (socket) => {
             'register lenght': '0,1',
             NoB: 7,
             cmdID: 42,
-            time: 5000
+            time: 3600
         },
         {
             houseID: 2,
@@ -686,9 +698,8 @@ io.on('connection', (socket) => {
             'register lenght': '0,1',
             NoB: 7,
             cmdID: 43,
-            time: 6000
+            time: 3700
         }
-
     ];
     function timeOut() {
         console.log('time out 1')
@@ -723,12 +734,14 @@ io.on('connection', (socket) => {
                         clearTimeout(global.timeOut1);
                         break
                     case 'Lora_Online':
+                        io.emit('eventsv', '{"Client":{"houseID":1,"request":"RoD","DO":"0,1,2,3,4,5,6,7"}}')
                         clearTimeout(global.timeOut1)
                         global.timeOut1 = setTimeout(timeOut, 2000)
-                        global.i1 = 0;
+                        global.i1 = 1;
                         connection.execute('INSERT INTO status1(status) VALUES (1)')
-                        //io.emit('eventsv', JSON.stringify({ Client: commands[0] }))
-                        global.cmdID1 = commands[0].cmdID
+                        io.emit('eventsv', JSON.stringify({ Client: commands[0] }))
+                        io.emit('eventsv', JSON.stringify({ Client: commands[1] }))
+                        global.cmdID1 = commands[1].cmdID
                         break
                 }
                 break
@@ -740,12 +753,14 @@ io.on('connection', (socket) => {
                         clearTimeout(global.timeOut2)
                         break
                     case 'Lora_Online':
+                        io.emit('eventsv', '{"Client":{"houseID":2,"request":"RoD","DO":"0,1,2,3,4,5,6,7"}}')
                         clearTimeout(global.timeOut2)
                         global.timeOut2 = setTimeout(timeOut2, 2000)
-                        global.i2 = 0;
+                        global.i2 = 1;
                         connection.execute('INSERT INTO status2(status) VALUES (1)')
                         io.emit('eventsv', JSON.stringify({ Client: commands2[0] }))
-                        global.cmdID2 = commands2[0].cmdID
+                        io.emit('eventsv', JSON.stringify({ Client: commands2[1] }))
+                        global.cmdID2 = commands2[1].cmdID
                         break
                 }
                 break

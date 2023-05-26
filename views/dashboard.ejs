@@ -490,19 +490,20 @@
             //console.log(value);
             let jsonData = JSON.parse(value)
             let decNumber = (jsonData.adc1 + jsonData.adc2 + jsonData.adc3 + jsonData.adc4) / 4
-            value1 = (decNumber - 1450) * 100 / (600 - 1450)
+            let datavalue = [jsonData.adc1, jsonData.adc2, jsonData.adc3, jsonData.adc4]
+            value1 = (decNumber - 1416) * 100 / (702 - 1416)
 
             let decNumber2 = (jsonData.adc2)
-            value2 = (decNumber2 - 1450) * 100 / (600 - 1450)
+            value2 = (decNumber2 - 1416) * 100 / (712 - 1416)
 
             let decNumber3 = (jsonData.adc3)
-            value3 = (decNumber3 - 1450) * 100 / (600 - 1450)
+            value3 = (decNumber3 - 1340) * 100 / (695 - 1340)
 
             let decNumber1 = (jsonData.adc1)
-            value0 = (decNumber1 - 1450) * 100 / (600 - 1450)
+            value0 = (decNumber1 - 1416) * 100 / (702 - 1416)
 
             let decNumber4 = (jsonData.adc4)
-            value4 = (decNumber4 - 1450) * 100 / (600 - 1450)
+            value4 = (decNumber4 - 1400) * 100 / (702 - 1400)
 
             const divElement = document.querySelector('.do_am_dat1');
             const divADC = document.querySelector('.adc2');
@@ -570,16 +571,23 @@
                     }
                     break
                 case 68:
-                    temI2C = (parseInt(jsonData.i2cd1.toString(16) + jsonData.i2cd2.toString(16), 16) * 175 / 65535) - 45
-                    humI2C = (parseInt(jsonData.i2cd4.toString(16) + jsonData.i2cd5.toString(16), 16) * 100 / 65535)
+                    //temI2C = (parseInt(jsonData.i2cd1.toString(16) + jsonData.i2cd2.toString(16), 16) * 175 / 65535) - 45
+                    //humI2C = (parseInt(jsonData.i2cd4.toString(16) + jsonData.i2cd5.toString(16), 16) * 100 / 65535)
+                    temI2C = (((jsonData.i2cd1 << 8) | jsonData.i2cd2) * 175 / 65535) - 45
+                    humI2C = (((jsonData.i2cd4 << 8) | jsonData.i2cd5) * 100 / 65535)
                     switch (jsonData.houseID) {
                         case 1:
-                            temI2C1 = (parseInt(jsonData.i2cd1.toString(16) + jsonData.i2cd2.toString(16), 16) * 175 / 65535) - 45;
-                            humI2C1 = (parseInt(jsonData.i2cd4.toString(16) + jsonData.i2cd5.toString(16), 16) * 100 / 65535);
+                            //temI2C1 = (parseInt(jsonData.i2cd1.toString(16) + jsonData.i2cd2.toString(16), 16) * 175 / 65535) - 45;
+                            //humI2C1 = (parseInt(jsonData.i2cd4.toString(16) + jsonData.i2cd5.toString(16), 16) * 100 / 65535);
+
+                            temI2C1 = (((jsonData.i2cd1 << 8) | jsonData.i2cd2) * 175 / 65535) - 45
+                            humI2C1 = (((jsonData.i2cd4 << 8) | jsonData.i2cd5) * 100 / 65535)
                             break
                         case 2:
-                            temI2C2 = (parseInt(jsonData.i2cd1.toString(16) + jsonData.i2cd2.toString(16), 16) * 175 / 65535) - 45;
-                            humI2C2 = (parseInt(jsonData.i2cd4.toString(16) + jsonData.i2cd5.toString(16), 16) * 100 / 65535);
+                            //temI2C2 = (parseInt(jsonData.i2cd1.toString(16) + jsonData.i2cd2.toString(16), 16) * 175 / 65535) - 45;
+                            //humI2C2 = (parseInt(jsonData.i2cd4.toString(16) + jsonData.i2cd5.toString(16), 16) * 100 / 65535);
+                            temI2C2 = (((jsonData.i2cd1 << 8) | jsonData.i2cd2) * 175 / 65535) - 45
+                            humI2C2 = (((jsonData.i2cd4 << 8) | jsonData.i2cd5) * 100 / 65535)
                             break
                     }
                     break

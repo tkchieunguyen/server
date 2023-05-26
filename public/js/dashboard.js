@@ -466,15 +466,13 @@ fetch('/api/npk_rs485Start')
   .catch(error => {
     console.error(error)
   })
-function fetchRS485() {
+function fetch_npk_RS485() {
   fetch('/api/npk_rs485Active')
     .then(response => response.json())
     .then(data => {
       let data1 = data;
       data.map(function (data1) {
         let localTime = moment.utc(data1.time).utcOffset("+07:00").format("HH:mm:ss");
-        //console.log(data1.value);
-        //console.log(localTime);
         valuesN.shift();
         valuesN.push(data1.N);
         valuesP.shift();
@@ -487,7 +485,7 @@ function fetchRS485() {
       })
     });
 }
-
+setInterval(fetch_npk_RS485, 5000)
 fetch('/api/ph_rs485Start')
   .then(response => response.json())
   .then(data => {
@@ -501,15 +499,13 @@ fetch('/api/ph_rs485Start')
   .catch(error => {
     console.error(error)
   })
-function fetchRS485() {
+function fetch_pH_RS485() {
   fetch('/api/ph_rs485Active')
     .then(response => response.json())
     .then(data => {
       let data1 = data;
       data.map(function (data1) {
         let localTime = moment.utc(data1.time).utcOffset("+07:00").format("HH:mm:ss");
-        //console.log(data1.value);
-        //console.log(localTime);
         valuespH.shift();
         valuespH.push(data1.ph);
         times2.shift();
@@ -518,6 +514,7 @@ function fetchRS485() {
       })
     });
 }
+setInterval(fetch_pH_RS485, 5000)
 
 fetch('/api/hum_rs485Start')
   .then(response => response.json())
@@ -532,15 +529,13 @@ fetch('/api/hum_rs485Start')
   .catch(error => {
     console.error(error)
   })
-function fetchRS485() {
+function fetch_hum_RS485() {
   fetch('/api/hum_rs485Active')
     .then(response => response.json())
     .then(data => {
       let data1 = data;
       data.map(function (data1) {
         let localTime = moment.utc(data1.time).utcOffset("+07:00").format("HH:mm:ss");
-        //console.log(data1.value);
-        //console.log(localTime);
         valuesHumdity.shift();
         valuesHumdity.push(data1.hum);
         times3.shift();
@@ -549,9 +544,7 @@ function fetchRS485() {
       })
     });
 }
-
-
-setInterval(fetchRS485, 5000)
+setInterval(fetch_hum_RS485, 5000)
 // DO AM DAT 1
 document.querySelector('.Do-am2').addEventListener('click', chartDoAm1);
 function chartDoAm1() {
