@@ -560,13 +560,15 @@
             //console.log(jsonData);
             switch (jsonData.i2ca) {
                 case 35:
-                    lightI2C = (parseInt(jsonData.i2cd1.toString(16) + jsonData.i2cd2.toString(16), 16) / 1.2)
+                    //lightI2C = (parseInt(jsonData.i2cd1.toString(16) + jsonData.i2cd2.toString(16), 16) / 1.2)
+                    lightI2C = (((jsonData.i2cd1 << 8) | jsonData.i2cd2) / 1.2)
                     switch (jsonData.houseID) {
                         case 1:
-                            lightI2C1 = (parseInt(jsonData.i2cd1.toString(16) + jsonData.i2cd2.toString(16), 16) / 1.2);
+                            lightI2C1 = (((jsonData.i2cd1 << 8) | jsonData.i2cd2) / 1.2);
+                            console.log(jsonData);
                             break
                         case 2:
-                            lightI2C2 = (parseInt(jsonData.i2cd1.toString(16) + jsonData.i2cd2.toString(16), 16) / 1.2);
+                            lightI2C2 = (((jsonData.i2cd1 << 8) | jsonData.i2cd2) / 1.2);
                             break
                     }
                     break
@@ -620,7 +622,8 @@
             //console.log(jsonData);
             switch (jsonData.i2ca) {
                 case 35:
-                    lightI2C = (parseInt(jsonData.i2cd1.toString(16) + jsonData.i2cd2.toString(16), 16) / 1.2)
+                    //lightI2C = (parseInt(jsonData.i2cd1.toString(16) + jsonData.i2cd2.toString(16), 16) / 1.2)
+                    lightI2C = (((jsonData.i2cd1 << 8) | jsonData.i2cd2) / 1.2)
                     switch (jsonData.houseID) {
                         case 1:
                             lightI2C1 = (parseInt(jsonData.i2cd1.toString(16) + jsonData.i2cd2.toString(16), 16) / 1.2);

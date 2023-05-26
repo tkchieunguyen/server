@@ -46,8 +46,268 @@ global.i2 = 0;
 global.timeOut1;
 global.timeOut2;
 
-
 global.idGateway;
+
+global.adcTime = 0;
+global.npk485 = 0;
+global.pH485 = 0;
+global.hum485 = 0;
+
+const commands = [
+    {
+        houseID: 1,
+        request: "RoD",
+        DO: "0,1,2,3,4,5,6,7"
+    },
+    {
+        houseID: 1,
+        request: "WriteCMD",
+        cmdAuto: "OR",
+        ReadOutput: "2,3,4,5",
+        DO: "6",
+        cmdID: 50,
+        time: 300
+    },
+    {
+        houseID: 1,
+        request: "WriteCMD",
+        cmdAuto: "ToggleOutput",
+        DI: "0",
+        DO: "0",
+        cmdID: 51
+    },
+    {
+        houseID: 1,
+        request: "WriteCMD",
+        cmdAuto: "ToggleOutput",
+        DI: "1",
+        DO: "1",
+        cmdID: 52
+    },
+    {
+        houseID: 1,
+        request: "WriteCMD",
+        cmdAuto: "ToggleOutput",
+        DI: "2",
+        DO: "2",
+        cmdID: 53
+    },
+    {
+        houseID: 1,
+        request: "WriteCMD",
+        cmdAuto: "ToggleOutput",
+        DI: "3",
+        DO: "3",
+        cmdID: 54
+    },
+    {
+        houseID: 1,
+        request: "WriteCMD",
+        cmdAuto: "ToggleOutput",
+        DI: "4",
+        DO: "4",
+        cmdID: 55
+    },
+    {
+        houseID: 1,
+        request: "WriteCMD",
+        cmdAuto: "ToggleOutput",
+        DI: "5",
+        DO: "5",
+        cmdID: 56
+    },
+    // {
+    //     houseID: 1,
+    //     request: 'WriteCMD',
+    //     cmdAuto: "RoD",
+    //     DO: "0,1,2,3,4,5,6,7",
+    //     cmdID: 21,
+    //     time: 1000
+    // },
+    {
+        houseID: 1,
+        request: "WriteCMD",
+        cmdAuto: "RequestI2C",
+        i2ca: 35,
+        i2cd: 16,
+        NoB: 2,
+        Delay: 50,
+        cmdID: 35,
+        time: 4000
+    },
+    {
+        houseID: 1,
+        request: 'WriteCMD',
+        cmdAuto: 'RequestI2C',
+        i2ca: 68,
+        i2cd: '44,6',
+        NoB: 6,
+        Delay: 50,
+        cmdID: 68,
+        time: 2200
+    },
+    {
+        houseID: 1,
+        request: 'WriteCMD',
+        cmdAuto: 'ReadAdc',
+        adc: '0,1,2,3',
+        cmdID: 20,
+        time: 3000
+    },
+    {
+        houseID: 1,
+        request: "WriteCMD",
+        cmdAuto: "WriteI2C",
+        i2ca: 35,
+        i2cd: 1,
+        cmdID: 57,
+        time: 4000
+    },
+];
+global.adcTime = commands[10].time
+const commands2 = [
+    {
+        houseID: 2,
+        request: "RoD",
+        DO: "0,1,2,3,4,5,6,7"
+    },
+    {
+        houseID: 2,
+        request: "WriteCMD",
+        cmdAuto: "OR",
+        ReadOutput: "2,3,4,5",
+        DO: "6",
+        cmdID: 50,
+        time: 300
+    },
+    {
+        houseID: 2,
+        request: "WriteCMD",
+        cmdAuto: "ToggleOutput",
+        DI: "0",
+        DO: "0",
+        cmdID: 51
+    },
+    {
+        houseID: 2,
+        request: "WriteCMD",
+        cmdAuto: "ToggleOutput",
+        DI: "1",
+        DO: "1",
+        cmdID: 52
+    },
+    {
+        houseID: 2,
+        request: "WriteCMD",
+        cmdAuto: "ToggleOutput",
+        DI: "2",
+        DO: "2",
+        cmdID: 53
+    },
+    {
+        houseID: 2,
+        request: "WriteCMD",
+        cmdAuto: "ToggleOutput",
+        DI: "3",
+        DO: "3",
+        cmdID: 54
+    },
+    {
+        houseID: 2,
+        request: "WriteCMD",
+        cmdAuto: "ToggleOutput",
+        DI: "4",
+        DO: "4",
+        cmdID: 55
+    },
+    {
+        houseID: 2,
+        request: "WriteCMD",
+        cmdAuto: "ToggleOutput",
+        DI: "5",
+        DO: "5",
+        cmdID: 56
+    },
+    // {
+    //     houseID: 2,
+    //     request: 'WriteCMD',
+    //     cmdAuto: "RoD",
+    //     DO: "0,1,2,3,4,5,6,7",
+    //     cmdID: 21,
+    //     time: 1000
+    // },
+    {
+        houseID: 2,
+        request: "WriteCMD",
+        cmdAuto: "WriteI2C",
+        i2ca: 35,
+        i2cd: 1,
+        cmdID: 57,
+        time: 1000
+    },
+    {
+        houseID: 2,
+        request: "WriteCMD",
+        cmdAuto: "RequestI2C",
+        i2ca: 35,
+        i2cd: 16,
+        NoB: 2,
+        Delay: 200,
+        cmdID: 35,
+        time: 2000
+    },
+    {
+        houseID: 2,
+        request: 'WriteCMD',
+        cmdAuto: 'RequestI2C',
+        i2ca: 68,
+        i2cd: '44,6',
+        NoB: 6,
+        Delay: 20,
+        cmdID: 68,
+        time: 3000
+    },
+    {
+        houseID: 2,
+        request: 'WriteCMD',
+        cmdAuto: 'RS485',
+        RS485a: 1,
+        'RS485 Funtion code': 3,
+        'register start address': '0,30',
+        'register lenght': '0,3',
+        NoB: 11,
+        cmdID: 41,
+        time: 3500
+    },
+    {
+        houseID: 2,
+        request: 'WriteCMD',
+        cmdAuto: 'RS485',
+        RS485a: 1,
+        'RS485 Funtion code': 3,
+        'register start address': '0,6',
+        'register lenght': '0,1',
+        NoB: 7,
+        cmdID: 42,
+        time: 3600
+    },
+    {
+        houseID: 2,
+        request: 'WriteCMD',
+        cmdAuto: 'RS485',
+        RS485a: 1,
+        'RS485 Funtion code': 3,
+        'register start address': '0,18',
+        'register lenght': '0,1',
+        NoB: 7,
+        cmdID: 43,
+        time: 3700
+    }
+];
+
+global.npk485 = commands2[11].time
+global.pH485 = commands2[12].time
+global.hum485 = commands2[13].time
 
 app.set('view engine', 'ejs')
 app.use(bodyParser.json())
@@ -217,7 +477,7 @@ io.on('connection', (socket) => {
     var value
     socket.on('C-ReadADC', (data) => {
         let jsonData = JSON.parse(data)
-        console.log(jsonData)
+        //console.log(jsonData)
         let decNumber = (jsonData.adc1 + jsonData.adc2 + jsonData.adc3 + jsonData.adc4) / 4
         value = (decNumber - 1416) * 100 / (702 - 1416)
         connection.execute('SELECT mode FROM mode1 ORDER BY id DESC LIMIT 1;')
@@ -308,7 +568,8 @@ io.on('connection', (socket) => {
         let time = moment().format('YYYY-MM-DD HH:mm:ss')
         switch (jsonData.i2ca) {
             case 35:
-                lightI2C = (parseInt(jsonData.i2cd1.toString(16) + jsonData.i2cd2.toString(16), 16) / 1.2)
+                //lightI2C = (parseInt(jsonData.i2cd1.toString(16) + jsonData.i2cd2.toString(16), 16) / 1.2)
+                lightI2C = (((jsonData.i2cd1 << 8) | jsonData.i2cd2) / 1.2)
                 switch (jsonData.houseID) {
                     case 1:
                         let lightI2C1 = lightI2C;
@@ -451,256 +712,14 @@ io.on('connection', (socket) => {
         console.log(JSON.parse(data))
         io.emit('GET_I2C_DEVICE', data)
     })
-    const commands = [
-        {
-            houseID: 1,
-            request: "RoD",
-            DO: "0,1,2,3,4,5,6,7"
-        },
-        {
-            houseID: 1,
-            request: "WriteCMD",
-            cmdAuto: "OR",
-            ReadOutput: "2,3,4,5",
-            DO: "6",
-            cmdID: 50,
-            time: 300
-        },
-        {
-            houseID: 1,
-            request: "WriteCMD",
-            cmdAuto: "ToggleOutput",
-            DI: "0",
-            DO: "0",
-            cmdID: 51
-        },
-        {
-            houseID: 1,
-            request: "WriteCMD",
-            cmdAuto: "ToggleOutput",
-            DI: "1",
-            DO: "1",
-            cmdID: 52
-        },
-        {
-            houseID: 1,
-            request: "WriteCMD",
-            cmdAuto: "ToggleOutput",
-            DI: "2",
-            DO: "2",
-            cmdID: 53
-        },
-        {
-            houseID: 1,
-            request: "WriteCMD",
-            cmdAuto: "ToggleOutput",
-            DI: "3",
-            DO: "3",
-            cmdID: 54
-        },
-        {
-            houseID: 1,
-            request: "WriteCMD",
-            cmdAuto: "ToggleOutput",
-            DI: "4",
-            DO: "4",
-            cmdID: 55
-        },
-        {
-            houseID: 1,
-            request: "WriteCMD",
-            cmdAuto: "ToggleOutput",
-            DI: "5",
-            DO: "5",
-            cmdID: 56
-        },
-        // {
-        //     houseID: 1,
-        //     request: 'WriteCMD',
-        //     cmdAuto: "RoD",
-        //     DO: "0,1,2,3,4,5,6,7",
-        //     cmdID: 21,
-        //     time: 1000
-        // },
-        {
-            houseID: 1,
-            request: "WriteCMD",
-            cmdAuto: "RequestI2C",
-            i2ca: 35,
-            i2cd: 16,
-            NoB: 2,
-            Delay: 50,
-            cmdID: 35,
-            time: 2300
-        },
-        {
-            houseID: 1,
-            request: 'WriteCMD',
-            cmdAuto: 'RequestI2C',
-            i2ca: 68,
-            i2cd: '44,6',
-            NoB: 6,
-            Delay: 50,
-            cmdID: 68,
-            time: 2200
-        },
-        {
-            houseID: 1,
-            request: 'WriteCMD',
-            cmdAuto: 'ReadAdc',
-            adc: '0,1,2,3',
-            cmdID: 20,
-            time: 3000
-        },
-        {
-            houseID: 1,
-            request: "WriteCMD",
-            cmdAuto: "WriteI2C",
-            i2ca: 35,
-            i2cd: 1,
-            cmdID: 57,
-            time: 2000
-        },
-    ];
-    const commands2 = [
-        {
-            houseID: 2,
-            request: "RoD",
-            DO: "0,1,2,3,4,5,6,7"
-        },
-        {
-            houseID: 2,
-            request: "WriteCMD",
-            cmdAuto: "OR",
-            ReadOutput: "2,3,4,5",
-            DO: "6",
-            cmdID: 50,
-            time: 300
-        },
-        {
-            houseID: 2,
-            request: "WriteCMD",
-            cmdAuto: "ToggleOutput",
-            DI: "0",
-            DO: "0",
-            cmdID: 51
-        },
-        {
-            houseID: 2,
-            request: "WriteCMD",
-            cmdAuto: "ToggleOutput",
-            DI: "1",
-            DO: "1",
-            cmdID: 52
-        },
-        {
-            houseID: 2,
-            request: "WriteCMD",
-            cmdAuto: "ToggleOutput",
-            DI: "2",
-            DO: "2",
-            cmdID: 53
-        },
-        {
-            houseID: 2,
-            request: "WriteCMD",
-            cmdAuto: "ToggleOutput",
-            DI: "3",
-            DO: "3",
-            cmdID: 54
-        },
-        {
-            houseID: 2,
-            request: "WriteCMD",
-            cmdAuto: "ToggleOutput",
-            DI: "4",
-            DO: "4",
-            cmdID: 55
-        },
-        {
-            houseID: 2,
-            request: "WriteCMD",
-            cmdAuto: "ToggleOutput",
-            DI: "5",
-            DO: "5",
-            cmdID: 56
-        },
-        // {
-        //     houseID: 2,
-        //     request: 'WriteCMD',
-        //     cmdAuto: "RoD",
-        //     DO: "0,1,2,3,4,5,6,7",
-        //     cmdID: 21,
-        //     time: 1000
-        // },
-        {
-            houseID: 2,
-            request: "WriteCMD",
-            cmdAuto: "WriteI2C",
-            i2ca: 35,
-            i2cd: 1,
-            cmdID: 57,
-            time: 1000
-        },
-        {
-            houseID: 2,
-            request: "WriteCMD",
-            cmdAuto: "RequestI2C",
-            i2ca: 35,
-            i2cd: 16,
-            NoB: 2,
-            Delay: 200,
-            cmdID: 35,
-            time: 2000
-        },
-        {
-            houseID: 2,
-            request: 'WriteCMD',
-            cmdAuto: 'RequestI2C',
-            i2ca: 68,
-            i2cd: '44,6',
-            NoB: 6,
-            Delay: 20,
-            cmdID: 68,
-            time: 3000
-        },
-        {
-            houseID: 2,
-            request: 'WriteCMD',
-            cmdAuto: 'RS485',
-            RS485a: 1,
-            'RS485 Funtion code': 3,
-            'register start address': '0,30',
-            'register lenght': '0,3',
-            NoB: 11,
-            cmdID: 41,
-            time: 3500
-        },
-        {
-            houseID: 2,
-            request: 'WriteCMD',
-            cmdAuto: 'RS485',
-            RS485a: 1,
-            'RS485 Funtion code': 3,
-            'register start address': '0,6',
-            'register lenght': '0,1',
-            NoB: 7,
-            cmdID: 42,
-            time: 3600
-        },
-        {
-            houseID: 2,
-            request: 'WriteCMD',
-            cmdAuto: 'RS485',
-            RS485a: 1,
-            'RS485 Funtion code': 3,
-            'register start address': '0,18',
-            'register lenght': '0,1',
-            NoB: 7,
-            cmdID: 43,
-            time: 3700
-        }
-    ];
+
+    var Timer = {
+        adc: global.adcTime,
+        npk485: global.npk485,
+        pH: global.pH485,
+        hum: global.hum485
+    }
+
     function timeOut() {
         console.log('time out 1')
         //global.timeOut1++
@@ -835,10 +854,44 @@ io.on('connection', (socket) => {
     });
     socket.on('config', (data) => {
         console.log(JSON.parse(data))
+        let jsonData = JSON.parse(data)
+        global.adcTime = jsonData.Client.time
+        //Timer.adc = jsonData.Client.time
+        var Timer = {
+            adc: global.adcTime,
+            npk485: global.npk485,
+            pH: global.pH485,
+            hum: global.hum485
+        }
+        io.emit('getValueTimer', JSON.stringify(Timer))
         io.emit('eventsv', data)
+        // console.log(Timer)
     })
     socket.on('configRS485', (data) => {
-        console.log(JSON.parse(data))
+        //console.log(JSON.parse(data))
+        let jsonData = JSON.parse(data)
+        console.log(jsonData.Client)
+        switch (jsonData.Client.cmdID) {
+            case 41:
+                global.npk485 = jsonData.Client.time
+                //Timer.npk485 = jsonData.Client.time
+                break
+            case 42:
+                global.pH485 = jsonData.Client.time
+                //Timer.pH = jsonData.Client.time
+                break
+            case 43:
+                global.hum485 = jsonData.Client.time
+                //Timer.hum = jsonData.Client.time
+                break
+        }
+        var Timer = {
+            adc: global.adcTime,
+            npk485: global.npk485,
+            pH: global.pH485,
+            hum: global.hum485
+        }
+        io.emit('getValueTimer', JSON.stringify(Timer))
         io.emit('eventsv', data)
     })
     socket.on('configI2C', (data) => {
@@ -867,7 +920,6 @@ io.on('connection', (socket) => {
     })
     socket.on('getAutoValue', (data) => {
         let jsonData = JSON.parse(data)
-
         global.lowHum1 = jsonData.lowHum1
         global.lowHum2 = jsonData.lowHum2
         global.highHum1 = jsonData.highHum1
@@ -899,6 +951,7 @@ io.on('connection', (socket) => {
         highTem2: global.highTem2
     }
     socket.emit('defaultValue', JSON.stringify(defaultValue))
+    socket.emit('getValueTimer', JSON.stringify(Timer))
 });
 server.listen(port, () =>
     console.log(`App listening at http://localhost:${port}`)
