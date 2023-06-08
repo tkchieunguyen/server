@@ -52,6 +52,10 @@ global.adcTime = 0;
 global.npk485 = 0;
 global.pH485 = 0;
 global.hum485 = 0;
+global.i2c135 = 0;
+global.i2c235 = 0;
+global.i2c168 = 0;
+global.i2c268 = 0;
 
 const commands = [
     {
@@ -165,6 +169,8 @@ const commands = [
     },
 ];
 global.adcTime = commands[10].time
+global.i2c135 = commands[8].time
+global.i2c168 = commands[9].time
 const commands2 = [
     {
         houseID: 2,
@@ -304,7 +310,8 @@ const commands2 = [
         time: 3700
     }
 ];
-
+global.i2c235 = commands2[9].time
+global.i2c268 = commands2[10].time
 global.npk485 = commands2[11].time
 global.pH485 = commands2[12].time
 global.hum485 = commands2[13].time
@@ -717,7 +724,11 @@ io.on('connection', (socket) => {
         adc: global.adcTime,
         npk485: global.npk485,
         pH: global.pH485,
-        hum: global.hum485
+        hum: global.hum485,
+        i2c135: global.i2c135,
+        i2c168: global.i2c168,
+        i2c235: global.i2c235,
+        i2c268: global.i2c268,
     }
 
     function timeOut() {
@@ -861,11 +872,14 @@ io.on('connection', (socket) => {
             adc: global.adcTime,
             npk485: global.npk485,
             pH: global.pH485,
-            hum: global.hum485
+            hum: global.hum485,
+            i2c135: global.i2c135,
+            i2c168: global.i2c168,
+            i2c235: global.i2c235,
+            i2c268: global.i2c268,
         }
         io.emit('getValueTimer', JSON.stringify(Timer))
         io.emit('eventsv', data)
-        // console.log(Timer)
     })
     socket.on('configRS485', (data) => {
         //console.log(JSON.parse(data))
@@ -874,28 +888,63 @@ io.on('connection', (socket) => {
         switch (jsonData.Client.cmdID) {
             case 41:
                 global.npk485 = jsonData.Client.time
-                //Timer.npk485 = jsonData.Client.time
                 break
             case 42:
                 global.pH485 = jsonData.Client.time
-                //Timer.pH = jsonData.Client.time
                 break
             case 43:
                 global.hum485 = jsonData.Client.time
-                //Timer.hum = jsonData.Client.time
                 break
         }
         var Timer = {
             adc: global.adcTime,
             npk485: global.npk485,
             pH: global.pH485,
-            hum: global.hum485
+            hum: global.hum485,
+            i2c135: global.i2c135,
+            i2c168: global.i2c168,
+            i2c235: global.i2c235,
+            i2c268: global.i2c268,
         }
         io.emit('getValueTimer', JSON.stringify(Timer))
         io.emit('eventsv', data)
     })
     socket.on('configI2C', (data) => {
         console.log(JSON.parse(data))
+        let jsonData = JSON.parse(data)
+        switch (jsonData.Client.houseID) {
+            case 1:
+                switch (jsonData.Client.cmdID) {
+                    case 35:
+                        global.i2c135 = jsonData.Client.time
+                        break
+                    case 68:
+                        global.i2c168 = jsonData.Client.time
+                        break
+                }
+                break
+            case 2:
+                switch (jsonData.Client.cmdID) {
+                    case 35:
+                        global.i2c235 = jsonData.Client.time
+                        break
+                    case 68:
+                        global.i2c268 = jsonData.Client.time
+                        break
+                }
+                break
+        }
+        var Timer = {
+            adc: global.adcTime,
+            npk485: global.npk485,
+            pH: global.pH485,
+            hum: global.hum485,
+            i2c135: global.i2c135,
+            i2c168: global.i2c168,
+            i2c235: global.i2c235,
+            i2c268: global.i2c268,
+        }
+        io.emit('getValueTimer', JSON.stringify(Timer))
         io.emit('eventsv', data)
     })
     socket.on('scan_i2c', (data) => {
@@ -913,11 +962,11 @@ io.on('connection', (socket) => {
             clearTimeout(global.timeOut2)
             io.emit('gatewayoff', 'offline')
         }
-
     });
     socket.on('debug1', (data) => {
         io.emit('eventsv', data)
     })
+
     socket.on('getAutoValue', (data) => {
         let jsonData = JSON.parse(data)
         global.lowHum1 = jsonData.lowHum1
@@ -935,6 +984,21 @@ io.on('connection', (socket) => {
         global.highLight1 = jsonData.highLight1
         global.highLight2 = jsonData.highLight2
 
+        var defaultValue = {
+            lowHum1: jsonData.lowHum1,
+            lowHum2: jsonData.lowHum2,
+            highHum1: jsonData.highHum1,
+            highHum2: jsonData.highHum2,
+            lowLight1: jsonData.lowLight1,
+            lowLight2: jsonData.lowLight2,
+            highLight1: jsonData.highLight1,
+            highLight2: jsonData.highLight2,
+            lowTem1: jsonData.lowTem1,
+            lowTem2: jsonData.lowTem2,
+            highTem1: jsonData.highTem1,
+            highTem2: jsonData.highTem2
+        }
+        io.emit('defaultValue', JSON.stringify(defaultValue))
     })
     var defaultValue = {
         lowHum1: global.lowHum1,
@@ -952,6 +1016,12 @@ io.on('connection', (socket) => {
     }
     socket.emit('defaultValue', JSON.stringify(defaultValue))
     socket.emit('getValueTimer', JSON.stringify(Timer))
+    socket.on('ResendValue1', (data) => {
+        io.emit('defaultValue', JSON.stringify(defaultValue))
+    })
+    socket.on('ResendValue2', (data) => {
+        io.emit('getValueTimer', JSON.stringify(Timer))
+    })
 });
 server.listen(port, () =>
     console.log(`App listening at http://localhost:${port}`)

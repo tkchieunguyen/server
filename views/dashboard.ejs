@@ -94,11 +94,8 @@
 
                         <div class="col-half boder ">
                             <div class="border hei71 background_color text-center PH1">
-                                <h4 class="border">ADC 4</h4>
-                                <div class="mg_mid9"><span>
-                                        <div class="ADC4">
-                                        </div>
-                                    </span></div>
+                                <h4 class="border">pH</h4>
+                                <div class="mg_mid9"><span>NaN</span></div>
                             </div>
                         </div>
                         <div class="col-half boder ">
@@ -113,28 +110,25 @@
                     <div class="row">
                         <div class="col-third boder ">
                             <div class="border hei71 background_color text-center">
-                                <h4 class="border">ADC 1</h4>
+                                <h4 class="border">N</h4>
                                 <div class="mg_mid9"><span>
-                                        <div class="ADC1"></div>
+                                        NaN
                                     </span></div>
                             </div>
                         </div>
                         <div class="col-third boder ">
                             <div class="border hei71 background_color text-center">
-                                <h4 class="border">ADC 3</h4>
+                                <h4 class="border">P</h4>
                                 <div class="mg_mid9"><span>
-                                        <div class="ADC3">
-
-                                        </div>
+                                        NaN
                                     </span></div>
                             </div>
                         </div>
                         <div class="col-third boder ">
                             <div class="border hei71 background_color text-center">
-                                <h4 class="border">ADC 2</h4>
+                                <h4 class="border">K</h4>
                                 <div class="mg_mid9"><span>
-                                        <div class="adc2">
-                                        </div>
+                                        NaN
                                     </span></div>
                             </div>
                         </div>
@@ -506,16 +500,16 @@
             value4 = (decNumber4 - 1400) * 100 / (702 - 1400)
 
             const divElement = document.querySelector('.do_am_dat1');
-            const divADC = document.querySelector('.adc2');
-            const divadc3 = document.querySelector('.ADC3');
-            const divadc1 = document.querySelector('.ADC1');
-            const divadc4 = document.querySelector('.ADC4');
+            //const divADC = document.querySelector('.adc2');
+            //const divadc3 = document.querySelector('.ADC3');
+            //const divadc1 = document.querySelector('.ADC1');
+            //const divadc4 = document.querySelector('.ADC4');
             if (divElement) {
                 divElement.textContent = value1.toFixed(0) + "%";
-                divADC.textContent = value2.toFixed(0) + "%";
-                divadc3.textContent = value3.toFixed(0) + "%";
-                divadc1.textContent = value0.toFixed(0) + "%";
-                divadc4.textContent = value4.toFixed(0) + "%";
+                //divADC.textContent = value2.toFixed(0) + "%";
+                //divadc3.textContent = value3.toFixed(0) + "%";
+                //divadc1.textContent = value0.toFixed(0) + "%";
+                //divadc4.textContent = value4.toFixed(0) + "%";
             }
         })
         socket.on('RS485_NPKvalue', (data) => {
