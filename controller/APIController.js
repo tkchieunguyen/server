@@ -3,8 +3,10 @@ const { connection } = require('../MySQL')
 const userModel = require('../models/user')
 let getUser = async (req, res) => {
     try {
-        const users = await userModel.find();
-        res.json(users);
+        let [users] = await connection.execute('SELECT * from user;');
+        //const users = await userModel.find();
+        res.status(200).json(users)
+        return res
     } catch (err) {
         res.status(500).json({ message: err.message });
     }
